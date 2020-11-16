@@ -14,7 +14,6 @@
  */
 
 import {
-  Direction,
   EuiFlexGroup,
   EuiFlexItem,
   EuiHorizontalRule,
@@ -26,6 +25,7 @@ import {
   EuiSpacer,
   EuiText,
   EuiToolTip,
+  PropertySort,
 } from '@elastic/eui';
 import React, { useMemo, useState } from 'react';
 import _ from 'lodash';
@@ -342,6 +342,18 @@ export function DashboardTable(props: {
   const columns = useMemo(() => getColumns(), [props.items]);
   const titleBar = useMemo(() => renderTitleBar(props.items?.length), [props.items]);
 
+  const [sorting, setSorting] = useState<{ sort: PropertySort }>({
+    sort: {
+      field: 'dashboard_latency_variance',
+      direction: 'desc',
+    },
+  });
+
+  const onTableChange = async ({ page, sort }) => {
+    if (typeof sort?.field !== 'string') return;
+    setSorting({ sort });
+  };
+
   return (
     <>
       <EuiPanel>
@@ -357,7 +369,8 @@ export function DashboardTable(props: {
               initialPageSize: 10,
               pageSizeOptions: [5, 10, 15],
             }}
-            sorting
+            sorting={sorting}
+            onTableChange={onTableChange}
           />
         ) : (
           <NoMatchMessage size="xl" />

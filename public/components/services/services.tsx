@@ -88,7 +88,7 @@ export function Services(props: ServicesProps) {
         refresh={refresh}
         page="services"
       />
-      <EuiSpacer size="m" />
+      <EuiSpacer />
       {props.indicesExist ? (
         <ServicesTable items={tableItems} addFilter={addFilter} setRedirect={setRedirect} />
       ) : (

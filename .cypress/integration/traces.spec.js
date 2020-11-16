@@ -55,9 +55,11 @@ describe('Testing traces table', () => {
     cy.wait(delay);
 
     cy.contains('Select a field first').click({ force: true });
+    cy.contains('Select a field first').click({ force: true });
     cy.wait(delay);
     cy.get('.euiComboBoxOption__content').contains('status.code').click({ force: true });
     cy.wait(delay);
+    cy.get('[data-test-subj="comboBoxInput"]').eq(1).click({ force: true });
     cy.get('[data-test-subj="comboBoxInput"]').eq(1).click({ force: true });
     cy.wait(delay);
     cy.get('.euiComboBoxOption__content').contains('is not').click({ force: true });
