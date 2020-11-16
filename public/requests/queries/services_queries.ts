@@ -38,30 +38,9 @@ export const getServicesQuery = (serviceName = null, DSL?) => {
           field: 'serviceName',
         },
         aggs: {
-          traces: {
-            filter: {
-              bool: {
-                should: [
-                  {
-                    bool: {
-                      must_not: [
-                        {
-                          exists: {
-                            field: 'parentSpanId',
-                          },
-                        },
-                      ],
-                    },
-                  },
-                  {
-                    term: {
-                      parentSpanId: {
-                        value: '',
-                      },
-                    },
-                  },
-                ],
-              },
+          trace_count: {
+            cardinality: {
+              field: 'traceId',
             },
           },
         },

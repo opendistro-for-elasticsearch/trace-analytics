@@ -27,7 +27,6 @@ export function ErrorRatePlt(props: {
 }) {
   const getLayout = () =>
     ({
-      width: 400,
       height: 217,
       margin: {
         l: 57,
