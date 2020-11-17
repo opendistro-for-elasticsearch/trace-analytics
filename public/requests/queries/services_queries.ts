@@ -297,10 +297,8 @@ export const getServiceMetricsQuery = (DSL, serviceNames: string[], map: Service
           },
           error_count: {
             filter: {
-              range: {
-                'status.code': {
-                  gt: '0',
-                },
+              term: {
+                'status.code': '2',
               },
             },
           },

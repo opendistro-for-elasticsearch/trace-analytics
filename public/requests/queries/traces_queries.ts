@@ -98,10 +98,8 @@ export const getTracesQuery = (traceId = null, sort?: PropertySort) => {
           },
           error_count: {
             filter: {
-              range: {
-                'status.code': {
-                  gt: '0',
-                },
+              term: {
+                'status.code': '2',
               },
             },
           },
