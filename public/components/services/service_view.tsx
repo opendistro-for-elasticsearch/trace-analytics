@@ -95,40 +95,6 @@ export function ServiceView(props: ServiceViewProps) {
           {renderDatePicker(startTime, setStartTime, endTime, setEndTime)}
         </EuiFlexItem>
         <EuiFlexItem grow={false} />
-        {/* <EuiFlexItem grow={false}>
-        <EuiButton
-          onClick={() => {
-            setRedirect(true);
-            addFilter({
-              field: 'serviceName',
-              operator: 'is',
-              value: serviceName,
-              inverted: false,
-              disabled: false,
-            });
-            location.assign('#/dashboard');
-          }}
-        >
-          View in dashboard
-        </EuiButton>
-      </EuiFlexItem> */}
-        {/* <EuiFlexItem grow={false}>
-          <EuiButton
-            onClick={() => {
-              setRedirect(true);
-              addFilter({
-                field: 'serviceName',
-                operator: 'is',
-                value: serviceName,
-                inverted: false,
-                disabled: false,
-              });
-              location.assign('#/traces');
-            }}
-          >
-            View related traces
-          </EuiButton>
-        </EuiFlexItem> */}
       </>
     );
   };

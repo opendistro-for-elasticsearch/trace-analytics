@@ -33,19 +33,12 @@ export function ServiceBreakdownPanel(props: { data: Plotly.Data[] }) {
       ({
         height: 200,
         width: 200,
-        // showlegend: false,
-        legend: {
-          orientation: 'h',
-          traceorder: 'normal',
-          x: 0,
-          xanchor: 'left',
-          y: 1.5,
-        },
+        showlegend: false,
         margin: {
           l: 5,
           r: 5,
           b: 5,
-          t: 5, // 10
+          t: 5,
         },
       } as Partial<Plotly.Layout>),
     [props.data]
