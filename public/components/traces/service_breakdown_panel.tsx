@@ -46,7 +46,7 @@ export function ServiceBreakdownPanel(props: { data: Plotly.Data[] }) {
 
   const renderStats = () => {
     return props.data.length > 0 ? (
-      <EuiFlexGroup responsive={false}>
+      <EuiFlexGroup responsive={false} style={{ maxHeight: 260, overflowY: 'auto' }}>
         <EuiFlexItem>
           <EuiFlexGroup direction="column" alignItems="flexStart" gutterSize="m" responsive={false}>
             {props.data[0].marker.colors.map((color, i) => (
