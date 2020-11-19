@@ -3,6 +3,10 @@ name: Test and Build Trace Analytics
 
 on: [pull_request, push]
 
+env:
+  PLUGIN_NAME: opendistroTraceAnalyticsKibana
+  OD_VERSION: 1.12.0.0
+
 jobs:
 
   build:
@@ -30,7 +34,7 @@ jobs:
       - name: Build Artifact
         run: |
           yarn build
-          mv ./build/*.zip ./build/opendistroTraceAnalyticsKibana-1.12.0.0.zip
+          mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OD_VERSION }}.zip
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
