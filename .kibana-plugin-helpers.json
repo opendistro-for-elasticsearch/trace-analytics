@@ -6,7 +6,6 @@
     "common/**/*",
     "public/**/*",
     "server/**/*",
-    "target/**/*",
     "kibana.json"
   ]
 }
