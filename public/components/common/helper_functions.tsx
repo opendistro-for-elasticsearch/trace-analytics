@@ -186,10 +186,10 @@ export const minFixedInterval = (startTime: string, endTime: string) => {
   const diffSeconds = momentEnd.unix() - momentStart.unix();
 
   if (diffSeconds <= 1) return '1ms'; // less than 1 second
-  if (diffSeconds <= 60) return '1s'; // less than 1 minute
-  if (diffSeconds <= 3600) return '1m'; // less than 1 hour
-  if (diffSeconds <= 86400) return '1h'; // less than 1 day
-  if (diffSeconds <= 86400 * 31) return '1d'; // less than 1 month
+  if (diffSeconds <= 60 * 2) return '1s'; // less than 2 minutes
+  if (diffSeconds <= 3600 * 2) return '1m'; // less than 2 hours
+  if (diffSeconds <= 86400 * 2) return '1h'; // less than 2 days
+  if (diffSeconds <= 86400 * 62) return '1d'; // less than 2 months
   if (diffSeconds <= 86400 * 366) return '30d'; // less than 1 year
   return '365d';
 };
