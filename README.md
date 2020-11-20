@@ -12,7 +12,7 @@ Additionally the fields can be sorted and filtered.
 
 ## Documentation
 
-Please see our technical [documentation](https://opendistro.github.io/for-elasticsearch-docs/docs/kibana/) to learn more about its features.
+Please see our technical [documentation](https://opendistro.github.io/for-elasticsearch-docs/docs/trace/) to learn more about its features.
 
 ## Setup
 
