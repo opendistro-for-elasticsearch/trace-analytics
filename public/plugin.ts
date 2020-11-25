@@ -19,7 +19,6 @@ import {
   CoreSetup,
   CoreStart,
   Plugin,
-  DEFAULT_APP_CATEGORIES,
 } from '../../../src/core/public';
 import {
   TraceAnalyticsPluginSetup,
