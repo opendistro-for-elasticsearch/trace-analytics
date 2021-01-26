@@ -1,8 +1,8 @@
 {
   "name": "opendistro-trace-analytics-kibana",
-  "version": "1.12.0.0",
+  "version": "1.11.0.0",
   "kibana": {
-    "version": "7.10.0",
+    "version": "7.9.1",
     "templateVersion": "1.0.0"
   },
   "license": "Apache-2.0",
@@ -10,8 +10,7 @@
     "kbn": "node ../../scripts/kbn",
     "lint": "eslint .",
     "test:cypress": "cypress run",
-    "build": "yarn plugin-helpers build",
-    "plugin-helpers": "node ../../scripts/plugin_helpers"
+    "build": "yarn plugin-helpers build"
   },
   "dependencies": {
     "lodash": "^4.17.20",
@@ -20,12 +19,15 @@
     "react-plotly.js": "^2.4.0"
   },
   "devDependencies": {
+    "@elastic/eslint-config-kibana": "link:../../packages/eslint-config-kibana",
+    "@elastic/eslint-import-resolver-kibana": "link:../../packages/kbn-eslint-import-resolver-kibana",
+    "@kbn/plugin-helpers": "link:../../packages/kbn-plugin-helpers",
     "@types/react-plotly.js": "^2.2.4",
     "cypress": "^5.0.0",
     "eslint": "^6.8.0"
   },
   "engines": {
-    "node": "10.22.1",
+    "node": "10.22.0",
     "yarn": "^1.21.1"
   }
 }
