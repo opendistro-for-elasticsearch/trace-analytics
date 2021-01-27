@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Latency trend plot component renders dash 1`] = `ShallowWrapper {}`;
+
+exports[`Latency trend plot component renders latency plot 1`] = `ShallowWrapper {}`;
+
+exports[`Latency trend plot component renders line plot 1`] = `ShallowWrapper {}`;

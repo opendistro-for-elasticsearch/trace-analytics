@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter helper functions renders range field filter 1`] = `ReactWrapper {}`;
+
+exports[`Filter helper functions renders textfield filter 1`] = `ReactWrapper {}`;
