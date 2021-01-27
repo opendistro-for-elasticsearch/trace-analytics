@@ -10,7 +10,7 @@
     "kbn": "node ../../scripts/kbn",
     "lint": "eslint .",
     "test:cypress": "cypress run",
-    "build": "yarn plugin-helpers build"
+    "build": "plugin-helpers build"
   },
   "dependencies": {
     "lodash": "^4.17.20",
