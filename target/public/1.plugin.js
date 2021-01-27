@@ -1146,7 +1146,7 @@ function NoMatchMessage(props) {
 }
 function MissingConfigurationMessage() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_1__["EuiEmptyPrompt"], {
-    title: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h2", null, "Indices required"),
+    title: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h2", null, "Trace Analytics not set up"),
     body: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_1__["EuiText"], null, `The indices required for trace analytics (${_common__WEBPACK_IMPORTED_MODULE_3__["RAW_INDEX_NAME"]} and ${_common__WEBPACK_IMPORTED_MODULE_3__["SERVICE_MAP_INDEX_NAME"]}) do not exist or you do not have permission to access them.`),
     actions: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_1__["EuiButton"], {
       color: "primary",
@@ -4088,10 +4088,11 @@ function Traces(props) {
     page: "traces"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
     size: "m"
-  }), props.indicesExist ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_traces_table__WEBPACK_IMPORTED_MODULE_5__["TracesTable"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_traces_table__WEBPACK_IMPORTED_MODULE_5__["TracesTable"], {
     items: tableItems,
-    refresh: refresh
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["MissingConfigurationMessage"], null));
+    refresh: refresh,
+    indicesExist: props.indicesExist
+  }));
 }
 
 /***/ }),
@@ -4280,9 +4281,9 @@ function TracesTable(props) {
     },
     sorting: sorting,
     onTableChange: onTableChange
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_4__["NoMatchMessage"], {
+  }) : props.indicesExist ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_4__["NoMatchMessage"], {
     size: "xl"
-  })));
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_4__["MissingConfigurationMessage"], null)));
 }
 
 /***/ }),
