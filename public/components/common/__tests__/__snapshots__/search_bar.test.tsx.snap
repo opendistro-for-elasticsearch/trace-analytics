@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search bar components renders date picker 1`] = `ReactWrapper {}`;
+
+exports[`Search bar components renders search bar 1`] = `ReactWrapper {}`;

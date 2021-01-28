@@ -68,6 +68,7 @@ export function SearchBar(props: SearchBarOwnProps) {
               fullWidth
               isClearable={false}
               placeholder="Trace ID, trace group name"
+              data-test-subj="search-bar-input-box"
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);

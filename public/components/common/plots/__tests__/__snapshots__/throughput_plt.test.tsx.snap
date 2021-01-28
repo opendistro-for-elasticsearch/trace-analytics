@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Throughput plot component renders throughput plot 1`] = `ReactWrapper {}`;
+exports[`Throughput plot component renders throughput plot 1`] = `ShallowWrapper {}`;

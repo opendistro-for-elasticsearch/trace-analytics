@@ -1,0 +1,456 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Service map component renders service map 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="euiPanel euiPanel--paddingMedium"
+      >
+        <div
+          class="euiText euiText--medium"
+        >
+          <span
+            class="panel-title"
+          >
+            Service map
+          </span>
+        </div>
+        <div
+          class="euiSpacer euiSpacer--m"
+        />
+        <fieldset
+          class="euiButtonGroup__fieldset"
+        >
+          <div
+            class="euiButtonGroup euiButtonGroup--s"
+          >
+            <div
+              class="euiToggle euiToggle--checked euiButtonToggle__wrapper euiButtonGroup__toggle"
+            >
+              <input
+                aria-label="Latency"
+                checked=""
+                class="euiToggle__input euiButtonToggle__input"
+                title="Latency"
+                type="radio"
+                value=""
+              />
+              <button
+                class="euiButton euiButton--text euiButton--small euiButtonToggle euiButtonGroup__button euiButtonGroup__button--selected euiButton--fill"
+                id="latency"
+                tabindex="-1"
+                type="button"
+              >
+                <span
+                  class="euiButton__content"
+                >
+                  <span
+                    class="euiButton__text"
+                  >
+                    Latency
+                  </span>
+                </span>
+              </button>
+            </div>
+            <div
+              class="euiToggle euiButtonToggle__wrapper euiButtonGroup__toggle"
+            >
+              <input
+                aria-label="Error rate"
+                class="euiToggle__input euiButtonToggle__input"
+                title="Error rate"
+                type="radio"
+                value=""
+              />
+              <button
+                class="euiButton euiButton--text euiButton--small euiButtonToggle euiButtonGroup__button"
+                id="error_rate"
+                tabindex="-1"
+                type="button"
+              >
+                <span
+                  class="euiButton__content"
+                >
+                  <span
+                    class="euiButton__text"
+                  >
+                    Error rate
+                  </span>
+                </span>
+              </button>
+            </div>
+            <div
+              class="euiToggle euiButtonToggle__wrapper euiButtonGroup__toggle"
+            >
+              <input
+                aria-label="Throughput"
+                class="euiToggle__input euiButtonToggle__input"
+                title="Throughput"
+                type="radio"
+                value=""
+              />
+              <button
+                class="euiButton euiButton--text euiButton--small euiButtonToggle euiButtonGroup__button"
+                id="throughput"
+                tabindex="-1"
+                type="button"
+              >
+                <span
+                  class="euiButton__content"
+                >
+                  <span
+                    class="euiButton__text"
+                  >
+                    Throughput
+                  </span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+        <hr
+          class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginMedium"
+        />
+        <div
+          class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+        >
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
+          >
+            <div
+              class="euiText euiText--medium"
+            >
+              Focus on
+            </div>
+          </div>
+          <div
+            class="euiFlexItem"
+          >
+            <div
+              class="euiFormControlLayout"
+            >
+              <div
+                class="euiFormControlLayout__childrenWrapper"
+              >
+                <input
+                  class="euiFieldSearch"
+                  placeholder="Service name"
+                  type="search"
+                  value=""
+                />
+                <div
+                  class="euiFormControlLayoutIcons"
+                >
+                  <span
+                    class="euiFormControlLayoutCustomIcon"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                      focusable="false"
+                      height="16"
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="euiSpacer euiSpacer--l"
+        />
+        <div
+          class="euiFlexGroup euiFlexGroup--directionRow"
+        >
+          <div
+            class="euiFlexItem"
+          >
+            <div
+              id="ed9e3716-87c4-4e70-b89c-b4bfe05c9c82"
+              style="width: 100%; height: 100%;"
+            >
+              <div
+                class="vis-network"
+                style="position: relative; overflow: hidden; user-select: none; webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 434px;"
+                tabindex="900"
+              >
+                <canvas
+                  height="0"
+                  style="position: relative; user-select: none; webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"
+                  width="0"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="euiFlexItem euiFlexItem--flexGrowZero"
+          >
+            <div
+              style="min-height: 400px; min-width: 65px;"
+            >
+              <div
+                style="width: 100%; height: 100%;"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="euiPanel euiPanel--paddingMedium"
+    >
+      <div
+        class="euiText euiText--medium"
+      >
+        <span
+          class="panel-title"
+        >
+          Service map
+        </span>
+      </div>
+      <div
+        class="euiSpacer euiSpacer--m"
+      />
+      <fieldset
+        class="euiButtonGroup__fieldset"
+      >
+        <div
+          class="euiButtonGroup euiButtonGroup--s"
+        >
+          <div
+            class="euiToggle euiToggle--checked euiButtonToggle__wrapper euiButtonGroup__toggle"
+          >
+            <input
+              aria-label="Latency"
+              checked=""
+              class="euiToggle__input euiButtonToggle__input"
+              title="Latency"
+              type="radio"
+              value=""
+            />
+            <button
+              class="euiButton euiButton--text euiButton--small euiButtonToggle euiButtonGroup__button euiButtonGroup__button--selected euiButton--fill"
+              id="latency"
+              tabindex="-1"
+              type="button"
+            >
+              <span
+                class="euiButton__content"
+              >
+                <span
+                  class="euiButton__text"
+                >
+                  Latency
+                </span>
+              </span>
+            </button>
+          </div>
+          <div
+            class="euiToggle euiButtonToggle__wrapper euiButtonGroup__toggle"
+          >
+            <input
+              aria-label="Error rate"
+              class="euiToggle__input euiButtonToggle__input"
+              title="Error rate"
+              type="radio"
+              value=""
+            />
+            <button
+              class="euiButton euiButton--text euiButton--small euiButtonToggle euiButtonGroup__button"
+              id="error_rate"
+              tabindex="-1"
+              type="button"
+            >
+              <span
+                class="euiButton__content"
+              >
+                <span
+                  class="euiButton__text"
+                >
+                  Error rate
+                </span>
+              </span>
+            </button>
+          </div>
+          <div
+            class="euiToggle euiButtonToggle__wrapper euiButtonGroup__toggle"
+          >
+            <input
+              aria-label="Throughput"
+              class="euiToggle__input euiButtonToggle__input"
+              title="Throughput"
+              type="radio"
+              value=""
+            />
+            <button
+              class="euiButton euiButton--text euiButton--small euiButtonToggle euiButtonGroup__button"
+              id="throughput"
+              tabindex="-1"
+              type="button"
+            >
+              <span
+                class="euiButton__content"
+              >
+                <span
+                  class="euiButton__text"
+                >
+                  Throughput
+                </span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </fieldset>
+      <hr
+        class="euiHorizontalRule euiHorizontalRule--full euiHorizontalRule--marginMedium"
+      />
+      <div
+        class="euiFlexGroup euiFlexGroup--gutterSmall euiFlexGroup--alignItemsCenter euiFlexGroup--directionRow euiFlexGroup--responsive"
+      >
+        <div
+          class="euiFlexItem euiFlexItem--flexGrowZero"
+        >
+          <div
+            class="euiText euiText--medium"
+          >
+            Focus on
+          </div>
+        </div>
+        <div
+          class="euiFlexItem"
+        >
+          <div
+            class="euiFormControlLayout"
+          >
+            <div
+              class="euiFormControlLayout__childrenWrapper"
+            >
+              <input
+                class="euiFieldSearch"
+                placeholder="Service name"
+                type="search"
+                value=""
+              />
+              <div
+                class="euiFormControlLayoutIcons"
+              >
+                <span
+                  class="euiFormControlLayoutCustomIcon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                    focusable="false"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="euiSpacer euiSpacer--l"
+      />
+      <div
+        class="euiFlexGroup euiFlexGroup--directionRow"
+      >
+        <div
+          class="euiFlexItem"
+        >
+          <div
+            id="ed9e3716-87c4-4e70-b89c-b4bfe05c9c82"
+            style="width: 100%; height: 100%;"
+          >
+            <div
+              class="vis-network"
+              style="position: relative; overflow: hidden; user-select: none; webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 434px;"
+              tabindex="900"
+            >
+              <canvas
+                height="0"
+                style="position: relative; user-select: none; webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"
+                width="0"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="euiFlexItem euiFlexItem--flexGrowZero"
+        >
+          <div
+            style="min-height: 400px; min-width: 65px;"
+          >
+            <div
+              style="width: 100%; height: 100%;"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

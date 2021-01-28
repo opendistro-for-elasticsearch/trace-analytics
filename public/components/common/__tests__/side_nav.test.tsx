@@ -14,25 +14,17 @@
  */
 
 import React from 'react';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import renderer from 'react-test-renderer';
-import { ServiceMap } from '../service_map';
-import { TEST_SERVICE_MAP } from '../../../../../test/constants';
+import { renderPageWithSidebar } from '../side_nav';
 
-describe('Service map component', () => {
+describe('Side nav component', () => {
   configure({ adapter: new Adapter() });
 
-  it('renders service map', async () => {
-    const setServiceMapIdSelected = jest.fn((e) => {});
-    const wrap = render(
-      <ServiceMap
-        serviceMap={TEST_SERVICE_MAP}
-        idSelected="latency"
-        setIdSelected={setServiceMapIdSelected}
-      />
-    );
+  it('renders side nav', () => {
+    const page = <div />;
+    const wrap = mount(renderPageWithSidebar(page))
     expect(wrap).toMatchSnapshot();
   });
 });

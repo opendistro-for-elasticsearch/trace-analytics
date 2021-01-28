@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Services table component renders empty services table message 1`] = `ReactWrapper {}`;
+
+exports[`Services table component renders services table 1`] = `ReactWrapper {}`;

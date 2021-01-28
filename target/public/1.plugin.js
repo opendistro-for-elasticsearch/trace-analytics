@@ -578,12 +578,13 @@ function FilterEditPopover(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
     grow: false
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiButtonEmpty"], {
+    "data-test-subj": "filter-popover-cancel-button",
     onClick: props.closePopover
   }, "Cancel")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
     grow: false
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiButton"], {
     fill: true,
-    disabled: selectedFieldOptions.length === 0 || selectedOperatorOptions.length === 0 || filterValue.length === 0 && !((_selectedOperatorOpti = selectedOperatorOptions[0]) === null || _selectedOperatorOpti === void 0 ? void 0 : (_selectedOperatorOpti2 = _selectedOperatorOpti.label) === null || _selectedOperatorOpti2 === void 0 ? void 0 : _selectedOperatorOpti2.includes('exist')),
+    disabled: selectedFieldOptions.length === 0 || selectedOperatorOptions.length === 0 || filterValue.length === 0 && !((_selectedOperatorOpti = selectedOperatorOptions[0]) !== null && _selectedOperatorOpti !== void 0 && (_selectedOperatorOpti2 = _selectedOperatorOpti.label) !== null && _selectedOperatorOpti2 !== void 0 && _selectedOperatorOpti2.includes('exist')),
     onClick: () => {
       props.closePopover();
       props.setFilter({
@@ -729,7 +730,7 @@ const getValueComponent = (operator, value, setValue) => {
 
   const getRangeField = () => {
     const getFromValue = () => {
-      if (value === null || value === void 0 ? void 0 : value.from) {
+      if (value !== null && value !== void 0 && value.from) {
         return value.from.includes('\u221E') ? '' : value.from;
       }
 
@@ -737,7 +738,7 @@ const getValueComponent = (operator, value, setValue) => {
     };
 
     const getToValue = () => {
-      if (value === null || value === void 0 ? void 0 : value.to) {
+      if (value !== null && value !== void 0 && value.to) {
         return value.to.includes('\u221E') ? '' : value.to;
       }
 
@@ -877,7 +878,7 @@ function Filters(props) {
           var _filter$custom;
 
           return { ...filter,
-            inverted: filter.locked ? filter.inverted : ((_filter$custom = filter.custom) === null || _filter$custom === void 0 ? void 0 : _filter$custom.query) ? false : !filter.inverted
+            inverted: filter.locked ? filter.inverted : (_filter$custom = filter.custom) !== null && _filter$custom !== void 0 && _filter$custom.query ? false : !filter.inverted
           };
         }));
       }
@@ -915,7 +916,7 @@ function Filters(props) {
           type: "invert",
           size: "m"
         }),
-        disabled: !!((_filter$custom2 = filter.custom) === null || _filter$custom2 === void 0 ? void 0 : _filter$custom2.query) || validFilterFields.indexOf(filter.field) === -1,
+        disabled: !!((_filter$custom2 = filter.custom) !== null && _filter$custom2 !== void 0 && _filter$custom2.query) || validFilterFields.indexOf(filter.field) === -1,
         panel: 1
       }, {
         name: `${filter.inverted ? 'Include' : 'Exclude'} results`,
@@ -923,7 +924,7 @@ function Filters(props) {
           type: filter.inverted ? 'plusInCircle' : 'minusInCircle',
           size: "m"
         }),
-        disabled: !!((_filter$custom3 = filter.custom) === null || _filter$custom3 === void 0 ? void 0 : _filter$custom3.query) || validFilterFields.indexOf(filter.field) === -1,
+        disabled: !!((_filter$custom3 = filter.custom) !== null && _filter$custom3 !== void 0 && _filter$custom3.query) || validFilterFields.indexOf(filter.field) === -1,
         onClick: () => {
           filter.inverted = !filter.inverted;
           setFilter(filter, index);
@@ -1364,7 +1365,7 @@ const filtersToDsl = (filters, query, startTime, endTime) => {
   filters.filter(filter => !filter.disabled && !filter.locked).forEach(filter => {
     var _filter$custom;
 
-    if ((_filter$custom = filter.custom) === null || _filter$custom === void 0 ? void 0 : _filter$custom.query) {
+    if ((_filter$custom = filter.custom) !== null && _filter$custom !== void 0 && _filter$custom.query) {
       // add percentile filter
       DSL.query.bool.should.push(...filter.custom.query.bool.should);
       DSL.custom.percentiles.query.bool.should.push(...filter.custom.query.bool.should);
@@ -1750,7 +1751,7 @@ function ErrorRatePlt(props) {
   const layout = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => getLayout(), [props.items]);
 
   const onClick = event => {
-    if (!(event === null || event === void 0 ? void 0 : event.points)) return;
+    if (!(event !== null && event !== void 0 && event.points)) return;
     const point = event.points[0];
     const start = point.data.x[point.pointNumber];
     const end = start + Object(___WEBPACK_IMPORTED_MODULE_3__["fixedIntervalToMilli"])(props.items.fixedInterval);
@@ -2394,7 +2395,7 @@ function ThroughputPlt(props) {
   }, [props.items]);
 
   const onClick = event => {
-    if (!(event === null || event === void 0 ? void 0 : event.points)) return;
+    if (!(event !== null && event !== void 0 && event.points)) return;
     const point = event.points[0];
     const start = point.data.x[point.pointNumber];
     const end = start + Object(___WEBPACK_IMPORTED_MODULE_3__["fixedIntervalToMilli"])(props.items.fixedInterval);
@@ -2486,6 +2487,7 @@ function SearchBar(props) {
     fullWidth: true,
     isClearable: false,
     placeholder: "Trace ID, trace group name",
+    "data-test-subj": "search-bar-input-box",
     value: query,
     onChange: e => {
       setQuery(e.target.value);
@@ -2825,6 +2827,7 @@ function DashboardTable(props) {
     align: 'left',
     sortable: true,
     render: item => item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+      "data-test-subj": "dashboard-table-trace-group-name-button",
       onClick: () => props.addFilter({
         field: 'traceGroup',
         operator: 'is',
@@ -2956,6 +2959,7 @@ function DashboardTable(props) {
     align: 'right',
     sortable: true,
     render: (item, row) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+      "data-test-subj": "dashboard-table-traces-button",
       onClick: () => {
         props.setRedirect(true);
         props.addFilter({
@@ -2984,6 +2988,7 @@ function DashboardTable(props) {
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
       grow: false
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+      "data-test-subj": "dashboard-table-percentile-button-1",
       onClick: () => props.addPercentileFilter('lte')
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
       size: "xs"
@@ -2996,6 +3001,7 @@ function DashboardTable(props) {
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
       grow: false
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+      "data-test-subj": "dashboard-table-percentile-button-2",
       onClick: () => props.addPercentileFilter('gte')
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
       size: "xs"
@@ -5267,7 +5273,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 function handleDslRequest(http, DSL, query) {
-  if (DSL === null || DSL === void 0 ? void 0 : DSL.query) {
+  if (DSL !== null && DSL !== void 0 && DSL.query) {
     query.query.bool.must.push(...DSL.query.bool.must);
     query.query.bool.filter.push(...DSL.query.bool.filter);
     query.query.bool.should.push(...DSL.query.bool.should);

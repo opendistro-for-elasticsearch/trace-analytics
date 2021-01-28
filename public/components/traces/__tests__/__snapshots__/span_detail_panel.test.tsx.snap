@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Service breakdown panel component renders service breakdown panel 1`] = `ReactWrapper {}`;

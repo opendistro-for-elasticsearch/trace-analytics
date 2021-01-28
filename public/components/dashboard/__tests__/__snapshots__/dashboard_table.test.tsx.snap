@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard table component renders dashboard table 1`] = `ReactWrapper {}`;
+
+exports[`Dashboard table component renders empty dashboard table message 1`] = `ReactWrapper {}`;

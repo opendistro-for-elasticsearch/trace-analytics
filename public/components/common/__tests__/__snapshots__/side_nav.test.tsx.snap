@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Side nav component renders side nav 1`] = `ReactWrapper {}`;

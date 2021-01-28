@@ -14,25 +14,31 @@
  */
 
 import React from 'react';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import renderer from 'react-test-renderer';
-import { ServiceMap } from '../service_map';
-import { TEST_SERVICE_MAP } from '../../../../../test/constants';
+import { ServiceBreakdownPanel } from '../service_breakdown_panel';
 
-describe('Service map component', () => {
+describe('Service breakdown panel component', () => {
   configure({ adapter: new Adapter() });
 
-  it('renders service map', async () => {
-    const setServiceMapIdSelected = jest.fn((e) => {});
-    const wrap = render(
-      <ServiceMap
-        serviceMap={TEST_SERVICE_MAP}
-        idSelected="latency"
-        setIdSelected={setServiceMapIdSelected}
-      />
-    );
+  it('renders empty service breakdown panel', () => {
+    const wrap = mount(<ServiceBreakdownPanel data={[]} />);
+    expect(wrap).toMatchSnapshot();
+  });
+
+  it('renders service breakdown panel', () => {
+    const data = [
+      {
+        values: [100],
+        labels: ['inventory'],
+        marker: { colors: ['#7492e7'] },
+        type: 'pie',
+        textinfo: 'none',
+        hovertemplate: '%{label}<br>%{value:.2f}%<extra></extra>',
+      },
+    ] as Plotly.Data[];
+    const wrap = mount(<ServiceBreakdownPanel data={data} />);
     expect(wrap).toMatchSnapshot();
   });
 });

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Helper functions renders benchmark 1`] = `ReactWrapper {}`;
+
+exports[`Helper functions renders benchmark 2`] = `ReactWrapper {}`;
+
+exports[`Helper functions renders benchmark 3`] = `ReactWrapper {}`;
+
+exports[`Helper functions renders no match and missing configuration messages 1`] = `ShallowWrapper {}`;
+
+exports[`Helper functions renders no match and missing configuration messages 2`] = `ShallowWrapper {}`;
+
+exports[`Helper functions renders panel title 1`] = `ShallowWrapper {}`;
+
+exports[`Helper functions renders panel title 2`] = `ShallowWrapper {}`;
