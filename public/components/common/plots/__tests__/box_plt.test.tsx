@@ -24,7 +24,7 @@ describe('Box plot component', () => {
 
   it('renders box plot', () => {
     const addFilter = jest.fn();
-    const wrap = shallow(
+    const wrapper = shallow(
       <BoxPlt
         plotParams={{
           min: 0,
@@ -37,6 +37,6 @@ describe('Box plot component', () => {
         }}
       />
     );
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

@@ -43,10 +43,10 @@ describe('Error rate plot component', () => {
       ] as Plotly.Data[],
       fixedInterval: '365d',
     };
-    const wrap = shallow(
+    const wrapper = shallow(
       <ErrorRatePlt items={items} setStartTime={setStartTime} setEndTime={setEndTime} />
     );
     
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

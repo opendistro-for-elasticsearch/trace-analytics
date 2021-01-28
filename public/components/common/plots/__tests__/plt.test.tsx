@@ -38,7 +38,7 @@ describe('Plotly component', () => {
         hovertemplate: '%{text}<br>Throughput: %{y:,}<extra></extra>',
       },
     ];
-    const wrap = mount(<Plt data={data} layout={{}} />);
-    expect(wrap).toMatchSnapshot();
+    const wrapper = mount(<Plt data={data} layout={{}} />);
+    expect(wrapper).toMatchSnapshot();
   });
 });

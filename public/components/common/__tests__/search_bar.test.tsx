@@ -26,8 +26,8 @@ describe('Search bar components', () => {
   it('renders date picker', () => {
     const setStartTime = jest.fn();
     const setEndTime = jest.fn();
-    const wrap = mount(renderDatePicker('now-5m', setStartTime, 'now', setEndTime));
-    expect(wrap).toMatchSnapshot();
+    const wrapper = mount(renderDatePicker('now-5m', setStartTime, 'now', setEndTime));
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('renders search bar', () => {
@@ -38,7 +38,7 @@ describe('Search bar components', () => {
     const setStartTime = jest.fn();
     const setEndTime = jest.fn();
     const setFilters = jest.fn();
-    const wrap = mount(
+    const wrapper = mount(
       <SearchBar
         refresh={refresh}
         page="dashboard"
@@ -52,9 +52,9 @@ describe('Search bar components', () => {
         setFilters={setFilters}
       />
     );
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
 
-    wrap
+    wrapper
       .find('input[data-test-subj="search-bar-input-box"]')
       .simulate('change', { target: { value: 'queryTest' } });
 

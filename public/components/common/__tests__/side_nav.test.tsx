@@ -24,7 +24,7 @@ describe('Side nav component', () => {
 
   it('renders side nav', () => {
     const page = <div />;
-    const wrap = mount(renderPageWithSidebar(page))
-    expect(wrap).toMatchSnapshot();
+    const wrapper = mount(renderPageWithSidebar(page))
+    expect(wrapper).toMatchSnapshot();
   });
 });

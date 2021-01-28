@@ -26,13 +26,13 @@ describe('Service map component', () => {
 
   it('renders service map', async () => {
     const setServiceMapIdSelected = jest.fn((e) => {});
-    const wrap = render(
+    const wrapper = shallow(
       <ServiceMap
         serviceMap={TEST_SERVICE_MAP}
         idSelected="latency"
         setIdSelected={setServiceMapIdSelected}
       />
     );
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

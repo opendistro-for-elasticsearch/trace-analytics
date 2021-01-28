@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Traces table component renders empty traces table message 1`] = `ReactWrapper {}`;
+
+exports[`Traces table component renders empty traces table message 2`] = `ReactWrapper {}`;
+
+exports[`Traces table component renders traces table 1`] = `ReactWrapper {}`;

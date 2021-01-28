@@ -29,7 +29,7 @@ describe('Services component', () => {
     const setFilters = jest.fn();
     const setStartTime = jest.fn();
     const setEndTime = jest.fn();
-    const wrap = mount(
+    const wrapper = mount(
       <Services
         http={http}
         uiSettings={null}
@@ -46,7 +46,7 @@ describe('Services component', () => {
       />
     );
 
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('renders services page', () => {
@@ -56,7 +56,7 @@ describe('Services component', () => {
     const setFilters = jest.fn();
     const setStartTime = jest.fn();
     const setEndTime = jest.fn();
-    const wrap = mount(
+    const wrapper = mount(
       <Services
         http={http}
         uiSettings={null}
@@ -73,7 +73,7 @@ describe('Services component', () => {
       />
     );
 
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });
 

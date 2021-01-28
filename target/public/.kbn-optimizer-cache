@@ -19,7 +19,7 @@
   "cacheKey": {
     "spec": {
       "type": "plugin",
-      "id": "opendistroTraceAnalyticsKibana",
+      "id": "opendistro-trace-analytics-kibana",
       "publicDirNames": [
         "public"
       ],
@@ -100,7 +100,7 @@
       "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/common/plots/service_map_scale.tsx": 1611709171907.8225,
       "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/common/plots/service_map.tsx": 1611857154908.3342,
       "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/common/plots/throughput_plt.tsx": 1611708621197.895,
-      "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/common/search_bar.tsx": 1611860746545.9983,
+      "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/common/search_bar.tsx": 1611871103252.438,
       "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/common/side_nav.tsx": 1611635299876.751,
       "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/dashboard/dashboard_table.tsx": 1611862149522.1343,
       "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/dashboard/dashboard.tsx": 1611861693131.5679,
@@ -113,9 +113,9 @@
       "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/traces/index.ts": 1611635299880.363,
       "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/traces/service_breakdown_panel.tsx": 1611868872846.1472,
       "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/traces/span_detail_panel.tsx": 1611869128890.0513,
-      "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/traces/trace_view.tsx": 1611635299881.1406,
+      "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/traces/trace_view.tsx": 1611869543328.4653,
       "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/traces/traces_table.tsx": 1611708824343.4475,
-      "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/traces/traces.tsx": 1611708824342.91,
+      "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/components/traces/traces.tsx": 1611870673716.0122,
       "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/index.scss": 1611635299881.7546,
       "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/index.ts": 1611635299881.9312,
       "/Users/lijshu/Projects/7.9.1/kibana-7.9.1/plugins/trace-analytics/public/plugin.ts": 1611635299882.1929,

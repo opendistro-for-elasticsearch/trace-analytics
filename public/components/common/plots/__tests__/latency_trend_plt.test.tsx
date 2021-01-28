@@ -37,9 +37,9 @@ describe('Latency trend plot component', () => {
         },
       },
     ] as Plotly.Data[];
-    const wrap = shallow(<LinePlt data={data} />);
+    const wrapper = shallow(<LinePlt data={data} />);
 
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('renders dash', () => {
@@ -56,9 +56,9 @@ describe('Latency trend plot component', () => {
         },
       },
     ] as Plotly.Data[];
-    const wrap = shallow(<LinePlt data={data} />);
+    const wrapper = shallow(<LinePlt data={data} />);
 
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('renders latency plot', () => {
@@ -81,8 +81,8 @@ describe('Latency trend plot component', () => {
         },
       },
     ] as Plotly.Data[];
-    const wrap = shallow(<LatencyPlt data={data} />);
+    const wrapper = shallow(<LatencyPlt data={data} />);
 
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

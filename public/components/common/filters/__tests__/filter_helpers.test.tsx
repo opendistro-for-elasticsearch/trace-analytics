@@ -85,25 +85,25 @@ describe('Filter helper functions', () => {
 
   it('renders textfield filter', () => {
     const setValue = jest.fn((v) => {});
-    const wrap = mount(getValueComponent('is', 0, setValue));
-    expect(wrap).toMatchSnapshot();
+    const wrapper = mount(getValueComponent('is', 0, setValue));
+    expect(wrapper).toMatchSnapshot();
 
-    wrap.find('input').simulate('change', { target: { value: '100' } });
+    wrapper.find('input').simulate('change', { target: { value: '100' } });
     expect(setValue).toBeCalledWith('100');
   });
 
   it('renders range field filter', () => {
     const setValue = jest.fn((v) => {});
-    const wrap = mount(getValueComponent('is not between', { from: '0', to: '100' }, setValue));
-    expect(wrap).toMatchSnapshot();
+    const wrapper = mount(getValueComponent('is not between', { from: '0', to: '100' }, setValue));
+    expect(wrapper).toMatchSnapshot();
 
-    wrap
+    wrapper
       .find('input')
       .at(0)
       .simulate('change', { target: { value: '50' } });
     expect(setValue).toBeCalledWith({ from: '50', to: '100' });
 
-    wrap
+    wrapper
       .find('input')
       .at(1)
       .simulate('change', { target: { value: '200' } });

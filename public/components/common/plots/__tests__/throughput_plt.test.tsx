@@ -43,9 +43,9 @@ describe('Throughput plot component', () => {
       ] as Plotly.Data[],
       fixedInterval: '365d',
     };
-    const wrap = shallow(
+    const wrapper = shallow(
       <ThroughputPlt items={items} setStartTime={setStartTime} setEndTime={setEndTime} />
     );
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

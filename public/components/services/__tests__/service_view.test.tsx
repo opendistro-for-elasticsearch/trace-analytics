@@ -30,7 +30,7 @@ describe('Service view component', () => {
     const setStartTime = jest.fn();
     const setEndTime = jest.fn();
     const addFilter = jest.fn();
-    const wrap = shallow(
+    const wrapper = shallow(
       <ServiceView
         serviceName='order'
         http={httpClientMock}
@@ -49,6 +49,6 @@ describe('Service view component', () => {
       />
     );
 
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Traces component renders empty traces page 1`] = `ReactWrapper {}`;
+
+exports[`Traces component renders traces page 1`] = `ReactWrapper {}`;

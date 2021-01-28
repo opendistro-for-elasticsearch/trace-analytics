@@ -27,7 +27,7 @@ describe('Filter popover component', () => {
     const setFilter = jest.fn();
     const closePopover = jest.fn();
     const filterFieldOptions = getFilterFields('dashboard').map((field) => ({ label: field }));
-    const wrap = mount(
+    const wrapper = mount(
       <FilterEditPopover
         filterFieldOptions={filterFieldOptions}
         index={0}
@@ -35,18 +35,20 @@ describe('Filter popover component', () => {
         closePopover={closePopover}
       />
     );
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
 
-    wrap
+    wrapper
       .find('input')
       .at(0)
       .simulate('change', [{ label: 'traceGroup' }]);
-    wrap
+    wrapper
       .find('input')
       .at(1)
       .simulate('change', [{ label: 'exists' }]);
-    wrap.find('button[data-test-subj="filter-popover-cancel-button"]').simulate('click');
+    wrapper.find('button[data-test-subj="filter-popover-cancel-button"]').simulate('click');
 
     expect(closePopover).toBeCalled();
+
+    wrapper.find('button[data-test-subj="comboBoxToggleListButton"]').at(0).simulate('click');
   });
 });

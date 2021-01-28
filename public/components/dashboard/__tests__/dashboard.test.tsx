@@ -29,7 +29,7 @@ describe('Dashboard component', () => {
     const setFilters = jest.fn();
     const setStartTime = jest.fn();
     const setEndTime = jest.fn();
-    const wrap = mount(
+    const wrapper = mount(
       <Dashboard
         http={http}
         uiSettings={null}
@@ -46,8 +46,9 @@ describe('Dashboard component', () => {
       />
     );
 
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
+
   it('renders dashboard', () => {
     const http = jest.fn();
     const setBreadcrumbs = jest.fn();
@@ -55,7 +56,7 @@ describe('Dashboard component', () => {
     const setFilters = jest.fn();
     const setStartTime = jest.fn();
     const setEndTime = jest.fn();
-    const wrap = mount(
+    const wrapper = mount(
       <Dashboard
         http={http}
         uiSettings={null}
@@ -72,6 +73,9 @@ describe('Dashboard component', () => {
       />
     );
 
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
+
+    wrapper.find('button[data-test-subj="dashboard-table-percentile-button-1"]').simulate('click');
+    wrapper.find('button[data-test-subj="dashboard-table-percentile-button-2"]').simulate('click');
   });
 });

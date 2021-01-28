@@ -22,7 +22,12 @@ module.exports = {
   clearMocks: true,
   modulePathIgnorePatterns: ['<rootDir>/offline-module-cache/'],
   testPathIgnorePatterns: ['<rootDir>/build/', '<rootDir>/node_modules/'],
-  coveragePathIgnorePatterns: ['<rootDir>/build/', '<rootDir>/node_modules/', '<rootDir>/test/'],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/build/',
+    '<rootDir>/node_modules/',
+    '<rootDir>/test/',
+    '<rootDir>/public/requests/',
+  ],
   transformIgnorePatterns: ['<rootDir>/node_modules'],
   moduleNameMapper: {
     '\\.(css|less|sass|scss)$': '<rootDir>/test/__mocks__/styleMock.js',

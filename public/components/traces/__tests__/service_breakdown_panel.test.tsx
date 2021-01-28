@@ -23,8 +23,8 @@ describe('Service breakdown panel component', () => {
   configure({ adapter: new Adapter() });
 
   it('renders empty service breakdown panel', () => {
-    const wrap = mount(<ServiceBreakdownPanel data={[]} />);
-    expect(wrap).toMatchSnapshot();
+    const wrapper = mount(<ServiceBreakdownPanel data={[]} />);
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('renders service breakdown panel', () => {
@@ -38,7 +38,7 @@ describe('Service breakdown panel component', () => {
         hovertemplate: '%{label}<br>%{value:.2f}%<extra></extra>',
       },
     ] as Plotly.Data[];
-    const wrap = mount(<ServiceBreakdownPanel data={data} />);
-    expect(wrap).toMatchSnapshot();
+    const wrapper = mount(<ServiceBreakdownPanel data={data} />);
+    expect(wrapper).toMatchSnapshot();
   });
 });

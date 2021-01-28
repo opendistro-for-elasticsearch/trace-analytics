@@ -26,7 +26,7 @@ describe('Dashboard table component', () => {
     const addFilter = jest.fn();
     const addPercentileFilter = jest.fn();
     const setRedirect = jest.fn();
-    const wrap = mount(
+    const wrapper = mount(
       <DashboardTable
         items={[]}
         filters={[]}
@@ -36,7 +36,7 @@ describe('Dashboard table component', () => {
       />
     );
 
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('renders dashboard table', () => {
@@ -53,7 +53,7 @@ describe('Dashboard table component', () => {
     const addFilter = jest.fn();
     const addPercentileFilter = jest.fn();
     const setRedirect = jest.fn();
-    const wrap = mount(
+    const wrapper = mount(
       <DashboardTable
         items={tableItems}
         filters={[
@@ -71,14 +71,14 @@ describe('Dashboard table component', () => {
       />
     );
 
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
 
-    wrap.find('button[data-test-subj="dashboard-table-percentile-button-1"]').simulate('click');
-    wrap.find('button[data-test-subj="dashboard-table-percentile-button-2"]').simulate('click');
+    wrapper.find('button[data-test-subj="dashboard-table-percentile-button-1"]').simulate('click');
+    wrapper.find('button[data-test-subj="dashboard-table-percentile-button-2"]').simulate('click');
     expect(addPercentileFilter).toBeCalledTimes(2);
-    wrap.find('button[data-test-subj="dashboard-table-trace-group-name-button"]').simulate('click');
+    wrapper.find('button[data-test-subj="dashboard-table-trace-group-name-button"]').simulate('click');
     expect(addFilter).toBeCalled();
-    wrap.find('button[data-test-subj="dashboard-table-traces-button"]').simulate('click');
+    wrapper.find('button[data-test-subj="dashboard-table-traces-button"]').simulate('click');
     expect(setRedirect).toBeCalledWith(true);
   });
 });

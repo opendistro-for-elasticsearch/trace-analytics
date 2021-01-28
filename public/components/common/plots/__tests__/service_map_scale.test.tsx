@@ -23,7 +23,7 @@ describe('Service map scale component', () => {
   configure({ adapter: new Adapter() });
 
   it('renders service map scale plot', () => {
-    const wrap = mount(
+    const wrapper = mount(
       <ServiceMapScale
         idSelected="latency"
         serviceMap={undefined}
@@ -31,6 +31,6 @@ describe('Service map scale component', () => {
       />
     );
 
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

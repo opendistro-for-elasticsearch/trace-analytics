@@ -27,7 +27,7 @@ describe('Services table component', () => {
     const setServiceQuery = jest.fn();
     const setRedirect = jest.fn();
     const refresh = jest.fn();
-    const wrap = mount(
+    const wrapper = mount(
       <ServicesTable
         items={[]}
         addFilter={addFilter}
@@ -38,7 +38,7 @@ describe('Services table component', () => {
       />
     );
 
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('renders services table', () => {
@@ -57,7 +57,7 @@ describe('Services table component', () => {
     const setServiceQuery = jest.fn();
     const setRedirect = jest.fn();
     const refresh = jest.fn();
-    const wrap = mount(
+    const wrapper = mount(
       <ServicesTable
         items={tableItems}
         addFilter={addFilter}
@@ -68,9 +68,9 @@ describe('Services table component', () => {
       />
     );
 
-    expect(wrap).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
 
-    wrap
+    wrapper
       .find('input[placeholder="Service name"]')
       .simulate('change', { target: { value: 'test' } });
     expect(setServiceQuery).toBeCalledWith('test');
