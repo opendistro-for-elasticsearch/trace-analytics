@@ -22,6 +22,7 @@ module.exports = {
   clearMocks: true,
   modulePathIgnorePatterns: ['<rootDir>/offline-module-cache/'],
   testPathIgnorePatterns: ['<rootDir>/build/', '<rootDir>/node_modules/'],
+  snapshotSerializers: ['enzyme-to-json/serializer'],
   coveragePathIgnorePatterns: [
     '<rootDir>/build/',
     '<rootDir>/node_modules/',
