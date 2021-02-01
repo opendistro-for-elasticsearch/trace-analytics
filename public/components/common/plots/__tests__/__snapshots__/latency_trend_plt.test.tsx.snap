@@ -107,7 +107,7 @@ exports[`Latency trend plot component renders line plot 1`] = `
   }
   layout={
     Object {
-      "height": 15,
+      "height": 20,
       "margin": Object {
         "b": 0,
         "l": 0,
@@ -125,6 +125,10 @@ exports[`Latency trend plot component renders line plot 1`] = `
       },
       "yaxis": Object {
         "fixedrange": true,
+        "range": Array [
+          0,
+          110.00000000000001,
+        ],
         "showgrid": false,
         "visible": false,
       },
