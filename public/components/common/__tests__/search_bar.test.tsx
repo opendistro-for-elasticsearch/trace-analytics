@@ -18,7 +18,7 @@ import { render } from '@testing-library/react';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { renderDatePicker, SearchBar } from '..';
-import * as sinon from 'sinon';
+import sinon from 'sinon';
 
 describe('Search bar components', () => {
   configure({ adapter: new Adapter() });
