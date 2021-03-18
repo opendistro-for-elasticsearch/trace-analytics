@@ -23,8 +23,10 @@ export const getTraceGroupPercentilesQuery = () => {
       bool: {
         must: [
           {
-            exists: {
-              field: 'traceGroup',
+            term: {
+              parentSpanId: {
+                value: '',
+              },
             },
           },
         ],
@@ -60,13 +62,7 @@ export const getTracesQuery = (traceId = null, sort?: PropertySort) => {
     size: 0,
     query: {
       bool: {
-        must: [
-          {
-            exists: {
-              field: 'traceGroup',
-            },
-          },
-        ],
+        must: [],
         filter: [],
         should: [],
         must_not: [],
@@ -92,7 +88,7 @@ export const getTracesQuery = (traceId = null, sort?: PropertySort) => {
           },
           trace_group: {
             terms: {
-              field: 'name',
+              field: 'traceGroup',
               size: 1,
             },
           },

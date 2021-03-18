@@ -17,17 +17,11 @@ import { EuiFieldText, EuiFormControlLayoutDelimited, EuiFormRow, EuiSpacer } fr
 import _ from 'lodash';
 import React from 'react';
 
-const getFields = (page) =>
+const getFields = (page: 'dashboard' | 'traces' | 'services') =>
   ({
-    dashboard: ['traceGroup', 'status.code', 'status.message', 'durationInNanos'],
-    traces: [
-      'traceId',
-      'traceGroup',
-      'status.code',
-      'status.message',
-      'durationInNanos',
-    ],
-    services: [],
+    dashboard: ['traceID', 'traceGroup', 'serviceName', 'status.code', 'status.message', 'durationInNanos'],
+    traces: ['traceId', 'traceGroup', 'serviceName', 'status.code', 'status.message', 'durationInNanos'],
+    services: ['traceId', 'traceGroup', 'serviceName', 'status.code', 'status.message', 'durationInNanos'],
   }[page]);
 // filters will take effect and can be manually added
 export const getFilterFields = (page: 'dashboard' | 'traces' | 'services') => getFields(page);

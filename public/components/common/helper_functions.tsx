@@ -322,16 +322,16 @@ export const filtersToDsl = (
         return;
       }
 
-      if (
-        filter.field === 'serviceName' &&
-        (filter.operator === 'is' || filter.operator === 'is not')
-      ) {
-        DSL.custom[filter.inverted ? 'serviceNamesExclude' : 'serviceNames'].push(filter.value);
-      }
+      // if (
+      //   filter.field === 'serviceName' &&
+      //   (filter.operator === 'is' || filter.operator === 'is not')
+      // ) {
+      //   DSL.custom[filter.inverted ? 'serviceNamesExclude' : 'serviceNames'].push(filter.value);
+      // }
 
-      if (filter.field === 'traceGroup') {
-        DSL.custom[filter.inverted ? 'traceGroupExclude' : 'traceGroup'].push(filter.value);
-      }
+      // if (filter.field === 'traceGroup') {
+      //   DSL.custom[filter.inverted ? 'traceGroupExclude' : 'traceGroup'].push(filter.value);
+      // }
 
       let filterQuery = {};
       switch (filter.operator) {

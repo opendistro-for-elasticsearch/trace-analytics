@@ -22,12 +22,11 @@ import {
   EuiInMemoryTable,
   EuiLink,
   EuiPanel,
-  EuiSpacer,
   EuiTableFieldDataColumnType,
   EuiText,
 } from '@elastic/eui';
 import _ from 'lodash';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { MissingConfigurationMessage, NoMatchMessage, PanelTitle } from '../common';
 import { FilterType } from '../common/filters/filters';
 
@@ -111,7 +110,29 @@ export function ServicesTable(props: {
           align: 'right',
           sortable: true,
           truncateText: true,
-          render: (item) => (item === 0 || item ? <EuiI18nNumber value={item} /> : '-'),
+          render: (item, row) => (
+            <>
+              {item === 0 || item ? (
+                <EuiLink
+                  onClick={() => {
+                    props.setRedirect(true);
+                    props.addFilter({
+                      field: 'serviceName',
+                      operator: 'is',
+                      value: row.name,
+                      inverted: false,
+                      disabled: false,
+                    });
+                    location.assign('#/traces');
+                  }}
+                >
+                  <EuiI18nNumber value={item} />
+                </EuiLink>
+              ) : (
+                '-'
+              )}
+            </>
+          ),
         },
       ] as Array<EuiTableFieldDataColumnType<any>>,
     [props.items]

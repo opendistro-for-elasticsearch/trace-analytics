@@ -18,7 +18,15 @@ export const getDashboardQuery = () => {
     size: 0,
     query: {
       bool: {
-        must: [],
+        must: [
+          {
+            term: {
+              parentSpanId: {
+                value: '',
+              },
+            },
+          },
+        ],
         filter: [],
         should: [],
         must_not: [],

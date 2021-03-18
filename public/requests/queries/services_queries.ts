@@ -230,9 +230,10 @@ export const getServiceMetricsQuery = (DSL, serviceNames: string[], map: Service
                       {
                         bool: {
                           must_not: {
-                            exists: {
-                              field: 'traceGroup',
-                              boost: 1,
+                            term: {
+                              parentSpanId: {
+                                value: '',
+                              },
                             },
                           },
                         },
@@ -248,9 +249,10 @@ export const getServiceMetricsQuery = (DSL, serviceNames: string[], map: Service
                 {
                   bool: {
                     must: {
-                      exists: {
-                        field: 'traceGroup',
-                        boost: 1,
+                      term: {
+                        parentSpanId: {
+                          value: '',
+                        },
                       },
                     },
                   },
