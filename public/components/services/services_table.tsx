@@ -28,7 +28,7 @@ import {
 } from '@elastic/eui';
 import _ from 'lodash';
 import React, { useMemo, useState } from 'react';
-import { NoMatchMessage, PanelTitle } from '../common';
+import { MissingConfigurationMessage, NoMatchMessage, PanelTitle } from '../common';
 import { FilterType } from '../common/filters/filters';
 
 export function ServicesTable(props: {
@@ -38,6 +38,7 @@ export function ServicesTable(props: {
   serviceQuery: string;
   setServiceQuery: (query: string) => void;
   refresh: () => void;
+  indicesExist: boolean;
 }) {
   const renderTitleBar = (totalItems?: number) => {
     return (
@@ -148,8 +149,10 @@ export function ServicesTable(props: {
               },
             }}
           />
-        ) : (
+        ) : props.indicesExist ? (
           <NoMatchMessage size="xl" />
+        ) : (
+          <MissingConfigurationMessage />
         )}
       </EuiPanel>
     </>
