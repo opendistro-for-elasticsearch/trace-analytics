@@ -29,20 +29,36 @@ describe('Filter helper functions', () => {
 
   it('returns fields by page', () => {
     const fields = getFilterFields('dashboard');
-    expect(fields).toEqual(['traceGroup', 'status.code', 'status.message', 'durationInNanos']);
+    expect(fields).toEqual([
+      'traceID',
+      'traceGroup',
+      'serviceName',
+      'status.code',
+      'status.message',
+      'durationInNanos',
+    ]);
   });
 
   it('returns valid fields by page', () => {
     const dashboardFields = getValidFilterFields('dashboard');
     const servicesFields = getValidFilterFields('services');
     expect(dashboardFields).toEqual([
+      'traceID',
       'traceGroup',
+      'serviceName',
       'status.code',
       'status.message',
       'durationInNanos',
       'Latency percentile within trace group',
     ]);
-    expect(servicesFields).toEqual([]);
+    expect(servicesFields).toEqual([
+      'traceId',
+      'traceGroup',
+      'serviceName',
+      'status.code',
+      'status.message',
+      'durationInNanos',
+    ]);
   });
 
   it('returns types by fields', () => {

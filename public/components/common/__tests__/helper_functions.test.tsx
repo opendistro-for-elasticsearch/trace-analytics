@@ -139,12 +139,12 @@ describe('Helper functions', () => {
     ];
     const existsDSL = filtersToDsl(...getTestFilters());
     expect(JSON.stringify(existsDSL)).toEqual(
-      `{"query":{"bool":{"must":[{"range":{"startTime":{"gte":"now-5m","lte":"now"}}},{"query_string":{"query":"order"}},{"exists":{"field":"traceGroup"}}],"filter":[],"should":[],"must_not":[]}},"custom":{"timeFilter":[{"range":{"startTime":{"gte":"now-5m","lte":"now"}}}],"serviceNames":[],"serviceNamesExclude":[],"traceGroup":[{"from":"100","to":"∞"}],"traceGroupExclude":[],"percentiles":{"query":{"bool":{"should":[]}}}}}`
+      "{\"query\":{\"bool\":{\"must\":[{\"range\":{\"startTime\":{\"gte\":\"now-5m\",\"lte\":\"now\"}}},{\"query_string\":{\"query\":\"order\"}},{\"exists\":{\"field\":\"traceGroup\"}}],\"filter\":[],\"should\":[],\"must_not\":[]}},\"custom\":{\"timeFilter\":[{\"range\":{\"startTime\":{\"gte\":\"now-5m\",\"lte\":\"now\"}}}],\"serviceNames\":[],\"serviceNamesExclude\":[],\"traceGroup\":[],\"traceGroupExclude\":[],\"percentiles\":{\"query\":{\"bool\":{\"should\":[]}}}}}"
     );
 
     const isDSL = filtersToDsl(...getTestFilters('traceGroup', 'is'));
     expect(JSON.stringify(isDSL)).toEqual(
-      `{"query":{"bool":{"must":[{"range":{"startTime":{"gte":"now-5m","lte":"now"}}},{"query_string":{"query":"order"}},{"term":{"traceGroup":{"from":"100","to":"∞"}}}],"filter":[],"should":[],"must_not":[]}},"custom":{"timeFilter":[{"range":{"startTime":{"gte":"now-5m","lte":"now"}}}],"serviceNames":[],"serviceNamesExclude":[],"traceGroup":[{"from":"100","to":"∞"}],"traceGroupExclude":[],"percentiles":{"query":{"bool":{"should":[]}}}}}`
+      "{\"query\":{\"bool\":{\"must\":[{\"range\":{\"startTime\":{\"gte\":\"now-5m\",\"lte\":\"now\"}}},{\"query_string\":{\"query\":\"order\"}},{\"term\":{\"traceGroup\":{\"from\":\"100\",\"to\":\"∞\"}}}],\"filter\":[],\"should\":[],\"must_not\":[]}},\"custom\":{\"timeFilter\":[{\"range\":{\"startTime\":{\"gte\":\"now-5m\",\"lte\":\"now\"}}}],\"serviceNames\":[],\"serviceNamesExclude\":[],\"traceGroup\":[],\"traceGroupExclude\":[],\"percentiles\":{\"query\":{\"bool\":{\"should\":[]}}}}}"
     );
     const isBetweenDSL = filtersToDsl(...getTestFilters('durationInNanos', 'is between'));
     expect(JSON.stringify(isBetweenDSL)).toEqual(
