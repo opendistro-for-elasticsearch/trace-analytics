@@ -14,7 +14,6 @@
  */
 
 import {
-  EuiFieldSearch,
   EuiFlexGroup,
   EuiFlexItem,
   EuiHorizontalRule,
@@ -22,6 +21,7 @@ import {
   EuiInMemoryTable,
   EuiLink,
   EuiPanel,
+  EuiSpacer,
   EuiTableFieldDataColumnType,
   EuiText,
 } from '@elastic/eui';
@@ -144,16 +144,8 @@ export function ServicesTable(props: {
     <>
       <EuiPanel>
         {titleBar}
-        <EuiHorizontalRule margin="s" style={{ marginTop: 10 }} />
-        <EuiFieldSearch
-          fullWidth
-          placeholder="Service name"
-          value={props.serviceQuery}
-          onChange={(e) => props.setServiceQuery(e.target.value)}
-          onSearch={() => props.refresh()}
-        />
-        <EuiHorizontalRule margin="s" style={{ marginBottom: 0 }} />
-
+        <EuiSpacer size="m" />
+        <EuiHorizontalRule margin="none" />
         {props.items?.length > 0 ? (
           <EuiInMemoryTable
             tableLayout="auto"
