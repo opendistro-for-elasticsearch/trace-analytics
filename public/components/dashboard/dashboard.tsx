@@ -179,6 +179,7 @@ export function Dashboard(props: DashboardProps) {
           <EuiFlexGroup alignItems="baseline">
             <EuiFlexItem grow={4}>
               <ServiceMap
+                addFilter={addFilter}
                 serviceMap={serviceMap}
                 idSelected={serviceMapIdSelected}
                 setIdSelected={setServiceMapIdSelected}
