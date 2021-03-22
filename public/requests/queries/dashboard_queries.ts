@@ -137,15 +137,7 @@ export const getErrorRatePltQuery = (fixedInterval) => {
     size: 0,
     query: {
       bool: {
-        must: [
-          {
-            term: {
-              parentSpanId: {
-                value: '',
-              },
-            },
-          },
-        ],
+        must: [],
         filter: [],
         should: [],
         must_not: [],
@@ -186,15 +178,7 @@ export const getDashboardThroughputPltQuery = (fixedInterval) => {
     size: 0,
     query: {
       bool: {
-        must: [
-          {
-            term: {
-              parentSpanId: {
-                value: '',
-              },
-            },
-          },
-        ],
+        must: [],
         filter: [],
         should: [],
         must_not: [],
