@@ -19,9 +19,9 @@ import React from 'react';
 
 const getFields = (page: 'dashboard' | 'traces' | 'services') =>
   ({
-    dashboard: ['traceID', 'traceGroup', 'serviceName', 'status.code', 'status.message', 'durationInNanos'],
+    dashboard: ['traceGroup', 'serviceName', 'status.code', 'status.message', 'durationInNanos'],
     traces: ['traceId', 'traceGroup', 'serviceName', 'status.code', 'status.message', 'durationInNanos'],
-    services: ['traceId', 'traceGroup', 'serviceName', 'status.code', 'status.message', 'durationInNanos'],
+    services: ['traceGroup', 'serviceName', 'status.code', 'status.message', 'durationInNanos'],
   }[page]);
 // filters will take effect and can be manually added
 export const getFilterFields = (page: 'dashboard' | 'traces' | 'services') => getFields(page);

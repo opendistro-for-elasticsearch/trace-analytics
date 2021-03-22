@@ -195,7 +195,12 @@ export const getServiceEdgesQuery = (source: 'destination' | 'target') => {
 };
 
 export const getServiceMetricsQuery = (DSL, serviceNames: string[], map: ServiceObject) => {
-  const traceGroupFilter = new Set(DSL.custom?.traceGroup);
+  const traceGroupFilter = new Set(
+    DSL?.query?.bool.must
+      .filter((must) => must.term?.traceGroup)
+      .map((must) => must.term.traceGroup) || []
+  );
+
   const targetResource =
     traceGroupFilter.size > 0
       ? [].concat(
