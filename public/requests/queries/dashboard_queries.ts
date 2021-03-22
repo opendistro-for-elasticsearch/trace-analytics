@@ -18,15 +18,7 @@ export const getDashboardQuery = () => {
     size: 0,
     query: {
       bool: {
-        must: [
-          {
-            term: {
-              parentSpanId: {
-                value: '',
-              },
-            },
-          },
-        ],
+        must: [],
         filter: [],
         should: [],
         must_not: [],
@@ -73,6 +65,11 @@ export const getDashboardQuery = () => {
                 latency: 'average_latency_nanos.value',
               },
               script: 'Math.round(params.latency / 10000) / 100.0',
+            },
+          },
+          trace_count: {
+            cardinality: {
+              field: 'traceId',
             },
           },
           error_count: {
