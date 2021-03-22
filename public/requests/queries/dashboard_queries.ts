@@ -100,7 +100,15 @@ export const getDashboardTraceGroupPercentiles = () => {
     size: 0,
     query: {
       bool: {
-        must: [],
+        must: [
+          {
+            term: {
+              parentSpanId: {
+                value: '',
+              },
+            },
+          },
+        ],
         filter: [],
         should: [],
         must_not: [],
@@ -131,8 +139,10 @@ export const getErrorRatePltQuery = (fixedInterval) => {
       bool: {
         must: [
           {
-            exists: {
-              field: 'traceGroup',
+            term: {
+              parentSpanId: {
+                value: '',
+              },
             },
           },
         ],
@@ -178,8 +188,10 @@ export const getDashboardThroughputPltQuery = (fixedInterval) => {
       bool: {
         must: [
           {
-            exists: {
-              field: 'traceGroup',
+            term: {
+              parentSpanId: {
+                value: '',
+              },
             },
           },
         ],
