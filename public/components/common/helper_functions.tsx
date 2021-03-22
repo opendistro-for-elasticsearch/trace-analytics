@@ -160,6 +160,8 @@ export function getServiceMapTargetResources(map: ServiceObject, serviceName: st
 
 export function calculateTicks(min, max, numTicks = 5) {
   if (min >= max) return calculateTicks(0, Math.max(1, max), numTicks);
+  min = Math.floor(min);
+  max = Math.ceil(max);
 
   const range = max - min;
   const minInterval = range / numTicks;
