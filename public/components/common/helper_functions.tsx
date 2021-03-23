@@ -336,21 +336,33 @@ export const filtersToDsl = (
       // }
 
       let filterQuery = {};
+      let field = filter.field;
+      if (field === 'latency') field = 'durationInNanos';
+      else if (field === 'error') field = 'status.code';
+      let value;
       switch (filter.operator) {
         case 'exists':
         case 'does not exist':
           filterQuery = {
             exists: {
-              field: filter.field,
+              field,
             },
           };
           break;
 
         case 'is':
         case 'is not':
+          value = filter.value;
+          // latency and error are not actual fields, need to convert first
+          if (field === 'durationInNanos') {
+            value = milliToNanoSec(value);
+          } else if (field === 'status.code') {
+            value = value[0].label === 'true' ? '2' : '0';
+          }
+
           filterQuery = {
             term: {
-              [filter.field]: filter.value,
+              [field]: value,
             },
           };
           break;
@@ -360,9 +372,13 @@ export const filtersToDsl = (
           const range: { gte?: string; lte?: string } = {};
           if (!filter.value.from.includes('\u221E')) range.gte = filter.value.from;
           if (!filter.value.to.includes('\u221E')) range.lte = filter.value.to;
+          if (field === 'durationInNanos') {
+            if (range.lte) range.lte = milliToNanoSec(parseInt(range.lte || '')).toString();
+            if (range.gte) range.gte = milliToNanoSec(parseInt(range.gte || '')).toString();
+          }
           filterQuery = {
             range: {
-              [filter.field]: range,
+              [field]: range,
             },
           };
           break;
