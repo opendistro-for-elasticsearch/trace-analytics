@@ -153,7 +153,15 @@ export const getErrorRatePltQuery = (fixedInterval) => {
           error_count: {
             filter: {
               term: {
+                // TODO: change to traceGroup.statuscode
                 'status.code': '2',
+              },
+            },
+            aggs: {
+              trace_count: {
+                cardinality: {
+                  field: 'traceId',
+                },
               },
             },
           },
@@ -161,7 +169,7 @@ export const getErrorRatePltQuery = (fixedInterval) => {
             bucket_script: {
               buckets_path: {
                 total: '_count',
-                errors: 'error_count._count',
+                errors: 'error_count>trace_count.value',
               },
               script: 'params.errors / params.total * 100',
             },
