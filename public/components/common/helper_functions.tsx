@@ -98,7 +98,7 @@ export function milliToNanoSec(ms: number) {
 }
 
 export function getServiceMapScaleColor(percent, idSelected) {
-  return serviceMapColorPalette[idSelected][Math.min(100, Math.max(0, Math.floor(percent * 100)))];
+  return serviceMapColorPalette[idSelected][Math.min(99, Math.max(0, Math.floor(percent * 100)))];
 }
 
 // construct vis-js graph from ServiceObject
