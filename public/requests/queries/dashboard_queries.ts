@@ -190,6 +190,13 @@ export const getDashboardThroughputPltQuery = (fixedInterval) => {
           field: 'startTime',
           fixed_interval: fixedInterval,
         },
+        aggs: {
+          trace_count: {
+            cardinality: {
+              field: 'traceId',
+            },
+          },
+        },
       },
     },
   };

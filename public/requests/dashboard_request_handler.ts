@@ -134,7 +134,7 @@ export const handleDashboardThroughputPltRequest = (http, DSL, fixedInterval, it
           ? [
               {
                 x: buckets.map((bucket) => bucket.key),
-                y: buckets.map((bucket) => bucket.doc_count),
+                y: buckets.map((bucket) => bucket.trace_count.value),
                 marker: {
                   color: 'rgb(171, 211, 240)',
                 },
