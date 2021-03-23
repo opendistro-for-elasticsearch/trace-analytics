@@ -147,7 +147,7 @@ export const handleServiceViewRequest = (serviceName, http, DSL, fields, setFiel
     .then(async (response) => {
       const bucket = response.aggregations.service.buckets[0];
       if (!bucket) return {};
-      const serviceObject: ServiceObject = await handleServiceMapRequest(http, {});
+      const serviceObject: ServiceObject = await handleServiceMapRequest(http, DSL);
       const connectedServices = [
         ...serviceObject[bucket.key].targetServices,
         ...serviceObject[bucket.key].destServices,

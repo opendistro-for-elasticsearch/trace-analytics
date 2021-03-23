@@ -71,7 +71,8 @@ export function ServiceView(props: ServiceViewProps) {
   }, [props.startTime, props.endTime]);
 
   const refresh = () => {
-    const DSL = filtersToDsl([], '', props.startTime, props.endTime);
+    // const DSL = filtersToDsl([], '', props.startTime, props.endTime);
+    const DSL = filtersToDsl(props.filters, props.query, props.startTime, props.endTime);
     handleServiceViewRequest(props.serviceName, props.http, DSL, fields, setFields);
     handleServiceMapRequest(props.http, DSL, serviceMap, setServiceMap, props.serviceName);
   };
