@@ -165,10 +165,15 @@ export const getErrorRatePltQuery = (fixedInterval) => {
               },
             },
           },
+          trace_count: {
+            cardinality: {
+              field: 'traceId',
+            },
+          },
           error_rate: {
             bucket_script: {
               buckets_path: {
-                total: '_count',
+                total: 'trace_count.value',
                 errors: 'error_count>trace_count.value',
               },
               script: 'params.errors / params.total * 100',
