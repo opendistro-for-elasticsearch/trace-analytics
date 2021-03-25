@@ -324,22 +324,12 @@ export const filtersToDsl = (
         return;
       }
 
-      // if (
-      //   filter.field === 'serviceName' &&
-      //   (filter.operator === 'is' || filter.operator === 'is not')
-      // ) {
-      //   DSL.custom[filter.inverted ? 'serviceNamesExclude' : 'serviceNames'].push(filter.value);
-      // }
-
-      // if (filter.field === 'traceGroup') {
-      //   DSL.custom[filter.inverted ? 'traceGroupExclude' : 'traceGroup'].push(filter.value);
-      // }
-
       let filterQuery = {};
       let field = filter.field;
-      if (field === 'latency') field = 'durationInNanos';
-      else if (field === 'error') field = 'status.code';
+      if (field === 'latency') field = 'traceGroup.durationInNanos';
+      else if (field === 'error') field = 'traceGroup.statusCode';
       let value;
+
       switch (filter.operator) {
         case 'exists':
         case 'does not exist':
@@ -354,9 +344,9 @@ export const filtersToDsl = (
         case 'is not':
           value = filter.value;
           // latency and error are not actual fields, need to convert first
-          if (field === 'durationInNanos') {
+          if (field === 'traceGroup.durationInNanos') {
             value = milliToNanoSec(value);
-          } else if (field === 'status.code') {
+          } else if (field === 'traceGroup.statusCode') {
             value = value[0].label === 'true' ? '2' : '0';
           }
 
@@ -372,7 +362,7 @@ export const filtersToDsl = (
           const range: { gte?: string; lte?: string } = {};
           if (!filter.value.from.includes('\u221E')) range.gte = filter.value.from;
           if (!filter.value.to.includes('\u221E')) range.lte = filter.value.to;
-          if (field === 'durationInNanos') {
+          if (field === 'traceGroup.durationInNanos') {
             if (range.lte) range.lte = milliToNanoSec(parseInt(range.lte || '')).toString();
             if (range.gte) range.gte = milliToNanoSec(parseInt(range.gte || '')).toString();
           }
