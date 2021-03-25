@@ -1720,7 +1720,7 @@ exports[`Dashboard component renders dashboard 1`] = `
                         }
                       >
                         <PanelTitle
-                          title="Error rate over time"
+                          title="Trace error rate over time"
                         >
                           <EuiText
                             size="m"
@@ -1731,7 +1731,7 @@ exports[`Dashboard component renders dashboard 1`] = `
                               <span
                                 className="panel-title"
                               >
-                                Error rate over time
+                                Trace error rate over time
                               </span>
                             </div>
                           </EuiText>
@@ -1852,7 +1852,7 @@ exports[`Dashboard component renders dashboard 1`] = `
                         }
                       >
                         <PanelTitle
-                          title="Throughput over time"
+                          title="Traces over time"
                         >
                           <EuiText
                             size="m"
@@ -1863,7 +1863,7 @@ exports[`Dashboard component renders dashboard 1`] = `
                               <span
                                 className="panel-title"
                               >
-                                Throughput over time
+                                Traces over time
                               </span>
                             </div>
                           </EuiText>

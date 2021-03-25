@@ -19,7 +19,6 @@ import {
   getFilterFields,
   getInvertedOperator,
   getOperatorOptions,
-  getType,
   getValidFilterFields,
   getValueComponent,
 } from '../filter_helpers';
@@ -30,12 +29,11 @@ describe('Filter helper functions', () => {
   it('returns fields by page', () => {
     const fields = getFilterFields('dashboard');
     expect(fields).toEqual([
-      'traceID',
       'traceGroup.name',
       'serviceName',
-      'status.code',
+      'error',
       'status.message',
-      'durationInNanos',
+      'latency',
     ]);
   });
 
@@ -43,27 +41,20 @@ describe('Filter helper functions', () => {
     const dashboardFields = getValidFilterFields('dashboard');
     const servicesFields = getValidFilterFields('services');
     expect(dashboardFields).toEqual([
-      'traceID',
       'traceGroup.name',
       'serviceName',
-      'status.code',
+      'error',
       'status.message',
-      'durationInNanos',
+      'latency',
       'Latency percentile within trace group',
     ]);
     expect(servicesFields).toEqual([
-      'traceId',
       'traceGroup.name',
       'serviceName',
-      'status.code',
+      'error',
       'status.message',
-      'durationInNanos',
+      'latency',
     ]);
-  });
-
-  it('returns types by fields', () => {
-    const durationType = getType('durationInNanos');
-    expect(durationType).toEqual('long');
   });
 
   it('returns inverted operators', () => {
@@ -101,7 +92,7 @@ describe('Filter helper functions', () => {
 
   it('renders textfield filter', () => {
     const setValue = jest.fn((v) => {});
-    const wrapper = mount(getValueComponent('is', 0, setValue));
+    const wrapper = mount(getValueComponent('serviceName', 'is', 0, setValue));
     expect(wrapper).toMatchSnapshot();
 
     wrapper.find('input').simulate('change', { target: { value: '100' } });
@@ -110,7 +101,9 @@ describe('Filter helper functions', () => {
 
   it('renders range field filter', () => {
     const setValue = jest.fn((v) => {});
-    const wrapper = mount(getValueComponent('is not between', { from: '0', to: '100' }, setValue));
+    const wrapper = mount(
+      getValueComponent('latency', 'is not between', { from: '0', to: '100' }, setValue)
+    );
     expect(wrapper).toMatchSnapshot();
 
     wrapper
