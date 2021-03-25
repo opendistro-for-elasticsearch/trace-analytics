@@ -31,7 +31,7 @@ describe('Filter helper functions', () => {
     const fields = getFilterFields('dashboard');
     expect(fields).toEqual([
       'traceID',
-      'traceGroup',
+      'traceGroup.name',
       'serviceName',
       'status.code',
       'status.message',
@@ -44,7 +44,7 @@ describe('Filter helper functions', () => {
     const servicesFields = getValidFilterFields('services');
     expect(dashboardFields).toEqual([
       'traceID',
-      'traceGroup',
+      'traceGroup.name',
       'serviceName',
       'status.code',
       'status.message',
@@ -53,7 +53,7 @@ describe('Filter helper functions', () => {
     ]);
     expect(servicesFields).toEqual([
       'traceId',
-      'traceGroup',
+      'traceGroup.name',
       'serviceName',
       'status.code',
       'status.message',

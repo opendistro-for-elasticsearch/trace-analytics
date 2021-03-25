@@ -123,7 +123,7 @@ describe('Helper functions', () => {
   });
 
   it('converts filters to DSL', () => {
-    const getTestFilters = (field = 'traceGroup', operator = 'exists') => [
+    const getTestFilters = (field = 'traceGroup.name', operator = 'exists') => [
       [
         {
           field,
@@ -142,7 +142,7 @@ describe('Helper functions', () => {
       "{\"query\":{\"bool\":{\"must\":[{\"range\":{\"startTime\":{\"gte\":\"now-5m\",\"lte\":\"now\"}}},{\"query_string\":{\"query\":\"order\"}},{\"exists\":{\"field\":\"traceGroup\"}}],\"filter\":[],\"should\":[],\"must_not\":[]}},\"custom\":{\"timeFilter\":[{\"range\":{\"startTime\":{\"gte\":\"now-5m\",\"lte\":\"now\"}}}],\"serviceNames\":[],\"serviceNamesExclude\":[],\"traceGroup\":[],\"traceGroupExclude\":[],\"percentiles\":{\"query\":{\"bool\":{\"should\":[]}}}}}"
     );
 
-    const isDSL = filtersToDsl(...getTestFilters('traceGroup', 'is'));
+    const isDSL = filtersToDsl(...getTestFilters('traceGroup.name', 'is'));
     expect(JSON.stringify(isDSL)).toEqual(
       "{\"query\":{\"bool\":{\"must\":[{\"range\":{\"startTime\":{\"gte\":\"now-5m\",\"lte\":\"now\"}}},{\"query_string\":{\"query\":\"order\"}},{\"term\":{\"traceGroup\":{\"from\":\"100\",\"to\":\"∞\"}}}],\"filter\":[],\"should\":[],\"must_not\":[]}},\"custom\":{\"timeFilter\":[{\"range\":{\"startTime\":{\"gte\":\"now-5m\",\"lte\":\"now\"}}}],\"serviceNames\":[],\"serviceNamesExclude\":[],\"traceGroup\":[],\"traceGroupExclude\":[],\"percentiles\":{\"query\":{\"bool\":{\"should\":[]}}}}}"
     );

@@ -88,7 +88,7 @@ export const getTracesQuery = (traceId = null, sort?: PropertySort) => {
           },
           trace_group: {
             terms: {
-              field: 'traceGroup',
+              field: 'traceGroup.name',
               size: 1,
             },
           },

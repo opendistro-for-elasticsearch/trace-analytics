@@ -111,7 +111,7 @@ export function DashboardTable(props: {
               data-test-subj="dashboard-table-trace-group-name-button"
               onClick={() =>
                 props.addFilter({
-                  field: 'traceGroup',
+                  field: 'traceGroup.name',
                   operator: 'is',
                   value: item,
                   inverted: false,
@@ -179,7 +179,7 @@ export function DashboardTable(props: {
                 currPercentileFilter,
                 addFilter: (condition?: 'lte' | 'gte') => {
                   const traceGroupFilter = {
-                    field: 'traceGroup',
+                    field: 'traceGroup.name',
                     operator: 'is',
                     value: row.dashboard_trace_group_name,
                     inverted: false,
@@ -332,7 +332,7 @@ export function DashboardTable(props: {
             onClick={() => {
               props.setRedirect(true);
               props.addFilter({
-                field: 'traceGroup',
+                field: 'traceGroup.name',
                 operator: 'is',
                 value: row.dashboard_trace_group_name,
                 inverted: false,

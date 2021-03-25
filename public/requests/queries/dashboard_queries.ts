@@ -27,7 +27,7 @@ export const getDashboardQuery = () => {
     aggs: {
       trace_group_name: {
         terms: {
-          field: 'traceGroup',
+          field: 'traceGroup.name',
           size: 10000,
         },
         aggs: {
@@ -75,6 +75,7 @@ export const getDashboardQuery = () => {
           error_count: {
             filter: {
               term: {
+                // TODO change to traceGroup statuscode, and add another aggs like throughput plot
                 'status.code': '2',
               },
             },
@@ -117,7 +118,7 @@ export const getDashboardTraceGroupPercentiles = () => {
     aggs: {
       trace_group: {
         terms: {
-          field: 'traceGroup',
+          field: 'traceGroup.name',
         },
         aggs: {
           latency_variance_nanos: {
