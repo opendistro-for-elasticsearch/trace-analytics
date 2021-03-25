@@ -81,7 +81,7 @@ export const getTracesQuery = (traceId = null, sort?: PropertySort) => {
           latency: {
             max: {
               script: {
-                source: "Math.round(doc['durationInNanos'].value / 10000) / 100.0",
+                source: "Math.round(doc['traceGroup.durationInNanos'].value / 10000) / 100.0",
                 lang: 'painless',
               },
             },
@@ -95,13 +95,13 @@ export const getTracesQuery = (traceId = null, sort?: PropertySort) => {
           error_count: {
             filter: {
               term: {
-                'status.code': '2',
+                'traceGroup.statusCode': '2',
               },
             },
           },
           last_updated: {
             max: {
-              field: 'endTime',
+              field: 'traceGroup.endTime',
             },
           },
         },
