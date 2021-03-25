@@ -37,9 +37,30 @@ export const getDashboardQuery = () => {
               calendar_interval: 'hour',
             },
             aggs: {
+              traces: {
+                terms: {
+                  field: 'traceId',
+                  order: {
+                    last_updated: 'desc',
+                  },
+                  size: 10000,
+                },
+                aggs: {
+                  duration: {
+                    max: {
+                      field: 'traceGroup.durationInNanos',
+                    },
+                  },
+                  last_updated: {
+                    max: {
+                      field: 'traceGroup.endTime',
+                    },
+                  },
+                },
+              },
               average_latency_nanos: {
-                avg: {
-                  field: 'durationInNanos',
+                avg_bucket: {
+                  buckets_path: 'traces>duration',
                 },
               },
               average_latency: {
@@ -53,9 +74,30 @@ export const getDashboardQuery = () => {
               },
             },
           },
+          traces: {
+            terms: {
+              field: 'traceId',
+              order: {
+                last_updated: 'desc',
+              },
+              size: 10000,
+            },
+            aggs: {
+              duration: {
+                max: {
+                  field: 'traceGroup.durationInNanos',
+                },
+              },
+              last_updated: {
+                max: {
+                  field: 'traceGroup.endTime',
+                },
+              },
+            },
+          },
           average_latency_nanos: {
-            avg: {
-              field: 'durationInNanos',
+            avg_bucket: {
+              buckets_path: 'traces>duration',
             },
           },
           average_latency: {
@@ -75,16 +117,22 @@ export const getDashboardQuery = () => {
           error_count: {
             filter: {
               term: {
-                // TODO change to traceGroup statuscode, and add another aggs like throughput plot
-                'status.code': '2',
+                'traceGroup.statusCode': '2',
+              },
+            },
+            aggs: {
+              trace_count: {
+                cardinality: {
+                  field: 'traceId',
+                },
               },
             },
           },
           error_rate: {
             bucket_script: {
               buckets_path: {
-                total: '_count',
-                errors: 'error_count._count',
+                total: 'trace_count.value',
+                errors: 'error_count>trace_count.value',
               },
               script: 'params.errors / params.total * 100',
             },
@@ -123,7 +171,7 @@ export const getDashboardTraceGroupPercentiles = () => {
         aggs: {
           latency_variance_nanos: {
             percentiles: {
-              field: 'durationInNanos',
+              field: 'traceGroup.durationInNanos',
               percents: [0, 95, 100],
             },
           },
@@ -154,8 +202,7 @@ export const getErrorRatePltQuery = (fixedInterval) => {
           error_count: {
             filter: {
               term: {
-                // TODO: change to traceGroup.statuscode
-                'status.code': '2',
+                'traceGroup.statusCode': '2',
               },
             },
             aggs: {
