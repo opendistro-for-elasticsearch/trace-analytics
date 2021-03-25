@@ -239,20 +239,21 @@ export const getPercentileFilter = (
         must: [
           {
             term: {
-              name: {
+              'traceGroup.name': {
                 value: map.traceGroupName,
               },
             },
           },
           {
             range: {
-              durationInNanos: map.durationFilter,
+              'traceGroup.durationInNanos': map.durationFilter,
             },
           },
         ],
       },
     });
   });
+  console.log('DSL', DSL);
   return {
     field: 'Latency percentile within trace group',
     operator: '',
