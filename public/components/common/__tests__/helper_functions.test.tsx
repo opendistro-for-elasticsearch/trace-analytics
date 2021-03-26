@@ -117,7 +117,7 @@ describe('Helper functions', () => {
     );
     expect(DSL).toEqual(
       JSON.parse(
-        `{"field":"Latency percentile within trace group","operator":"","value":">= 95th","inverted":false,"disabled":false,"custom":{"query":{"bool":{"must":[],"filter":[],"should":[{"bool":{"must":[{"term":{"name":{"value":"order"}}},{"range":{"durationInNanos":{"gte":1000}}}]}}],"must_not":[],"minimum_should_match":1}}}}`
+        `{"field":"Latency percentile within trace group","operator":"","value":">= 95th","inverted":false,"disabled":false,"custom":{"query":{"bool":{"must":[],"filter":[],"should":[{"bool":{"must":[{"term":{"traceGroup.name":{"value":"order"}}},{"range":{"traceGroup.durationInNanos":{"gte":1000}}}]}}],"must_not":[],"minimum_should_match":1}}}}`
       )
     );
   });
