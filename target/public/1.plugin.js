@@ -570,7 +570,7 @@ function FilterEditPopover(props) {
     singleSelection: {
       asPlainText: true
     }
-  })))), selectedOperatorOptions.length > 0 && Object(_filter_helpers__WEBPACK_IMPORTED_MODULE_2__["getValueComponent"])(selectedOperatorOptions[0].label, filterValue, setFilterValue), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
+  })))), selectedOperatorOptions.length > 0 && Object(_filter_helpers__WEBPACK_IMPORTED_MODULE_2__["getValueComponent"])(selectedFieldOptions[0].label, selectedOperatorOptions[0].label, filterValue, setFilterValue), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
     size: "m"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
     gutterSize: "s",
@@ -578,12 +578,13 @@ function FilterEditPopover(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
     grow: false
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiButtonEmpty"], {
+    "data-test-subj": "filter-popover-cancel-button",
     onClick: props.closePopover
   }, "Cancel")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
     grow: false
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiButton"], {
     fill: true,
-    disabled: selectedFieldOptions.length === 0 || selectedOperatorOptions.length === 0 || filterValue.length === 0 && !((_selectedOperatorOpti = selectedOperatorOptions[0]) === null || _selectedOperatorOpti === void 0 ? void 0 : (_selectedOperatorOpti2 = _selectedOperatorOpti.label) === null || _selectedOperatorOpti2 === void 0 ? void 0 : _selectedOperatorOpti2.includes('exist')),
+    disabled: selectedFieldOptions.length === 0 || selectedOperatorOptions.length === 0 || filterValue.length === 0 && !((_selectedOperatorOpti = selectedOperatorOptions[0]) !== null && _selectedOperatorOpti !== void 0 && (_selectedOperatorOpti2 = _selectedOperatorOpti.label) !== null && _selectedOperatorOpti2 !== void 0 && _selectedOperatorOpti2.includes('exist')),
     onClick: () => {
       props.closePopover();
       props.setFilter({
@@ -603,14 +604,13 @@ function FilterEditPopover(props) {
 /*!*************************************************************!*\
   !*** ./public/components/common/filters/filter_helpers.tsx ***!
   \*************************************************************/
-/*! exports provided: getFilterFields, getValidFilterFields, getType, getInvertedOperator, getOperatorOptions, getValueComponent */
+/*! exports provided: getFilterFields, getValidFilterFields, getInvertedOperator, getOperatorOptions, getValueComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFilterFields", function() { return getFilterFields; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getValidFilterFields", function() { return getValidFilterFields; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getType", function() { return getType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInvertedOperator", function() { return getInvertedOperator; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOperatorOptions", function() { return getOperatorOptions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getValueComponent", function() { return getValueComponent; });
@@ -639,9 +639,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const getFields = page => ({
-  dashboard: ['traceGroup', 'status.code', 'status.message', 'durationInNanos'],
-  traces: ['traceId', 'traceGroup', 'status.code', 'status.message', 'durationInNanos'],
-  services: []
+  dashboard: ['traceGroup.name', 'serviceName', 'error', 'status.message', 'latency'],
+  traces: ['traceId', 'traceGroup.name', 'serviceName', 'error', 'status.message', 'latency'],
+  services: ['traceGroup.name', 'serviceName', 'error', 'status.message', 'latency']
 })[page]; // filters will take effect and can be manually added
 
 
@@ -652,6 +652,7 @@ const getValidFilterFields = page => {
   if (page !== 'services') return [...fields, 'Latency percentile within trace group'];
   return fields;
 };
+
 const getType = field => {
   const typeMapping = {
     attributes: {
@@ -677,6 +678,7 @@ const getType = field => {
       port: 'long'
     },
     durationInNanos: 'long',
+    latency: 'long',
     endTime: 'date_nanos',
     startTime: 'date_nanos'
   };
@@ -685,6 +687,7 @@ const getType = field => {
 
   return typeof type === 'string' ? type : null;
 };
+
 const getInvertedOperator = (operator, inverted) => {
   if (operator.includes('between')) return inverted ? 'is not between' : 'is between';else if (operator.includes('exist')) return inverted ? 'does not exist' : 'exists';else if (operator === 'is' || operator === 'is not') return inverted ? 'is not' : 'is';
 };
@@ -716,7 +719,7 @@ const getOperatorOptions = field => {
   const operators = [...operatorMapping.default_first, ...operatorMapping[type], ...operatorMapping.default_last];
   return operators;
 };
-const getValueComponent = (operator, value, setValue) => {
+const getValueComponent = (field, operator, value, setValue) => {
   const textField = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
     size: "s"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFormRow"], {
@@ -729,7 +732,7 @@ const getValueComponent = (operator, value, setValue) => {
 
   const getRangeField = () => {
     const getFromValue = () => {
-      if (value === null || value === void 0 ? void 0 : value.from) {
+      if (value !== null && value !== void 0 && value.from) {
         return value.from.includes('\u221E') ? '' : value.from;
       }
 
@@ -737,7 +740,7 @@ const getValueComponent = (operator, value, setValue) => {
     };
 
     const getToValue = () => {
-      if (value === null || value === void 0 ? void 0 : value.to) {
+      if (value !== null && value !== void 0 && value.to) {
         return value.to.includes('\u221E') ? '' : value.to;
       }
 
@@ -779,6 +782,28 @@ const getValueComponent = (operator, value, setValue) => {
       })
     })));
   };
+
+  const getComboBoxField = () => {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
+      size: "s"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFormRow"], {
+      label: 'Value'
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiComboBox"], {
+      placeholder: "Select a value",
+      options: [{
+        label: 'true'
+      }, {
+        label: 'false'
+      }],
+      onChange: setValue,
+      selectedOptions: value || [],
+      singleSelection: true
+    })));
+  };
+
+  if (field === 'error' && (operator === 'is' || operator === 'is not')) {
+    return getComboBoxField();
+  }
 
   const valueMapping = {
     is: textField,
@@ -877,7 +902,7 @@ function Filters(props) {
           var _filter$custom;
 
           return { ...filter,
-            inverted: filter.locked ? filter.inverted : ((_filter$custom = filter.custom) === null || _filter$custom === void 0 ? void 0 : _filter$custom.query) ? false : !filter.inverted
+            inverted: filter.locked ? filter.inverted : (_filter$custom = filter.custom) !== null && _filter$custom !== void 0 && _filter$custom.query ? false : !filter.inverted
           };
         }));
       }
@@ -915,7 +940,7 @@ function Filters(props) {
           type: "invert",
           size: "m"
         }),
-        disabled: !!((_filter$custom2 = filter.custom) === null || _filter$custom2 === void 0 ? void 0 : _filter$custom2.query) || validFilterFields.indexOf(filter.field) === -1,
+        disabled: !!((_filter$custom2 = filter.custom) !== null && _filter$custom2 !== void 0 && _filter$custom2.query) || validFilterFields.indexOf(filter.field) === -1,
         panel: 1
       }, {
         name: `${filter.inverted ? 'Include' : 'Exclude'} results`,
@@ -923,7 +948,7 @@ function Filters(props) {
           type: filter.inverted ? 'plusInCircle' : 'minusInCircle',
           size: "m"
         }),
-        disabled: !!((_filter$custom3 = filter.custom) === null || _filter$custom3 === void 0 ? void 0 : _filter$custom3.query) || validFilterFields.indexOf(filter.field) === -1,
+        disabled: !!((_filter$custom3 = filter.custom) !== null && _filter$custom3 !== void 0 && _filter$custom3.query) || validFilterFields.indexOf(filter.field) === -1,
         onClick: () => {
           filter.inverted = !filter.inverted;
           setFilter(filter, index);
@@ -1015,7 +1040,9 @@ function Filters(props) {
       const [isPopoverOpen, setIsPopoverOpen] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false);
       const disabled = filter.locked || filter.disabled;
       const className = 'globalFilterItem' + (disabled ? ' globalFilterItem-isDisabled' : '') + (filter.inverted ? ' globalFilterItem-isExcluded' : '');
-      const value = typeof filter.value === 'string' ? filter.value : `${filter.value.from} to ${filter.value.to}`;
+      const value = typeof filter.value === 'string' ? filter.value : Array.isArray(filter.value) // combo box
+      ? filter.value[0].label : `${filter.value.from} to ${filter.value.to}`; // range selector
+
       const filterLabel = filter.inverted ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiTextColor"], {
         color: disabled ? 'default' : 'danger'
       }, 'NOT '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiTextColor"], {
@@ -1176,7 +1203,7 @@ function milliToNanoSec(ms) {
   return ms * 1000000;
 }
 function getServiceMapScaleColor(percent, idSelected) {
-  return _color_palette__WEBPACK_IMPORTED_MODULE_4__["serviceMapColorPalette"][idSelected][Math.min(100, Math.max(0, Math.floor(percent * 100)))];
+  return _color_palette__WEBPACK_IMPORTED_MODULE_4__["serviceMapColorPalette"][idSelected][Math.min(99, Math.max(0, Math.floor(percent * 100)))];
 } // construct vis-js graph from ServiceObject
 
 function getServiceMapGraph(map, idSelected, ticks, currService, relatedServices) {
@@ -1226,6 +1253,8 @@ function getServiceMapTargetResources(map, serviceName) {
 }
 function calculateTicks(min, max, numTicks = 5) {
   if (min >= max) return calculateTicks(0, Math.max(1, max), numTicks);
+  min = Math.floor(min);
+  max = Math.ceil(max);
   const range = max - min;
   const minInterval = range / numTicks;
   const magnitude = Math.pow(10, Math.floor(Math.log10(minInterval)));
@@ -1296,18 +1325,19 @@ const getPercentileFilter = (percentileMaps, conditionString) => {
       bool: {
         must: [{
           term: {
-            name: {
+            'traceGroup.name': {
               value: map.traceGroupName
             }
           }
         }, {
           range: {
-            durationInNanos: map.durationFilter
+            'traceGroup.durationInNanos': map.durationFilter
           }
         }]
       }
     });
   });
+  console.log('DSL', DSL);
   return {
     field: 'Latency percentile within trace group',
     operator: '',
@@ -1364,7 +1394,7 @@ const filtersToDsl = (filters, query, startTime, endTime) => {
   filters.filter(filter => !filter.disabled && !filter.locked).forEach(filter => {
     var _filter$custom;
 
-    if ((_filter$custom = filter.custom) === null || _filter$custom === void 0 ? void 0 : _filter$custom.query) {
+    if ((_filter$custom = filter.custom) !== null && _filter$custom !== void 0 && _filter$custom.query) {
       // add percentile filter
       DSL.query.bool.should.push(...filter.custom.query.bool.should);
       DSL.custom.percentiles.query.bool.should.push(...filter.custom.query.bool.should);
@@ -1373,31 +1403,34 @@ const filtersToDsl = (filters, query, startTime, endTime) => {
       return;
     }
 
-    if (filter.field === 'serviceName' && (filter.operator === 'is' || filter.operator === 'is not')) {
-      DSL.custom[filter.inverted ? 'serviceNamesExclude' : 'serviceNames'].push(filter.value);
-    }
-
-    if (filter.field === 'traceGroup') {
-      DSL.custom[filter.inverted ? 'traceGroupExclude' : 'traceGroup'].push(filter.value);
-    }
-
     let filterQuery = {};
+    let field = filter.field;
+    if (field === 'latency') field = 'traceGroup.durationInNanos';else if (field === 'error') field = 'traceGroup.statusCode';
+    let value;
 
     switch (filter.operator) {
       case 'exists':
       case 'does not exist':
         filterQuery = {
           exists: {
-            field: filter.field
+            field
           }
         };
         break;
 
       case 'is':
       case 'is not':
+        value = filter.value; // latency and error are not actual fields, need to convert first
+
+        if (field === 'traceGroup.durationInNanos') {
+          value = milliToNanoSec(value);
+        } else if (field === 'traceGroup.statusCode') {
+          value = value[0].label === 'true' ? '2' : '0';
+        }
+
         filterQuery = {
           term: {
-            [filter.field]: filter.value
+            [field]: value
           }
         };
         break;
@@ -1407,9 +1440,15 @@ const filtersToDsl = (filters, query, startTime, endTime) => {
         const range = {};
         if (!filter.value.from.includes('\u221E')) range.gte = filter.value.from;
         if (!filter.value.to.includes('\u221E')) range.lte = filter.value.to;
+
+        if (field === 'traceGroup.durationInNanos') {
+          if (range.lte) range.lte = milliToNanoSec(parseInt(range.lte || '')).toString();
+          if (range.gte) range.gte = milliToNanoSec(parseInt(range.gte || '')).toString();
+        }
+
         filterQuery = {
           range: {
-            [filter.field]: range
+            [field]: range
           }
         };
         break;
@@ -1750,7 +1789,7 @@ function ErrorRatePlt(props) {
   const layout = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => getLayout(), [props.items]);
 
   const onClick = event => {
-    if (!(event === null || event === void 0 ? void 0 : event.points)) return;
+    if (!(event !== null && event !== void 0 && event.points)) return;
     const point = event.points[0];
     const start = point.data.x[point.pointNumber];
     const end = start + Object(___WEBPACK_IMPORTED_MODULE_3__["fixedIntervalToMilli"])(props.items.fixedInterval);
@@ -1769,7 +1808,7 @@ function ErrorRatePlt(props) {
       minHeight: 308
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(___WEBPACK_IMPORTED_MODULE_3__["PanelTitle"], {
-    title: "Error rate over time"
+    title: "Trace error rate over time"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
     margin: "m"
   }), ((_props$items = props.items) === null || _props$items === void 0 ? void 0 : (_props$items$items = _props$items.items) === null || _props$items$items === void 0 ? void 0 : _props$items$items.length) > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_plt__WEBPACK_IMPORTED_MODULE_4__["Plt"], {
@@ -1817,6 +1856,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function LinePlt(props) {
+  var _props$data$;
+
+  const maxY = (_props$data$ = props.data[0]) !== null && _props$data$ !== void 0 && _props$data$.y ? Math.max(...props.data[0].y) : 0;
   const layout = Object(react__WEBPACK_IMPORTED_MODULE_1__["useMemo"])(() => ({
     plot_bgcolor: 'rgba(0, 0, 0, 0)',
     paper_bgcolor: 'rgba(0, 0, 0, 0)',
@@ -1828,7 +1870,8 @@ function LinePlt(props) {
     yaxis: {
       fixedrange: true,
       showgrid: false,
-      visible: false
+      visible: false,
+      range: [0, maxY * 1.1]
     },
     margin: {
       l: 0,
@@ -1837,7 +1880,7 @@ function LinePlt(props) {
       t: 0,
       pad: 0
     },
-    height: 15,
+    height: 20,
     width: 60
   }), [props.data]);
   return props.data[0].x.length > 1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_plt__WEBPACK_IMPORTED_MODULE_2__["Plt"], {
@@ -2084,6 +2127,11 @@ function ServiceMap({
           value: serviceName,
           inverted: false,
           disabled: false
+        });
+        window.scrollTo({
+          left: 0,
+          top: 0,
+          behavior: 'smooth'
         });
       }
     },
@@ -2394,7 +2442,7 @@ function ThroughputPlt(props) {
   }, [props.items]);
 
   const onClick = event => {
-    if (!(event === null || event === void 0 ? void 0 : event.points)) return;
+    if (!(event !== null && event !== void 0 && event.points)) return;
     const point = event.points[0];
     const start = point.data.x[point.pointNumber];
     const end = start + Object(___WEBPACK_IMPORTED_MODULE_3__["fixedIntervalToMilli"])(props.items.fixedInterval);
@@ -2413,7 +2461,7 @@ function ThroughputPlt(props) {
       minHeight: 308
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(___WEBPACK_IMPORTED_MODULE_3__["PanelTitle"], {
-    title: "Throughput over time"
+    title: "Traces over time"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
     margin: "m"
   }), ((_props$items = props.items) === null || _props$items === void 0 ? void 0 : (_props$items$items = _props$items.items) === null || _props$items$items === void 0 ? void 0 : _props$items$items.length) > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_plt__WEBPACK_IMPORTED_MODULE_4__["Plt"], {
@@ -2485,7 +2533,8 @@ function SearchBar(props) {
   }, !props.datepickerOnly && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFieldSearch"], {
     fullWidth: true,
     isClearable: false,
-    placeholder: "Trace ID, trace group name",
+    placeholder: "Trace ID, trace group name, service name",
+    "data-test-subj": "search-bar-input-box",
     value: query,
     onChange: e => {
       setQuery(e.target.value);
@@ -2497,6 +2546,7 @@ function SearchBar(props) {
   }, renderDatePicker(props.startTime, props.setStartTime, props.endTime, props.setEndTime)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
     grow: false
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiButton"], {
+    "data-test-subj": "search-bar-refresh-button",
     fill: true,
     iconType: "refresh",
     onClick: props.refresh
@@ -2596,8 +2646,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common */ "./public/components/common/index.ts");
 /* harmony import */ var _common_filters_filter_helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common/filters/filter_helpers */ "./public/components/common/filters/filter_helpers.tsx");
 /* harmony import */ var _common_plots_error_rate_plt__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common/plots/error_rate_plt */ "./public/components/common/plots/error_rate_plt.tsx");
-/* harmony import */ var _common_plots_throughput_plt__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../common/plots/throughput_plt */ "./public/components/common/plots/throughput_plt.tsx");
-/* harmony import */ var _dashboard_table__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./dashboard_table */ "./public/components/dashboard/dashboard_table.tsx");
+/* harmony import */ var _common_plots_service_map__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../common/plots/service_map */ "./public/components/common/plots/service_map.tsx");
+/* harmony import */ var _common_plots_throughput_plt__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../common/plots/throughput_plt */ "./public/components/common/plots/throughput_plt.tsx");
+/* harmony import */ var _dashboard_table__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./dashboard_table */ "./public/components/dashboard/dashboard_table.tsx");
 /*
  *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -2612,6 +2663,7 @@ __webpack_require__.r(__webpack_exports__);
  *   express or implied. See the License for the specific language governing
  *   permissions and limitations under the License.
  */
+
 
 
 
@@ -2718,7 +2770,7 @@ function Dashboard(props) {
     page: "dashboard"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
     size: "m"
-  }), props.indicesExist ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_dashboard_table__WEBPACK_IMPORTED_MODULE_8__["DashboardTable"], {
+  }), props.indicesExist ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_dashboard_table__WEBPACK_IMPORTED_MODULE_9__["DashboardTable"], {
     items: tableItems,
     filters: props.filters,
     addFilter: addFilter,
@@ -2726,15 +2778,24 @@ function Dashboard(props) {
     setRedirect: setRedirect
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
     alignItems: "baseline"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+    grow: 4
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_plots_service_map__WEBPACK_IMPORTED_MODULE_7__["ServiceMap"], {
+    addFilter: addFilter,
+    serviceMap: serviceMap,
+    idSelected: serviceMapIdSelected,
+    setIdSelected: setServiceMapIdSelected
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+    direction: "column"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_plots_error_rate_plt__WEBPACK_IMPORTED_MODULE_6__["ErrorRatePlt"], {
     items: errorRatePltItems,
     setStartTime: props.setStartTime,
     setEndTime: props.setEndTime
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_plots_throughput_plt__WEBPACK_IMPORTED_MODULE_7__["ThroughputPlt"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_plots_throughput_plt__WEBPACK_IMPORTED_MODULE_8__["ThroughputPlt"], {
     items: throughputPltItems,
     setStartTime: props.setStartTime,
     setEndTime: props.setEndTime
-  })))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_4__["MissingConfigurationMessage"], null));
+  })))))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_4__["MissingConfigurationMessage"], null));
 }
 
 /***/ }),
@@ -2751,10 +2812,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardTable", function() { return DashboardTable; });
 /* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @elastic/eui */ "@elastic/eui");
 /* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common */ "./public/components/common/index.ts");
 /* harmony import */ var _common_plots_box_plt__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common/plots/box_plt */ "./public/components/common/plots/box_plt.tsx");
 /* harmony import */ var _latency_trend_cell__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./latency_trend_cell */ "./public/components/dashboard/latency_trend_cell.tsx");
@@ -2812,41 +2873,42 @@ function DashboardTable(props) {
 
   const getColumns = () => [{
     field: 'dashboard_trace_group_name',
-    name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
-      content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
+      content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
         size: "xs"
       }, "Traces of all requests that share a common API and operation at the start of distributed tracing instrumentation.")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Trace group name", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiIcon"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "Trace group name", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiIcon"], {
       size: "s",
       color: "subdued",
       type: "questionInCircle",
       className: "eui-alignTop"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "\xA0"))),
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "\xA0"))),
     align: 'left',
     sortable: true,
-    render: item => item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+    render: item => item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+      "data-test-subj": "dashboard-table-trace-group-name-button",
       onClick: () => props.addFilter({
-        field: 'traceGroup',
+        field: 'traceGroup.name',
         operator: 'is',
         value: item,
         inverted: false,
         disabled: false
       })
-    }, lodash__WEBPACK_IMPORTED_MODULE_2___default.a.truncate(item, {
+    }, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.truncate(item, {
       length: 24
     })) : '-'
   }, {
     field: 'dashboard_latency_variance',
-    name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
-      content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
+      content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
         size: "xs"
       }, "Range of latencies for traces within a trace group in the selected time range.")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Latency variance (ms)", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiIcon"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", null, "Latency variance (ms)", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiIcon"], {
       size: "s",
       color: "subdued",
       type: "questionInCircle",
       className: "eui-alignTop"
-    }))), varianceProps && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    }))), varianceProps && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
       size: "xs",
       color: "subdued"
     }, varianceProps.scale)),
@@ -2861,7 +2923,7 @@ function DashboardTable(props) {
       return item ?
       /*#__PURE__*/
       // expand plot ranges to accomondate scale
-      react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_plots_box_plt__WEBPACK_IMPORTED_MODULE_4__["BoxPlt"], {
+      react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common_plots_box_plt__WEBPACK_IMPORTED_MODULE_4__["BoxPlt"], {
         plotParams: {
           min: varianceProps.ticks.length > 1 ? varianceProps.ticks[0] : varianceProps.ticks[0] / 1.03,
           max: varianceProps.ticks[varianceProps.ticks.length - 1] * 1.03,
@@ -2871,7 +2933,7 @@ function DashboardTable(props) {
           currPercentileFilter,
           addFilter: condition => {
             const traceGroupFilter = {
-              field: 'traceGroup',
+              field: 'traceGroup.name',
               operator: 'is',
               value: row.dashboard_trace_group_name,
               inverted: false,
@@ -2892,74 +2954,75 @@ function DashboardTable(props) {
     }
   }, {
     field: 'dashboard_average_latency',
-    name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
-      content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
+      content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
         size: "xs"
       }, "Average latency of traces within a trace group in the selected time range.")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Average latency (ms)", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiIcon"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "Average latency (ms)", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiIcon"], {
       size: "s",
       color: "subdued",
       type: "questionInCircle",
       className: "eui-alignTop"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "\xA0"))),
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "\xA0"))),
     align: 'right',
     sortable: true,
     dataType: 'number',
-    render: item => item === 0 || item ? lodash__WEBPACK_IMPORTED_MODULE_2___default.a.round(item, 2) : '-'
+    render: item => item === 0 || item ? lodash__WEBPACK_IMPORTED_MODULE_1___default.a.round(item, 2) : '-'
   }, {
     field: '24_hour_latency_trend',
-    name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
-      content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
+      content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
         size: "xs"
       }, "24 hour time series view of hourly average, hourly percentile, and hourly range of latency for traces within a trace group.")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "24-hour latency trend", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiIcon"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "24-hour latency trend", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiIcon"], {
       size: "s",
       color: "subdued",
       type: "questionInCircle",
       className: "eui-alignTop"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "\xA0"))),
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "\xA0"))),
     align: 'right',
     sortable: false,
-    render: (item, row) => item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_latency_trend_cell__WEBPACK_IMPORTED_MODULE_5__["LatencyTrendCell"], {
+    render: (item, row) => item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_latency_trend_cell__WEBPACK_IMPORTED_MODULE_5__["LatencyTrendCell"], {
       item: item,
       traceGroupName: row.dashboard_trace_group_name
     }) : '-'
   }, {
     field: 'dashboard_error_rate',
-    name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
-      content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
+      content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
         size: "xs"
-      }, "Error rate based on count of errors on all traces and spans within a trace group in the selected time range (eg. 3 errors on different spans on a single trace counts as 3 errors in this calculation).")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Error rate", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiIcon"], {
+      }, "Error rate based on count of trace errors within a trace group in the selected time range.")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "Error rate", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiIcon"], {
       size: "s",
       color: "subdued",
       type: "questionInCircle",
       className: "eui-alignTop"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "\xA0"))),
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "\xA0"))),
     align: 'right',
     sortable: true,
-    render: item => item === 0 || item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    render: item => item === 0 || item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
       size: "s"
-    }, `${lodash__WEBPACK_IMPORTED_MODULE_2___default.a.round(item, 2)}%`) : '-'
+    }, `${lodash__WEBPACK_IMPORTED_MODULE_1___default.a.round(item, 2)}%`) : '-'
   }, {
     field: 'dashboard_traces',
-    name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
-      content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
+      content: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
         size: "xs"
       }, "Count of traces with unique trace identifiers in the selected time range.")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Traces", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiIcon"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "Traces", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiIcon"], {
       size: "s",
       color: "subdued",
       type: "questionInCircle",
       className: "eui-alignTop"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "\xA0"))),
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "\xA0"))),
     align: 'right',
     sortable: true,
-    render: (item, row) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+    render: (item, row) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+      "data-test-subj": "dashboard-table-traces-button",
       onClick: () => {
         props.setRedirect(true);
         props.addFilter({
-          field: 'traceGroup',
+          field: 'traceGroup.name',
           operator: 'is',
           value: row.dashboard_trace_group_name,
           inverted: false,
@@ -2967,55 +3030,57 @@ function DashboardTable(props) {
         });
         location.assign('#/traces');
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiI18nNumber"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiI18nNumber"], {
       value: item
     }))
   }];
 
   const renderTitleBar = totalItems => {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
       alignItems: "center",
       gutterSize: "s"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
       grow: 10
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["PanelTitle"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["PanelTitle"], {
       title: "Latency by trace group",
       totalItems: totalItems
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
       grow: false
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+      "data-test-subj": "dashboard-table-percentile-button-1",
       onClick: () => props.addPercentileFilter('lte')
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
       size: "xs"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", {
       style: {
         color: '#957ac9'
       }
-    }, "\u25A1"), " < 95 percentile"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+    }, "\u25A1"), " < 95 percentile"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
       grow: 1
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
       grow: false
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+      "data-test-subj": "dashboard-table-percentile-button-2",
       onClick: () => props.addPercentileFilter('gte')
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
       size: "xs"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", {
       style: {
         color: '#957ac9'
       }
-    }, "\u25A0"), " >= 95 percentile"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+    }, "\u25A0"), " >= 95 percentile"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
       grow: 1
     }));
   };
 
-  const varianceProps = Object(react__WEBPACK_IMPORTED_MODULE_1__["useMemo"])(() => getVarianceProps(props.items), [props.items]);
-  const columns = Object(react__WEBPACK_IMPORTED_MODULE_1__["useMemo"])(() => getColumns(), [props.items]);
-  const titleBar = Object(react__WEBPACK_IMPORTED_MODULE_1__["useMemo"])(() => {
+  const varianceProps = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => getVarianceProps(props.items), [props.items]);
+  const columns = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => getColumns(), [props.items]);
+  const titleBar = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => {
     var _props$items;
 
     return renderTitleBar((_props$items = props.items) === null || _props$items === void 0 ? void 0 : _props$items.length);
   }, [props.items]);
-  const [sorting, setSorting] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
+  const [sorting, setSorting] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
     sort: {
       field: 'dashboard_latency_variance',
       direction: 'desc'
@@ -3032,11 +3097,11 @@ function DashboardTable(props) {
     });
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPanel"], null, titleBar, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPanel"], null, titleBar, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
     size: "m"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
     margin: "none"
-  }), ((_props$items2 = props.items) === null || _props$items2 === void 0 ? void 0 : _props$items2.length) > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiInMemoryTable"], {
+  }), ((_props$items2 = props.items) === null || _props$items2 === void 0 ? void 0 : _props$items2.length) > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiInMemoryTable"], {
     tableLayout: "auto",
     items: props.items,
     columns: columns,
@@ -3046,7 +3111,7 @@ function DashboardTable(props) {
     },
     sorting: sorting,
     onTableChange: onTableChange
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["NoMatchMessage"], {
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["NoMatchMessage"], {
     size: "xl"
   })));
 }
@@ -3256,7 +3321,7 @@ function ServiceView(props) {
   }, [props.startTime, props.endTime]);
 
   const refresh = () => {
-    const DSL = Object(_common__WEBPACK_IMPORTED_MODULE_4__["filtersToDsl"])([], '', props.startTime, props.endTime);
+    const DSL = Object(_common__WEBPACK_IMPORTED_MODULE_4__["filtersToDsl"])(props.filters, props.query, props.startTime, props.endTime);
     Object(_requests_services_request_handler__WEBPACK_IMPORTED_MODULE_3__["handleServiceViewRequest"])(props.serviceName, props.http, DSL, fields, setFields);
     Object(_requests_services_request_handler__WEBPACK_IMPORTED_MODULE_3__["handleServiceMapRequest"])(props.http, DSL, serviceMap, setServiceMap, props.serviceName);
   };
@@ -3340,10 +3405,17 @@ function ServiceView(props) {
 
   const overview = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => renderOverview(), [fields, props.serviceName]);
   const title = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => renderTitle(props.serviceName, props.startTime, props.setStartTime, props.endTime, props.setEndTime, props.addFilter), [props.serviceName, props.startTime, props.endTime]);
+  const activeFilters = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => props.filters.filter(filter => !filter.locked && !filter.disabled), [props.filters]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPage"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPageBody"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
     alignItems: "center",
     gutterSize: "s"
-  }, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
+  }, title), activeFilters.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    textAlign: "right",
+    style: {
+      marginRight: 20
+    },
+    color: "subdued"
+  }, "results are filtered by ", activeFilters.map(filter => filter.field).join(', ')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
     size: "xl"
   }), overview, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common_plots_service_map__WEBPACK_IMPORTED_MODULE_5__["ServiceMap"], {
     serviceMap: serviceMap,
@@ -3372,8 +3444,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _requests_services_request_handler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../requests/services_request_handler */ "./public/requests/services_request_handler.ts");
 /* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common */ "./public/components/common/index.ts");
 /* harmony import */ var _common_filters_filter_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common/filters/filter_helpers */ "./public/components/common/filters/filter_helpers.tsx");
-/* harmony import */ var _common_plots_service_map__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common/plots/service_map */ "./public/components/common/plots/service_map.tsx");
-/* harmony import */ var _services_table__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services_table */ "./public/components/services/services_table.tsx");
+/* harmony import */ var _services_table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services_table */ "./public/components/services/services_table.tsx");
 /*
  *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -3388,7 +3459,6 @@ __webpack_require__.r(__webpack_exports__);
  *   express or implied. See the License for the specific language governing
  *   permissions and limitations under the License.
  */
-
 
 
 
@@ -3442,7 +3512,6 @@ function Services(props) {
       fontWeight: 430
     }
   }, "Services")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["SearchBar"], {
-    datepickerOnly: true,
     query: props.query,
     filters: props.filters,
     setFilters: props.setFilters,
@@ -3453,18 +3522,15 @@ function Services(props) {
     setEndTime: props.setEndTime,
     refresh: refresh,
     page: "services"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], null), props.indicesExist ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_services_table__WEBPACK_IMPORTED_MODULE_6__["ServicesTable"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_services_table__WEBPACK_IMPORTED_MODULE_5__["ServicesTable"], {
     items: tableItems,
     addFilter: addFilter,
     setRedirect: setRedirect,
     serviceQuery: serviceQuery,
     setServiceQuery: setServiceQuery,
-    refresh: refresh
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_plots_service_map__WEBPACK_IMPORTED_MODULE_5__["ServiceMap"], {
-    serviceMap: serviceMap,
-    idSelected: serviceMapIdSelected,
-    setIdSelected: setServiceMapIdSelected
-  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["MissingConfigurationMessage"], null));
+    refresh: refresh,
+    indicesExist: props.indicesExist
+  }));
 }
 
 /***/ }),
@@ -3577,31 +3643,31 @@ function ServicesTable(props) {
     align: 'right',
     sortable: true,
     truncateText: true,
-    render: item => item === 0 || item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiI18nNumber"], {
+    render: (item, row) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, item === 0 || item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+      onClick: () => {
+        props.setRedirect(true);
+        props.addFilter({
+          field: 'serviceName',
+          operator: 'is',
+          value: row.name,
+          inverted: false,
+          disabled: false
+        });
+        location.assign('#/traces');
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiI18nNumber"], {
       value: item
-    }) : '-'
+    })) : '-')
   }], [props.items]);
   const titleBar = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => {
     var _props$items;
 
     return renderTitleBar((_props$items = props.items) === null || _props$items === void 0 ? void 0 : _props$items.length);
   }, [props.items]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPanel"], null, titleBar, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
-    margin: "s",
-    style: {
-      marginTop: 10
-    }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFieldSearch"], {
-    fullWidth: true,
-    placeholder: "Service name",
-    value: props.serviceQuery,
-    onChange: e => props.setServiceQuery(e.target.value),
-    onSearch: () => props.refresh()
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPanel"], null, titleBar, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
+    size: "m"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
-    margin: "s",
-    style: {
-      marginBottom: 0
-    }
+    margin: "none"
   }), ((_props$items2 = props.items) === null || _props$items2 === void 0 ? void 0 : _props$items2.length) > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiInMemoryTable"], {
     tableLayout: "auto",
     items: props.items,
@@ -3616,9 +3682,9 @@ function ServicesTable(props) {
         direction: 'asc'
       }
     }
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["NoMatchMessage"], {
+  }) : props.indicesExist ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["NoMatchMessage"], {
     size: "xl"
-  })));
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["MissingConfigurationMessage"], null)));
 }
 
 /***/ }),
@@ -3877,78 +3943,77 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-const renderTitle = traceId => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiTitle"], {
-    size: "l"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
-    className: "overview-content"
-  }, traceId))));
-};
-
-const renderOverview = fields => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPanel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["PanelTitle"], {
-    title: "Overview"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
-    margin: "m"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
-    direction: "column"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
-    grow: false
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
-    className: "overview-title"
-  }, "Trace ID"), fields.trace_id && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
-    gutterSize: "s",
-    alignItems: "center"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
-    grow: false
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
-    size: "s",
-    className: "overview-content"
-  }, fields.trace_id)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
-    grow: false
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiCopy"], {
-    textToCopy: fields.trace_id
-  }, copy => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiButtonIcon"], {
-    "aria-label": "Copy trace id",
-    iconType: "copyClipboard",
-    onClick: copy
-  }, "Click to copy"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
-    grow: false
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
-    className: "overview-title"
-  }, "Trace group name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
-    size: "s",
-    className: "overview-content"
-  }, fields.trace_group)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
-    direction: "column"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
-    grow: false
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
-    className: "overview-title"
-  }, "Latency"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
-    size: "s",
-    className: "overview-content"
-  }, fields.latency)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
-    grow: false
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
-    className: "overview-title"
-  }, "Last updated"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
-    size: "s",
-    className: "overview-content"
-  }, fields.last_updated)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
-    direction: "column"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
-    grow: false
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
-    className: "overview-title"
-  }, "Errors"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
-    size: "s",
-    className: "overview-content"
-  }, fields.error_count))))));
-};
-
 function TraceView(props) {
+  const renderTitle = traceId => {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiTitle"], {
+      size: "l"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
+      className: "overview-content"
+    }, traceId))));
+  };
+
+  const renderOverview = fields => {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPanel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["PanelTitle"], {
+      title: "Overview"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
+      margin: "m"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+      direction: "column"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+      grow: false
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      className: "overview-title"
+    }, "Trace ID"), fields.trace_id && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+      gutterSize: "s",
+      alignItems: "center"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+      grow: false
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      size: "s",
+      className: "overview-content"
+    }, fields.trace_id)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+      grow: false
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiCopy"], {
+      textToCopy: fields.trace_id
+    }, copy => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiButtonIcon"], {
+      "aria-label": "Copy trace id",
+      iconType: "copyClipboard",
+      onClick: copy
+    }, "Click to copy"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+      grow: false
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      className: "overview-title"
+    }, "Trace group name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      size: "s",
+      className: "overview-content"
+    }, fields.trace_group)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+      direction: "column"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+      grow: false
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      className: "overview-title"
+    }, "Latency"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      size: "s",
+      className: "overview-content"
+    }, fields.latency)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+      grow: false
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      className: "overview-title"
+    }, "Last updated"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      size: "s",
+      className: "overview-content"
+    }, fields.last_updated)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+      direction: "column"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+      grow: false
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      className: "overview-title"
+    }, "Errors"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      size: "s",
+      className: "overview-content"
+    }, fields.error_count))))));
+  };
+
   const [fields, setFields] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({});
   const [serviceBreakdownData, setServiceBreakdownData] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]);
   const [spanDetailData, setSpanDetailData] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
@@ -4231,7 +4296,8 @@ function TracesTable(props) {
   }) => {
     var _props$items2;
 
-    if (typeof (sort === null || sort === void 0 ? void 0 : sort.field) !== 'string') return;
+    if (typeof (sort === null || sort === void 0 ? void 0 : sort.field) !== 'string') return; // maps table column key to DSL aggregation name
+
     const field = {
       trace_id: '_key',
       trace_group: null,
@@ -4387,7 +4453,7 @@ const handleDashboardRequest = async (http, DSL, timeFilterDSL, items, setItems,
       return {
         dashboard_trace_group_name: bucket.key,
         dashboard_average_latency: bucket.average_latency.value,
-        dashboard_traces: bucket.doc_count,
+        dashboard_traces: bucket.trace_count.value,
         dashboard_latency_variance: latencyVariances[bucket.key],
         dashboard_error_rate: bucket.error_rate.value,
         ...latencyTrendData
@@ -4403,7 +4469,7 @@ const handleDashboardThroughputPltRequest = (http, DSL, fixedInterval, items, se
     const texts = buckets.map(bucket => `${moment__WEBPACK_IMPORTED_MODULE_1___default()(bucket.key).format(_common__WEBPACK_IMPORTED_MODULE_2__["DATE_PICKER_FORMAT"])} - ${moment__WEBPACK_IMPORTED_MODULE_1___default()(bucket.key + Object(_components_common_helper_functions__WEBPACK_IMPORTED_MODULE_3__["fixedIntervalToMilli"])(fixedInterval)).format(_common__WEBPACK_IMPORTED_MODULE_2__["DATE_PICKER_FORMAT"])}`);
     const newItems = buckets.length > 0 ? [{
       x: buckets.map(bucket => bucket.key),
-      y: buckets.map(bucket => bucket.doc_count),
+      y: buckets.map(bucket => bucket.trace_count.value),
       marker: {
         color: 'rgb(171, 211, 240)'
       },
@@ -4491,7 +4557,7 @@ const getDashboardQuery = () => {
     aggs: {
       trace_group_name: {
         terms: {
-          field: 'traceGroup',
+          field: 'traceGroup.name',
           size: 10000
         },
         aggs: {
@@ -4501,9 +4567,30 @@ const getDashboardQuery = () => {
               calendar_interval: 'hour'
             },
             aggs: {
+              traces: {
+                terms: {
+                  field: 'traceId',
+                  order: {
+                    last_updated: 'desc'
+                  },
+                  size: 10000
+                },
+                aggs: {
+                  duration: {
+                    max: {
+                      field: 'traceGroup.durationInNanos'
+                    }
+                  },
+                  last_updated: {
+                    max: {
+                      field: 'traceGroup.endTime'
+                    }
+                  }
+                }
+              },
               average_latency_nanos: {
-                avg: {
-                  field: 'durationInNanos'
+                avg_bucket: {
+                  buckets_path: 'traces>duration'
                 }
               },
               average_latency: {
@@ -4517,9 +4604,30 @@ const getDashboardQuery = () => {
               }
             }
           },
+          traces: {
+            terms: {
+              field: 'traceId',
+              order: {
+                last_updated: 'desc'
+              },
+              size: 10000
+            },
+            aggs: {
+              duration: {
+                max: {
+                  field: 'traceGroup.durationInNanos'
+                }
+              },
+              last_updated: {
+                max: {
+                  field: 'traceGroup.endTime'
+                }
+              }
+            }
+          },
           average_latency_nanos: {
-            avg: {
-              field: 'durationInNanos'
+            avg_bucket: {
+              buckets_path: 'traces>duration'
             }
           },
           average_latency: {
@@ -4531,18 +4639,30 @@ const getDashboardQuery = () => {
               script: 'Math.round(params.latency / 10000) / 100.0'
             }
           },
+          trace_count: {
+            cardinality: {
+              field: 'traceId'
+            }
+          },
           error_count: {
             filter: {
               term: {
-                'status.code': '2'
+                'traceGroup.statusCode': '2'
+              }
+            },
+            aggs: {
+              trace_count: {
+                cardinality: {
+                  field: 'traceId'
+                }
               }
             }
           },
           error_rate: {
             bucket_script: {
               buckets_path: {
-                total: '_count',
-                errors: 'error_count._count'
+                total: 'trace_count.value',
+                errors: 'error_count>trace_count.value'
               },
               script: 'params.errors / params.total * 100'
             }
@@ -4558,7 +4678,13 @@ const getDashboardTraceGroupPercentiles = () => {
     size: 0,
     query: {
       bool: {
-        must: [],
+        must: [{
+          term: {
+            parentSpanId: {
+              value: ''
+            }
+          }
+        }],
         filter: [],
         should: [],
         must_not: []
@@ -4567,12 +4693,12 @@ const getDashboardTraceGroupPercentiles = () => {
     aggs: {
       trace_group: {
         terms: {
-          field: 'traceGroup'
+          field: 'traceGroup.name'
         },
         aggs: {
           latency_variance_nanos: {
             percentiles: {
-              field: 'durationInNanos',
+              field: 'traceGroup.durationInNanos',
               percents: [0, 95, 100]
             }
           }
@@ -4586,11 +4712,7 @@ const getErrorRatePltQuery = fixedInterval => {
     size: 0,
     query: {
       bool: {
-        must: [{
-          exists: {
-            field: 'traceGroup'
-          }
-        }],
+        must: [],
         filter: [],
         should: [],
         must_not: []
@@ -4606,15 +4728,27 @@ const getErrorRatePltQuery = fixedInterval => {
           error_count: {
             filter: {
               term: {
-                'status.code': '2'
+                'traceGroup.statusCode': '2'
               }
+            },
+            aggs: {
+              trace_count: {
+                cardinality: {
+                  field: 'traceId'
+                }
+              }
+            }
+          },
+          trace_count: {
+            cardinality: {
+              field: 'traceId'
             }
           },
           error_rate: {
             bucket_script: {
               buckets_path: {
-                total: '_count',
-                errors: 'error_count._count'
+                total: 'trace_count.value',
+                errors: 'error_count>trace_count.value'
               },
               script: 'params.errors / params.total * 100'
             }
@@ -4630,11 +4764,7 @@ const getDashboardThroughputPltQuery = fixedInterval => {
     size: 0,
     query: {
       bool: {
-        must: [{
-          exists: {
-            field: 'traceGroup'
-          }
-        }],
+        must: [],
         filter: [],
         should: [],
         must_not: []
@@ -4645,6 +4775,13 @@ const getDashboardThroughputPltQuery = fixedInterval => {
         date_histogram: {
           field: 'startTime',
           fixed_interval: fixedInterval
+        },
+        aggs: {
+          trace_count: {
+            cardinality: {
+              field: 'traceId'
+            }
+          }
         }
       }
     }
@@ -4858,9 +4995,13 @@ const getServiceEdgesQuery = source => {
   };
 };
 const getServiceMetricsQuery = (DSL, serviceNames, map) => {
-  var _DSL$custom3, _DSL$custom4;
+  var _DSL$query, _DSL$custom3;
 
-  const traceGroupFilter = new Set((_DSL$custom3 = DSL.custom) === null || _DSL$custom3 === void 0 ? void 0 : _DSL$custom3.traceGroup);
+  const traceGroupFilter = new Set((DSL === null || DSL === void 0 ? void 0 : (_DSL$query = DSL.query) === null || _DSL$query === void 0 ? void 0 : _DSL$query.bool.must.filter(must => {
+    var _must$term;
+
+    return (_must$term = must.term) === null || _must$term === void 0 ? void 0 : _must$term['traceGroup.name'];
+  }).map(must => must.term['traceGroup.name'])) || []);
   const targetResource = traceGroupFilter.size > 0 ? [].concat(...[].concat(...serviceNames.map(service => map[service].traceGroups.filter(traceGroup => traceGroupFilter.has(traceGroup.traceGroup)).map(traceGroup => traceGroup.targetResource)))) : [].concat(...Object.keys(map).map(service => Object(_components_common__WEBPACK_IMPORTED_MODULE_1__["getServiceMapTargetResources"])(map, service)));
   const query = {
     size: 0,
@@ -4880,9 +5021,10 @@ const getServiceMetricsQuery = (DSL, serviceNames, map) => {
                 filter: [{
                   bool: {
                     must_not: {
-                      exists: {
-                        field: 'traceGroup',
-                        boost: 1
+                      term: {
+                        parentSpanId: {
+                          value: ''
+                        }
                       }
                     }
                   }
@@ -4895,9 +5037,10 @@ const getServiceMetricsQuery = (DSL, serviceNames, map) => {
             }, {
               bool: {
                 must: {
-                  exists: {
-                    field: 'traceGroup',
-                    boost: 1
+                  term: {
+                    parentSpanId: {
+                      value: ''
+                    }
                   }
                 }
               }
@@ -4957,7 +5100,7 @@ const getServiceMetricsQuery = (DSL, serviceNames, map) => {
       }
     }
   };
-  if (((_DSL$custom4 = DSL.custom) === null || _DSL$custom4 === void 0 ? void 0 : _DSL$custom4.timeFilter.length) > 0) query.query.bool.must.push(...DSL.custom.timeFilter);
+  if (((_DSL$custom3 = DSL.custom) === null || _DSL$custom3 === void 0 ? void 0 : _DSL$custom3.timeFilter.length) > 0) query.query.bool.must.push(...DSL.custom.timeFilter);
   return query;
 };
 
@@ -5000,8 +5143,10 @@ const getTraceGroupPercentilesQuery = () => {
     query: {
       bool: {
         must: [{
-          exists: {
-            field: 'traceGroup'
+          term: {
+            parentSpanId: {
+              value: ''
+            }
           }
         }],
         filter: [],
@@ -5037,11 +5182,7 @@ const getTracesQuery = (traceId = null, sort) => {
     size: 0,
     query: {
       bool: {
-        must: [{
-          exists: {
-            field: 'traceGroup'
-          }
-        }],
+        must: [],
         filter: [],
         should: [],
         must_not: []
@@ -5060,27 +5201,27 @@ const getTracesQuery = (traceId = null, sort) => {
           latency: {
             max: {
               script: {
-                source: "Math.round(doc['durationInNanos'].value / 10000) / 100.0",
+                source: "Math.round(doc['traceGroup.durationInNanos'].value / 10000) / 100.0",
                 lang: 'painless'
               }
             }
           },
           trace_group: {
             terms: {
-              field: 'name',
+              field: 'traceGroup.name',
               size: 1
             }
           },
           error_count: {
             filter: {
               term: {
-                'status.code': '2'
+                'traceGroup.statusCode': '2'
               }
             }
           },
           last_updated: {
             max: {
-              field: 'endTime'
+              field: 'traceGroup.endTime'
             }
           }
         }
@@ -5267,7 +5408,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 function handleDslRequest(http, DSL, query) {
-  if (DSL === null || DSL === void 0 ? void 0 : DSL.query) {
+  if (DSL !== null && DSL !== void 0 && DSL.query) {
     query.query.bool.must.push(...DSL.query.bool.must);
     query.query.bool.filter.push(...DSL.query.bool.filter);
     query.query.bool.should.push(...DSL.query.bool.should);
@@ -5327,7 +5468,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const handleServicesRequest = async (http, DSL, items, setItems, setServiceMap, serviceNameFilter) => {
   Object(_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleDslRequest"])(http, DSL, Object(_queries_services_queries__WEBPACK_IMPORTED_MODULE_1__["getServicesQuery"])(serviceNameFilter, DSL)).then(async response => {
-    const serviceObject = await handleServiceMapRequest(http, {});
+    const serviceObject = await handleServiceMapRequest(http, DSL);
     if (setServiceMap) setServiceMap(serviceObject);
     return Promise.all(response.aggregations.service.buckets.map(bucket => {
       const connectedServices = [...serviceObject[bucket.key].targetServices, ...serviceObject[bucket.key].destServices];
@@ -5376,12 +5517,26 @@ const handleServiceMapRequest = async (http, DSL, items, setItems, currService) 
     });
   }))).catch(error => console.error(error)); // service map handles DSL differently
 
-  const latencies = await Object(_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleDslRequest"])(http, {}, Object(_queries_services_queries__WEBPACK_IMPORTED_MODULE_1__["getServiceMetricsQuery"])(DSL, Object.keys(map), map));
+  const latencies = await Object(_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleDslRequest"])(http, DSL, Object(_queries_services_queries__WEBPACK_IMPORTED_MODULE_1__["getServiceMetricsQuery"])(DSL, Object.keys(map), map));
   latencies.aggregations.service_name.buckets.map(bucket => {
     map[bucket.key].latency = bucket.average_latency.value;
     map[bucket.key].error_rate = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.round(bucket.error_rate.value, 2) || 0;
     map[bucket.key].throughput = bucket.doc_count;
   });
+
+  if (currService) {
+    const traces = await Object(_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleDslRequest"])(http, DSL, Object(_queries_services_queries__WEBPACK_IMPORTED_MODULE_1__["getRelatedServicesQuery"])(currService)).then(response => response.aggregations.traces.buckets.filter(bucket => bucket.service.doc_count > 0)).catch(error => console.error(error));
+    const maxNumServices = Object.keys(map).length;
+    const relatedServices = new Set();
+
+    for (let i = 0; i < traces.length; i++) {
+      traces[i].all_services.buckets.map(bucket => relatedServices.add(bucket.key));
+      if (relatedServices.size === maxNumServices) break;
+    }
+
+    map[currService].relatedServices = [...relatedServices];
+  }
+
   if (setItems) setItems(map);
   return map;
 };
@@ -5389,7 +5544,7 @@ const handleServiceViewRequest = (serviceName, http, DSL, fields, setFields) => 
   Object(_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleDslRequest"])(http, DSL, Object(_queries_services_queries__WEBPACK_IMPORTED_MODULE_1__["getServicesQuery"])(serviceName)).then(async response => {
     const bucket = response.aggregations.service.buckets[0];
     if (!bucket) return {};
-    const serviceObject = await handleServiceMapRequest(http, {});
+    const serviceObject = await handleServiceMapRequest(http, DSL);
     const connectedServices = [...serviceObject[bucket.key].targetServices, ...serviceObject[bucket.key].destServices];
     return {
       name: bucket.key,
@@ -5425,7 +5580,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "moment");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/uuid.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../common */ "./common/index.ts");
 /* harmony import */ var _components_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/common */ "./public/components/common/index.ts");
@@ -5467,7 +5622,7 @@ const handleTracesRequest = async (http, DSL, timeFilterDSL, items, setItems, so
       if (arr[mid] < target) low = mid + 1;else high = mid;
     }
 
-    return low;
+    return Math.max(0, Math.min(100, low));
   }; // percentile should only be affected by timefilter
 
 

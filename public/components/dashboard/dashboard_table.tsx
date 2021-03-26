@@ -23,17 +23,17 @@ import {
   EuiLink,
   EuiPanel,
   EuiSpacer,
+  EuiTableFieldDataColumnType,
   EuiText,
   EuiToolTip,
   PropertySort,
 } from '@elastic/eui';
-import React, { useMemo, useState } from 'react';
 import _ from 'lodash';
-import { EuiTableFieldDataColumnType } from '@elastic/eui';
-import { calculateTicks, NoMatchMessage, PanelTitle, renderBenchmark } from '../common';
+import React, { useMemo, useState } from 'react';
+import { calculateTicks, NoMatchMessage, PanelTitle } from '../common';
+import { FilterType } from '../common/filters/filters';
 import { BoxPlt } from '../common/plots/box_plt';
 import { LatencyTrendCell } from './latency_trend_cell';
-import { FilterType } from '../common/filters/filters';
 
 export function DashboardTable(props: {
   items: any[];
@@ -108,9 +108,10 @@ export function DashboardTable(props: {
         render: (item) =>
           item ? (
             <EuiLink
+              data-test-subj="dashboard-table-trace-group-name-button"
               onClick={() =>
                 props.addFilter({
-                  field: 'traceGroup',
+                  field: 'traceGroup.name',
                   operator: 'is',
                   value: item,
                   inverted: false,
@@ -178,7 +179,7 @@ export function DashboardTable(props: {
                 currPercentileFilter,
                 addFilter: (condition?: 'lte' | 'gte') => {
                   const traceGroupFilter = {
-                    field: 'traceGroup',
+                    field: 'traceGroup.name',
                     operator: 'is',
                     value: row.dashboard_trace_group_name,
                     inverted: false,
@@ -274,9 +275,8 @@ export function DashboardTable(props: {
           <EuiToolTip
             content={
               <EuiText size="xs">
-                Error rate based on count of errors on all traces and spans within a trace group in
-                the selected time range (eg. 3 errors on different spans on a single trace counts as
-                3 errors in this calculation).
+                Error rate based on count of trace errors within a trace group in the selected time
+                range.
               </EuiText>
             }
           >
@@ -327,10 +327,11 @@ export function DashboardTable(props: {
         sortable: true,
         render: (item, row) => (
           <EuiLink
+            data-test-subj="dashboard-table-traces-button"
             onClick={() => {
               props.setRedirect(true);
               props.addFilter({
-                field: 'traceGroup',
+                field: 'traceGroup.name',
                 operator: 'is',
                 value: row.dashboard_trace_group_name,
                 inverted: false,
@@ -352,7 +353,10 @@ export function DashboardTable(props: {
           <PanelTitle title="Latency by trace group" totalItems={totalItems} />
         </EuiFlexItem>
         <EuiFlexItem grow={false}>
-          <EuiLink onClick={() => props.addPercentileFilter('lte')}>
+          <EuiLink
+            data-test-subj="dashboard-table-percentile-button-1"
+            onClick={() => props.addPercentileFilter('lte')}
+          >
             <EuiText size="xs">
               <span style={{ color: '#957ac9' }}>&#x25a1;</span> &lt; 95 percentile
             </EuiText>
@@ -360,7 +364,10 @@ export function DashboardTable(props: {
         </EuiFlexItem>
         <EuiFlexItem grow={1} />
         <EuiFlexItem grow={false}>
-          <EuiLink onClick={() => props.addPercentileFilter('gte')}>
+          <EuiLink
+            data-test-subj="dashboard-table-percentile-button-2"
+            onClick={() => props.addPercentileFilter('gte')}
+          >
             <EuiText size="xs">
               <span style={{ color: '#957ac9' }}>&#x25a0;</span> &gt;= 95 percentile
             </EuiText>
