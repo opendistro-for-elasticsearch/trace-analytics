@@ -1,4 +1,4 @@
-(window["opendistroTraceAnalyticsKibana_bundle_jsonpfunction"] = window["opendistroTraceAnalyticsKibana_bundle_jsonpfunction"] || []).push([[1],{
+(window["opendistro-trace-analytics-kibana_bundle_jsonpfunction"] = window["opendistro-trace-analytics-kibana_bundle_jsonpfunction"] || []).push([[1],{
 
 /***/ "../../packages/elastic-datemath/target/index.js":
 /*!*******************************************************************************************!*\
@@ -5580,7 +5580,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "moment");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/uuid.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/index.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../common */ "./common/index.ts");
 /* harmony import */ var _components_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/common */ "./public/components/common/index.ts");
