@@ -147,69 +147,47 @@ exports[`Traces table component renders empty traces table message 1`] = `
               iconType="popout"
               onClick={[Function]}
             >
-              <EuiButtonDisplay
-                color="primary"
-                disabled={false}
-                element="button"
-                iconSide="right"
-                iconType="popout"
-                isDisabled={false}
+              <button
+                className="euiButton euiButton--primary euiButton--iconRight"
                 onClick={[Function]}
                 type="button"
               >
-                <button
-                  className="euiButton euiButton--primary"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
+                <span
+                  className="euiButton__content"
                 >
-                  <EuiButtonContent
-                    className="euiButton__content"
-                    iconSide="right"
-                    iconType="popout"
-                    textProps={
-                      Object {
-                        "className": "euiButton__text",
-                      }
-                    }
+                  <EuiIcon
+                    aria-hidden="true"
+                    className="euiButton__icon"
+                    size="m"
+                    type="popout"
                   >
-                    <span
-                      className="euiButtonContent euiButtonContent--iconRight euiButton__content"
+                    <EuiIconEmpty
+                      aria-hidden={true}
+                      className="euiIcon euiIcon--medium euiIcon-isLoading euiButton__icon"
+                      focusable="false"
+                      role="img"
+                      style={null}
                     >
-                      <EuiIcon
-                        className="euiButtonContent__icon"
-                        size="m"
-                        type="popout"
-                      >
-                        <EuiIconEmpty
-                          aria-hidden={true}
-                          className="euiIcon euiIcon--medium euiIcon-isLoading euiButtonContent__icon"
-                          focusable="false"
-                          role="img"
-                          style={null}
-                        >
-                          <svg
-                            aria-hidden={true}
-                            className="euiIcon euiIcon--medium euiIcon-isLoading euiButtonContent__icon"
-                            focusable="false"
-                            height={16}
-                            role="img"
-                            style={null}
-                            viewBox="0 0 16 16"
-                            width={16}
-                            xmlns="http://www.w3.org/2000/svg"
-                          />
-                        </EuiIconEmpty>
-                      </EuiIcon>
-                      <span
-                        className="euiButton__text"
-                      >
-                        Learn more
-                      </span>
-                    </span>
-                  </EuiButtonContent>
-                </button>
-              </EuiButtonDisplay>
+                      <svg
+                        aria-hidden={true}
+                        className="euiIcon euiIcon--medium euiIcon-isLoading euiButton__icon"
+                        focusable="false"
+                        height={16}
+                        role="img"
+                        style={null}
+                        viewBox="0 0 16 16"
+                        width={16}
+                        xmlns="http://www.w3.org/2000/svg"
+                      />
+                    </EuiIconEmpty>
+                  </EuiIcon>
+                  <span
+                    className="euiButton__text"
+                  >
+                    Learn more
+                  </span>
+                </span>
+              </button>
             </EuiButton>
           </div>
         </EuiEmptyPrompt>
@@ -747,61 +725,50 @@ exports[`Traces table component renders traces table 1`] = `
                                         size="xs"
                                       >
                                         <button
-                                          className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--xSmall euiButtonEmpty--flushRight"
-                                          disabled={false}
+                                          className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty--xSmall euiButtonEmpty--iconRight euiButtonEmpty--flushRight"
                                           onClick={[Function]}
                                           type="button"
                                         >
-                                          <EuiButtonContent
+                                          <span
                                             className="euiButtonEmpty__content"
-                                            iconSide="right"
-                                            iconType="arrowDown"
-                                            textProps={
-                                              Object {
-                                                "className": "euiButtonEmpty__text",
-                                              }
-                                            }
                                           >
-                                            <span
-                                              className="euiButtonContent euiButtonContent--iconRight euiButtonEmpty__content"
+                                            <EuiIcon
+                                              aria-hidden="true"
+                                              className="euiButtonEmpty__icon"
+                                              size="m"
+                                              type="arrowDown"
                                             >
-                                              <EuiIcon
-                                                className="euiButtonContent__icon"
-                                                size="m"
-                                                type="arrowDown"
+                                              <EuiIconEmpty
+                                                aria-hidden={true}
+                                                className="euiIcon euiIcon--medium euiIcon-isLoading euiButtonEmpty__icon"
+                                                focusable="false"
+                                                role="img"
+                                                style={null}
                                               >
-                                                <EuiIconEmpty
+                                                <svg
                                                   aria-hidden={true}
-                                                  className="euiIcon euiIcon--medium euiIcon-isLoading euiButtonContent__icon"
+                                                  className="euiIcon euiIcon--medium euiIcon-isLoading euiButtonEmpty__icon"
                                                   focusable="false"
+                                                  height={16}
                                                   role="img"
                                                   style={null}
-                                                >
-                                                  <svg
-                                                    aria-hidden={true}
-                                                    className="euiIcon euiIcon--medium euiIcon-isLoading euiButtonContent__icon"
-                                                    focusable="false"
-                                                    height={16}
-                                                    role="img"
-                                                    style={null}
-                                                    viewBox="0 0 16 16"
-                                                    width={16}
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                  />
-                                                </EuiIconEmpty>
-                                              </EuiIcon>
-                                              <span
-                                                className="euiButtonEmpty__text"
+                                                  viewBox="0 0 16 16"
+                                                  width={16}
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                />
+                                              </EuiIconEmpty>
+                                            </EuiIcon>
+                                            <span
+                                              className="euiButtonEmpty__text"
+                                            >
+                                              <EuiI18n
+                                                default="Sorting"
+                                                token="euiTableSortMobile.sorting"
                                               >
-                                                <EuiI18n
-                                                  default="Sorting"
-                                                  token="euiTableSortMobile.sorting"
-                                                >
-                                                  Sorting
-                                                </EuiI18n>
-                                              </span>
+                                                Sorting
+                                              </EuiI18n>
                                             </span>
-                                          </EuiButtonContent>
+                                          </span>
                                         </button>
                                       </EuiButtonEmpty>
                                     </div>
@@ -1370,7 +1337,6 @@ exports[`Traces table component renders traces table 1`] = `
                                                 <button
                                                   aria-label="Copy trace id"
                                                   className="euiButtonIcon euiButtonIcon--primary"
-                                                  disabled={false}
                                                   onBlur={[Function]}
                                                   onClick={[Function]}
                                                   onFocus={[Function]}
@@ -1726,64 +1692,53 @@ exports[`Traces table component renders traces table 1`] = `
                                     size="xs"
                                   >
                                     <button
-                                      className="euiButtonEmpty euiButtonEmpty--text euiButtonEmpty--xSmall"
+                                      className="euiButtonEmpty euiButtonEmpty--text euiButtonEmpty--xSmall euiButtonEmpty--iconRight"
                                       data-test-subj="tablePaginationPopoverButton"
-                                      disabled={false}
                                       onClick={[Function]}
                                       type="button"
                                     >
-                                      <EuiButtonContent
+                                      <span
                                         className="euiButtonEmpty__content"
-                                        iconSide="right"
-                                        iconType="arrowDown"
-                                        textProps={
-                                          Object {
-                                            "className": "euiButtonEmpty__text",
-                                          }
-                                        }
                                       >
-                                        <span
-                                          className="euiButtonContent euiButtonContent--iconRight euiButtonEmpty__content"
+                                        <EuiIcon
+                                          aria-hidden="true"
+                                          className="euiButtonEmpty__icon"
+                                          size="m"
+                                          type="arrowDown"
                                         >
-                                          <EuiIcon
-                                            className="euiButtonContent__icon"
-                                            size="m"
-                                            type="arrowDown"
+                                          <EuiIconEmpty
+                                            aria-hidden={true}
+                                            className="euiIcon euiIcon--medium euiIcon-isLoading euiButtonEmpty__icon"
+                                            focusable="false"
+                                            role="img"
+                                            style={null}
                                           >
-                                            <EuiIconEmpty
+                                            <svg
                                               aria-hidden={true}
-                                              className="euiIcon euiIcon--medium euiIcon-isLoading euiButtonContent__icon"
+                                              className="euiIcon euiIcon--medium euiIcon-isLoading euiButtonEmpty__icon"
                                               focusable="false"
+                                              height={16}
                                               role="img"
                                               style={null}
-                                            >
-                                              <svg
-                                                aria-hidden={true}
-                                                className="euiIcon euiIcon--medium euiIcon-isLoading euiButtonContent__icon"
-                                                focusable="false"
-                                                height={16}
-                                                role="img"
-                                                style={null}
-                                                viewBox="0 0 16 16"
-                                                width={16}
-                                                xmlns="http://www.w3.org/2000/svg"
-                                              />
-                                            </EuiIconEmpty>
-                                          </EuiIcon>
-                                          <span
-                                            className="euiButtonEmpty__text"
+                                              viewBox="0 0 16 16"
+                                              width={16}
+                                              xmlns="http://www.w3.org/2000/svg"
+                                            />
+                                          </EuiIconEmpty>
+                                        </EuiIcon>
+                                        <span
+                                          className="euiButtonEmpty__text"
+                                        >
+                                          <EuiI18n
+                                            default="Rows per page"
+                                            token="euiTablePagination.rowsPerPage"
                                           >
-                                            <EuiI18n
-                                              default="Rows per page"
-                                              token="euiTablePagination.rowsPerPage"
-                                            >
-                                              Rows per page
-                                            </EuiI18n>
-                                            : 
-                                            10
-                                          </span>
+                                            Rows per page
+                                          </EuiI18n>
+                                          : 
+                                          10
                                         </span>
-                                      </EuiButtonContent>
+                                      </span>
                                     </button>
                                   </EuiButtonEmpty>
                                 </div>
@@ -1919,31 +1874,21 @@ exports[`Traces table component renders traces table 1`] = `
                                               aria-controls="random_html_id"
                                               aria-current={true}
                                               aria-label="Page 1 of 1"
-                                              className="euiButtonEmpty euiButtonEmpty--text euiButtonEmpty--xSmall euiButtonEmpty-isDisabled euiPaginationButton euiPaginationButton-isActive euiPaginationButton--hideOnMobile"
+                                              className="euiButtonEmpty euiButtonEmpty--text euiButtonEmpty--xSmall euiPaginationButton euiPaginationButton-isActive euiPaginationButton--hideOnMobile"
                                               data-test-subj="pagination-button-0"
                                               disabled={true}
                                               onClick={[Function]}
                                               type="button"
                                             >
-                                              <EuiButtonContent
+                                              <span
                                                 className="euiButtonEmpty__content"
-                                                iconSide="left"
-                                                textProps={
-                                                  Object {
-                                                    "className": "euiButtonEmpty__text",
-                                                  }
-                                                }
                                               >
                                                 <span
-                                                  className="euiButtonContent euiButtonEmpty__content"
+                                                  className="euiButtonEmpty__text"
                                                 >
-                                                  <span
-                                                    className="euiButtonEmpty__text"
-                                                  >
-                                                    1
-                                                  </span>
+                                                  1
                                                 </span>
-                                              </EuiButtonContent>
+                                              </span>
                                             </button>
                                           </EuiButtonEmpty>
                                         </EuiI18n>

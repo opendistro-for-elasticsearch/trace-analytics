@@ -2,7 +2,7 @@
   "name": "opendistro-trace-analytics-kibana",
   "version": "1.13.0.0",
   "kibana": {
-    "version": "7.10.2",
+    "version": "7.9.1",
     "templateVersion": "1.0.0"
   },
   "license": "Apache-2.0",
@@ -29,7 +29,7 @@
     "jest-dom": "^4.0.0"
   },
   "engines": {
-    "node": "10.23.1",
+    "node": "10.22.0",
     "yarn": "^1.21.1"
   },
   "resolutions": {

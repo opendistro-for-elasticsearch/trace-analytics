@@ -614,29 +614,18 @@ exports[`Filter popover component renders filter popover 1`] = `
               <button
                 className="euiButtonEmpty euiButtonEmpty--primary"
                 data-test-subj="filter-popover-cancel-button"
-                disabled={false}
                 onClick={[MockFunction]}
                 type="button"
               >
-                <EuiButtonContent
+                <span
                   className="euiButtonEmpty__content"
-                  iconSide="left"
-                  textProps={
-                    Object {
-                      "className": "euiButtonEmpty__text",
-                    }
-                  }
                 >
                   <span
-                    className="euiButtonContent euiButtonEmpty__content"
+                    className="euiButtonEmpty__text"
                   >
-                    <span
-                      className="euiButtonEmpty__text"
-                    >
-                      Cancel
-                    </span>
+                    Cancel
                   </span>
-                </EuiButtonContent>
+                </span>
               </button>
             </EuiButtonEmpty>
           </div>
@@ -652,41 +641,22 @@ exports[`Filter popover component renders filter popover 1`] = `
               fill={true}
               onClick={[Function]}
             >
-              <EuiButtonDisplay
+              <button
+                className="euiButton euiButton--primary euiButton--fill"
                 disabled={true}
-                element="button"
-                fill={true}
-                isDisabled={true}
                 onClick={[Function]}
                 type="button"
               >
-                <button
-                  className="euiButton euiButton--primary euiButton--fill euiButton-isDisabled"
-                  disabled={true}
-                  onClick={[Function]}
-                  type="button"
+                <span
+                  className="euiButton__content"
                 >
-                  <EuiButtonContent
-                    className="euiButton__content"
-                    iconSide="left"
-                    textProps={
-                      Object {
-                        "className": "euiButton__text",
-                      }
-                    }
+                  <span
+                    className="euiButton__text"
                   >
-                    <span
-                      className="euiButtonContent euiButton__content"
-                    >
-                      <span
-                        className="euiButton__text"
-                      >
-                        Save
-                      </span>
-                    </span>
-                  </EuiButtonContent>
-                </button>
-              </EuiButtonDisplay>
+                    Save
+                  </span>
+                </span>
+              </button>
             </EuiButton>
           </div>
         </EuiFlexItem>

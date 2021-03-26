@@ -140,7 +140,6 @@ exports[`Latency trend cell component renders latency trend cell 1`] = `
                     <button
                       aria-label="Open popover"
                       className="euiButtonIcon euiButtonIcon--primary"
-                      disabled={false}
                       onClick={[Function]}
                       size="s"
                       type="button"
