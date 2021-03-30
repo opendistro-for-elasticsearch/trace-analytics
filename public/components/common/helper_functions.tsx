@@ -113,11 +113,28 @@ export function getServiceMapGraph(
 
   const nodes = Object.keys(map).map((service) => {
     const value = map[service][idSelected];
-    let color = '140, 148, 169';
+    let styleOptions;
     if (value || value === 0) {
       const percent = (value - ticks[0]) / (ticks[ticks.length - 1] - ticks[0]);
-      color = getServiceMapScaleColor(percent, idSelected);
+      const color = getServiceMapScaleColor(percent, idSelected);
+      styleOptions = {
+        color: relatedServices.indexOf(service) >= 0 ? `rgba(${color}, 1)` : `rgba(${color}, 0.3)`,
+      };
+    } else {
+      // service nodes that are not matched under traceGroup filter
+      styleOptions = {
+        borderWidth: 1.5,
+        chosen: false,
+        color: {
+          border: '#DADADC',
+          background: '#FFFFFF',
+        },
+        shapeProperties: {
+          borderDashes: [2, 2],
+        },
+      };
     }
+
     const message =
       { latency: 'Average latency: ', error_rate: 'Error rate: ', throughput: 'Throughput: ' }[
         idSelected
@@ -131,7 +148,7 @@ export function getServiceMapGraph(
       label: service,
       size: service === currService ? 30 : 15,
       title: `<p>${service}</p><p>${message}</p>`,
-      color: relatedServices.indexOf(service) >= 0 ? `rgba(${color}, 1)` : `rgba(${color}, 0.3)`,
+      ...styleOptions,
     };
   });
   const edges = [];
@@ -147,6 +164,7 @@ export function getServiceMapGraph(
       });
     });
   });
+  console.log({ graph: { nodes, edges } })
   return { graph: { nodes, edges } };
 }
 
