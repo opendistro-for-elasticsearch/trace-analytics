@@ -118,6 +118,7 @@ export function getServiceMapGraph(
       const percent = (value - ticks[0]) / (ticks[ticks.length - 1] - ticks[0]);
       const color = getServiceMapScaleColor(percent, idSelected);
       styleOptions = {
+        borderWidth: 0,
         color: relatedServices.indexOf(service) >= 0 ? `rgba(${color}, 1)` : `rgba(${color}, 0.3)`,
       };
     } else {
