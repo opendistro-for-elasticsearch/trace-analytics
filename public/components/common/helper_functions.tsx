@@ -164,7 +164,6 @@ export function getServiceMapGraph(
       });
     });
   });
-  console.log({ graph: { nodes, edges } })
   return { graph: { nodes, edges } };
 }
 
@@ -271,7 +270,6 @@ export const getPercentileFilter = (
       },
     });
   });
-  console.log('DSL', DSL);
   return {
     field: 'Latency percentile within trace group',
     operator: '',
