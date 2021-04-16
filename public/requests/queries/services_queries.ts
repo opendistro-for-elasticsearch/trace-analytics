@@ -197,8 +197,8 @@ export const getServiceEdgesQuery = (source: 'destination' | 'target') => {
 export const getServiceMetricsQuery = (DSL, serviceNames: string[], map: ServiceObject) => {
   const traceGroupFilter = new Set(
     DSL?.query?.bool.must
-      .filter((must) => must.term?.['traceGroup.name'])
-      .map((must) => must.term['traceGroup.name']) || []
+      .filter((must) => must.term?.['traceGroupFields.name'])
+      .map((must) => must.term['traceGroupFields.name']) || []
   );
 
   const targetResource =
@@ -207,8 +207,8 @@ export const getServiceMetricsQuery = (DSL, serviceNames: string[], map: Service
           ...[].concat(
             ...serviceNames.map((service) =>
               map[service].traceGroups
-                .filter((traceGroup) => traceGroupFilter.has(traceGroup.traceGroup))
-                .map((traceGroup) => traceGroup.targetResource)
+                .filter((traceGroup) => traceGroupFilter.has(traceGroupFields.traceGroup))
+                .map((traceGroup) => traceGroupFields.targetResource)
             )
           )
         )
