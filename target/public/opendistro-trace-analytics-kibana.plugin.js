@@ -202,19 +202,19 @@
 /******/ ({
 
 /***/ "../../node_modules/css-loader/dist/cjs.js?!../../node_modules/postcss-loader/src/index.js?!../../node_modules/resolve-url-loader/index.js?!../../node_modules/sass-loader/dist/cjs.js?!./public/index.scss?v7dark":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/css-loader/dist/cjs.js??ref--6-oneOf-0-1!/Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/postcss-loader/src??ref--6-oneOf-0-2!/Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/resolve-url-loader??ref--6-oneOf-0-3!/Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/sass-loader/dist/cjs.js??ref--6-oneOf-0-4!./public/index.scss?v7dark ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** /home/ec2-user/Projects/7.9.1/kibana/node_modules/css-loader/dist/cjs.js??ref--6-oneOf-0-1!/home/ec2-user/Projects/7.9.1/kibana/node_modules/postcss-loader/src??ref--6-oneOf-0-2!/home/ec2-user/Projects/7.9.1/kibana/node_modules/resolve-url-loader??ref--6-oneOf-0-3!/home/ec2-user/Projects/7.9.1/kibana/node_modules/sass-loader/dist/cjs.js??ref--6-oneOf-0-4!./public/index.scss?v7dark ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "../../node_modules/css-loader/dist/runtime/api.js");
-var ___CSS_LOADER_AT_RULE_IMPORT_0___ = __webpack_require__(/*! -!../../../node_modules/css-loader/dist/cjs.js??ref--6-oneOf-0-1!../node_modules/vis-network/dist/vis-network.min.css */ "../../node_modules/css-loader/dist/cjs.js?!./node_modules/vis-network/dist/vis-network.min.css?a096");
+var ___CSS_LOADER_AT_RULE_IMPORT_0___ = __webpack_require__(/*! -!../../../node_modules/css-loader/dist/cjs.js??ref--6-oneOf-0-1!../node_modules/vis-network/dist/vis-network.min.css */ "../../node_modules/css-loader/dist/cjs.js?!./node_modules/vis-network/dist/vis-network.min.css?1441");
 exports = ___CSS_LOADER_API_IMPORT___(true);
 exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);
 // Module
-exports.push([module.i, "/*\n *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.\n *\n *   Licensed under the Apache License, Version 2.0 (the \"License\").\n *   You may not use this file except in compliance with the License.\n *   A copy of the License is located at\n *\n *       http://www.apache.org/licenses/LICENSE-2.0\n *\n *   or in the \"license\" file accompanying this file. This file is distributed\n *   on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either\n *   express or implied. See the License for the specific language governing\n *   permissions and limitations under the License.\n */\n.overview-title {\n  color: '#333333';\n  font-weight: 370; }\n\n.overview-content {\n  font-weight: 430; }\n\n.panel-title {\n  color: '#3f3f3f';\n  font-weight: 500; }\n\n.panel-title-count {\n  color: '#8a9596';\n  font-weight: 300; }\n\ndiv.vis-network > div.vis-tooltip {\n  color: #f4f5f5;\n  background-color: #3d4652;\n  opacity: 0.9;\n  padding: 5px;\n  font-size: small; }\n  div.vis-network > div.vis-tooltip p {\n    padding: 5px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_trace_group_name'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_average_latency'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_error_rate'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_traces'] svg[aria-label^=\"Sorted in\"] {\n  margin-top: -20px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"] {\n  margin-left: -16px;\n  position: relative;\n  left: 10px; }\n", "",{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;EAaE;AAEF;EACE,gBAAgB;EAChB,gBAAgB,EAAE;;AAEpB;EACE,gBAAgB,EAAE;;AAEpB;EACE,gBAAgB;EAChB,gBAAgB,EAAE;;AAEpB;EACE,gBAAgB;EAChB,gBAAgB,EAAE;;AAEpB;EACE,cAAc;EACd,yBAAyB;EACzB,YAAY;EACZ,YAAY;EACZ,gBAAgB,EAAE;EAClB;IACE,YAAY,EAAE;;AAElB;;;;;EAKE,iBAAiB,EAAE;;AAErB;EACE,kBAAkB;EAClB,kBAAkB;EAClB,UAAU,EAAE","file":"index.scss","sourcesContent":["/*\n *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.\n *\n *   Licensed under the Apache License, Version 2.0 (the \"License\").\n *   You may not use this file except in compliance with the License.\n *   A copy of the License is located at\n *\n *       http://www.apache.org/licenses/LICENSE-2.0\n *\n *   or in the \"license\" file accompanying this file. This file is distributed\n *   on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either\n *   express or implied. See the License for the specific language governing\n *   permissions and limitations under the License.\n */\n@import url(../node_modules/vis-network/dist/vis-network.min.css);\n.overview-title {\n  color: '#333333';\n  font-weight: 370; }\n\n.overview-content {\n  font-weight: 430; }\n\n.panel-title {\n  color: '#3f3f3f';\n  font-weight: 500; }\n\n.panel-title-count {\n  color: '#8a9596';\n  font-weight: 300; }\n\ndiv.vis-network > div.vis-tooltip {\n  color: #f4f5f5;\n  background-color: #3d4652;\n  opacity: 0.9;\n  padding: 5px;\n  font-size: small; }\n  div.vis-network > div.vis-tooltip p {\n    padding: 5px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_trace_group_name'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_average_latency'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_error_rate'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_traces'] svg[aria-label^=\"Sorted in\"] {\n  margin-top: -20px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"] {\n  margin-left: -16px;\n  position: relative;\n  left: 10px; }\n"]}]);
+exports.push([module.i, "/*\n *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.\n *\n *   Licensed under the Apache License, Version 2.0 (the \"License\").\n *   You may not use this file except in compliance with the License.\n *   A copy of the License is located at\n *\n *       http://www.apache.org/licenses/LICENSE-2.0\n *\n *   or in the \"license\" file accompanying this file. This file is distributed\n *   on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either\n *   express or implied. See the License for the specific language governing\n *   permissions and limitations under the License.\n */\n.overview-title {\n  color: '#333333';\n  font-weight: 370; }\n\n.overview-content {\n  font-weight: 430; }\n\n.panel-title {\n  color: '#3f3f3f';\n  font-weight: 500; }\n\n.panel-title-count {\n  color: '#8a9596';\n  font-weight: 300; }\n\ndiv.vis-network > div.vis-tooltip {\n  color: #f4f5f5;\n  background-color: #3d4652;\n  opacity: 0.9;\n  padding: 5px;\n  font-size: small; }\n  div.vis-network > div.vis-tooltip p {\n    padding: 5px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_trace_group_name'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_average_latency'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_error_rate'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_traces'] svg[aria-label^=\"Sorted in\"] {\n  margin-top: -20px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"] {\n  margin-left: -16px;\n  position: relative;\n  left: 10px; }\n", "",{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;EAaE;AAEF;EACE,gBAAgB;EAChB,gBAAgB,EAAE;;AAEpB;EACE,gBAAgB,EAAE;;AAEpB;EACE,gBAAgB;EAChB,gBAAgB,EAAE;;AAEpB;EACE,gBAAgB;EAChB,gBAAgB,EAAE;;AAEpB;EACE,cAAc;EACd,yBAAyB;EACzB,YAAY;EACZ,YAAY;EACZ,gBAAgB,EAAE;EAClB;IACE,YAAY,EAAE;;AAElB;;;;;EAKE,iBAAiB,EAAE;;AAErB;EACE,kBAAkB;EAClB,kBAAkB;EAClB,UAAU,EAAE","file":"index.scss?v7dark","sourcesContent":["/*\n *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.\n *\n *   Licensed under the Apache License, Version 2.0 (the \"License\").\n *   You may not use this file except in compliance with the License.\n *   A copy of the License is located at\n *\n *       http://www.apache.org/licenses/LICENSE-2.0\n *\n *   or in the \"license\" file accompanying this file. This file is distributed\n *   on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either\n *   express or implied. See the License for the specific language governing\n *   permissions and limitations under the License.\n */\n@import url(../node_modules/vis-network/dist/vis-network.min.css);\n.overview-title {\n  color: '#333333';\n  font-weight: 370; }\n\n.overview-content {\n  font-weight: 430; }\n\n.panel-title {\n  color: '#3f3f3f';\n  font-weight: 500; }\n\n.panel-title-count {\n  color: '#8a9596';\n  font-weight: 300; }\n\ndiv.vis-network > div.vis-tooltip {\n  color: #f4f5f5;\n  background-color: #3d4652;\n  opacity: 0.9;\n  padding: 5px;\n  font-size: small; }\n  div.vis-network > div.vis-tooltip p {\n    padding: 5px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_trace_group_name'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_average_latency'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_error_rate'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_traces'] svg[aria-label^=\"Sorted in\"] {\n  margin-top: -20px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"] {\n  margin-left: -16px;\n  position: relative;\n  left: 10px; }\n"]}]);
 // Exports
 module.exports = exports;
 
@@ -222,29 +222,29 @@ module.exports = exports;
 /***/ }),
 
 /***/ "../../node_modules/css-loader/dist/cjs.js?!../../node_modules/postcss-loader/src/index.js?!../../node_modules/resolve-url-loader/index.js?!../../node_modules/sass-loader/dist/cjs.js?!./public/index.scss?v7light":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!/Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/postcss-loader/src??ref--6-oneOf-1-2!/Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/resolve-url-loader??ref--6-oneOf-1-3!/Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/sass-loader/dist/cjs.js??ref--6-oneOf-1-4!./public/index.scss?v7light ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** /home/ec2-user/Projects/7.9.1/kibana/node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!/home/ec2-user/Projects/7.9.1/kibana/node_modules/postcss-loader/src??ref--6-oneOf-1-2!/home/ec2-user/Projects/7.9.1/kibana/node_modules/resolve-url-loader??ref--6-oneOf-1-3!/home/ec2-user/Projects/7.9.1/kibana/node_modules/sass-loader/dist/cjs.js??ref--6-oneOf-1-4!./public/index.scss?v7light ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "../../node_modules/css-loader/dist/runtime/api.js");
-var ___CSS_LOADER_AT_RULE_IMPORT_0___ = __webpack_require__(/*! -!../../../node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!../node_modules/vis-network/dist/vis-network.min.css */ "../../node_modules/css-loader/dist/cjs.js?!./node_modules/vis-network/dist/vis-network.min.css?37b3");
+var ___CSS_LOADER_AT_RULE_IMPORT_0___ = __webpack_require__(/*! -!../../../node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!../node_modules/vis-network/dist/vis-network.min.css */ "../../node_modules/css-loader/dist/cjs.js?!./node_modules/vis-network/dist/vis-network.min.css?f770");
 exports = ___CSS_LOADER_API_IMPORT___(true);
 exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);
 // Module
-exports.push([module.i, "/*\n *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.\n *\n *   Licensed under the Apache License, Version 2.0 (the \"License\").\n *   You may not use this file except in compliance with the License.\n *   A copy of the License is located at\n *\n *       http://www.apache.org/licenses/LICENSE-2.0\n *\n *   or in the \"license\" file accompanying this file. This file is distributed\n *   on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either\n *   express or implied. See the License for the specific language governing\n *   permissions and limitations under the License.\n */\n.overview-title {\n  color: '#333333';\n  font-weight: 370; }\n\n.overview-content {\n  font-weight: 430; }\n\n.panel-title {\n  color: '#3f3f3f';\n  font-weight: 500; }\n\n.panel-title-count {\n  color: '#8a9596';\n  font-weight: 300; }\n\ndiv.vis-network > div.vis-tooltip {\n  color: #f4f5f5;\n  background-color: #3d4652;\n  opacity: 0.9;\n  padding: 5px;\n  font-size: small; }\n  div.vis-network > div.vis-tooltip p {\n    padding: 5px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_trace_group_name'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_average_latency'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_error_rate'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_traces'] svg[aria-label^=\"Sorted in\"] {\n  margin-top: -20px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"] {\n  margin-left: -16px;\n  position: relative;\n  left: 10px; }\n", "",{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;EAaE;AAEF;EACE,gBAAgB;EAChB,gBAAgB,EAAE;;AAEpB;EACE,gBAAgB,EAAE;;AAEpB;EACE,gBAAgB;EAChB,gBAAgB,EAAE;;AAEpB;EACE,gBAAgB;EAChB,gBAAgB,EAAE;;AAEpB;EACE,cAAc;EACd,yBAAyB;EACzB,YAAY;EACZ,YAAY;EACZ,gBAAgB,EAAE;EAClB;IACE,YAAY,EAAE;;AAElB;;;;;EAKE,iBAAiB,EAAE;;AAErB;EACE,kBAAkB;EAClB,kBAAkB;EAClB,UAAU,EAAE","file":"index.scss","sourcesContent":["/*\n *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.\n *\n *   Licensed under the Apache License, Version 2.0 (the \"License\").\n *   You may not use this file except in compliance with the License.\n *   A copy of the License is located at\n *\n *       http://www.apache.org/licenses/LICENSE-2.0\n *\n *   or in the \"license\" file accompanying this file. This file is distributed\n *   on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either\n *   express or implied. See the License for the specific language governing\n *   permissions and limitations under the License.\n */\n@import url(../node_modules/vis-network/dist/vis-network.min.css);\n.overview-title {\n  color: '#333333';\n  font-weight: 370; }\n\n.overview-content {\n  font-weight: 430; }\n\n.panel-title {\n  color: '#3f3f3f';\n  font-weight: 500; }\n\n.panel-title-count {\n  color: '#8a9596';\n  font-weight: 300; }\n\ndiv.vis-network > div.vis-tooltip {\n  color: #f4f5f5;\n  background-color: #3d4652;\n  opacity: 0.9;\n  padding: 5px;\n  font-size: small; }\n  div.vis-network > div.vis-tooltip p {\n    padding: 5px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_trace_group_name'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_average_latency'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_error_rate'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_traces'] svg[aria-label^=\"Sorted in\"] {\n  margin-top: -20px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"] {\n  margin-left: -16px;\n  position: relative;\n  left: 10px; }\n"]}]);
+exports.push([module.i, "/*\n *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.\n *\n *   Licensed under the Apache License, Version 2.0 (the \"License\").\n *   You may not use this file except in compliance with the License.\n *   A copy of the License is located at\n *\n *       http://www.apache.org/licenses/LICENSE-2.0\n *\n *   or in the \"license\" file accompanying this file. This file is distributed\n *   on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either\n *   express or implied. See the License for the specific language governing\n *   permissions and limitations under the License.\n */\n.overview-title {\n  color: '#333333';\n  font-weight: 370; }\n\n.overview-content {\n  font-weight: 430; }\n\n.panel-title {\n  color: '#3f3f3f';\n  font-weight: 500; }\n\n.panel-title-count {\n  color: '#8a9596';\n  font-weight: 300; }\n\ndiv.vis-network > div.vis-tooltip {\n  color: #f4f5f5;\n  background-color: #3d4652;\n  opacity: 0.9;\n  padding: 5px;\n  font-size: small; }\n  div.vis-network > div.vis-tooltip p {\n    padding: 5px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_trace_group_name'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_average_latency'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_error_rate'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_traces'] svg[aria-label^=\"Sorted in\"] {\n  margin-top: -20px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"] {\n  margin-left: -16px;\n  position: relative;\n  left: 10px; }\n", "",{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;EAaE;AAEF;EACE,gBAAgB;EAChB,gBAAgB,EAAE;;AAEpB;EACE,gBAAgB,EAAE;;AAEpB;EACE,gBAAgB;EAChB,gBAAgB,EAAE;;AAEpB;EACE,gBAAgB;EAChB,gBAAgB,EAAE;;AAEpB;EACE,cAAc;EACd,yBAAyB;EACzB,YAAY;EACZ,YAAY;EACZ,gBAAgB,EAAE;EAClB;IACE,YAAY,EAAE;;AAElB;;;;;EAKE,iBAAiB,EAAE;;AAErB;EACE,kBAAkB;EAClB,kBAAkB;EAClB,UAAU,EAAE","file":"index.scss?v7light","sourcesContent":["/*\n *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.\n *\n *   Licensed under the Apache License, Version 2.0 (the \"License\").\n *   You may not use this file except in compliance with the License.\n *   A copy of the License is located at\n *\n *       http://www.apache.org/licenses/LICENSE-2.0\n *\n *   or in the \"license\" file accompanying this file. This file is distributed\n *   on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either\n *   express or implied. See the License for the specific language governing\n *   permissions and limitations under the License.\n */\n@import url(../node_modules/vis-network/dist/vis-network.min.css);\n.overview-title {\n  color: '#333333';\n  font-weight: 370; }\n\n.overview-content {\n  font-weight: 430; }\n\n.panel-title {\n  color: '#3f3f3f';\n  font-weight: 500; }\n\n.panel-title-count {\n  color: '#8a9596';\n  font-weight: 300; }\n\ndiv.vis-network > div.vis-tooltip {\n  color: #f4f5f5;\n  background-color: #3d4652;\n  opacity: 0.9;\n  padding: 5px;\n  font-size: small; }\n  div.vis-network > div.vis-tooltip p {\n    padding: 5px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_trace_group_name'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_average_latency'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_error_rate'] svg[aria-label^=\"Sorted in\"],\nth[data-test-subj^='tableHeaderCell_dashboard_traces'] svg[aria-label^=\"Sorted in\"] {\n  margin-top: -20px; }\n\nth[data-test-subj^='tableHeaderCell_dashboard_latency_variance'] svg[aria-label^=\"Sorted in\"] {\n  margin-left: -16px;\n  position: relative;\n  left: 10px; }\n"]}]);
 // Exports
 module.exports = exports;
 
 
 /***/ }),
 
-/***/ "../../node_modules/css-loader/dist/cjs.js?!./node_modules/vis-network/dist/vis-network.min.css?37b3":
-/*!***********************************************************************************************************************************************************!*\
-  !*** /Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/vis-network/dist/vis-network.min.css ***!
-  \***********************************************************************************************************************************************************/
+/***/ "../../node_modules/css-loader/dist/cjs.js?!./node_modules/vis-network/dist/vis-network.min.css?1441":
+/*!******************************************************************************************************************************************************!*\
+  !*** /home/ec2-user/Projects/7.9.1/kibana/node_modules/css-loader/dist/cjs.js??ref--6-oneOf-0-1!./node_modules/vis-network/dist/vis-network.min.css ***!
+  \******************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -286,10 +286,10 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ "../../node_modules/css-loader/dist/cjs.js?!./node_modules/vis-network/dist/vis-network.min.css?a096":
-/*!***********************************************************************************************************************************************************!*\
-  !*** /Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/css-loader/dist/cjs.js??ref--6-oneOf-0-1!./node_modules/vis-network/dist/vis-network.min.css ***!
-  \***********************************************************************************************************************************************************/
+/***/ "../../node_modules/css-loader/dist/cjs.js?!./node_modules/vis-network/dist/vis-network.min.css?f770":
+/*!******************************************************************************************************************************************************!*\
+  !*** /home/ec2-user/Projects/7.9.1/kibana/node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/vis-network/dist/vis-network.min.css ***!
+  \******************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -332,9 +332,9 @@ module.exports = exports;
 /***/ }),
 
 /***/ "../../node_modules/css-loader/dist/runtime/api.js":
-/*!*********************************************************************************************!*\
-  !*** /Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/css-loader/dist/runtime/api.js ***!
-  \*********************************************************************************************/
+/*!****************************************************************************************!*\
+  !*** /home/ec2-user/Projects/7.9.1/kibana/node_modules/css-loader/dist/runtime/api.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -437,9 +437,9 @@ function toComment(sourceMap) {
 /***/ }),
 
 /***/ "../../node_modules/css-loader/dist/runtime/getUrl.js":
-/*!************************************************************************************************!*\
-  !*** /Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/css-loader/dist/runtime/getUrl.js ***!
-  \************************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** /home/ec2-user/Projects/7.9.1/kibana/node_modules/css-loader/dist/runtime/getUrl.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -482,9 +482,9 @@ module.exports = function (url, options) {
 /***/ }),
 
 /***/ "../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
-/*!********************************************************************************************************************!*\
-  !*** /Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
-  \********************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/Projects/7.9.1/kibana/node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -664,7 +664,7 @@ function applyToTag(style, options, obj) {
     style.removeAttribute('media');
   }
 
-  if (sourceMap && typeof btoa !== 'undefined') {
+  if (sourceMap && btoa) {
     css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
   } // For old IE
 
@@ -762,9 +762,9 @@ module.exports = function (list, options) {
 /***/ }),
 
 /***/ "../../node_modules/val-loader/dist/cjs.js?key=opendistro-trace-analytics-kibana!../../packages/kbn-ui-shared-deps/public_path_module_creator.js":
-/*!*******************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/lijshu/Projects/7.9.1/kibana-7.9.1/node_modules/val-loader/dist/cjs.js?key=opendistro-trace-analytics-kibana!/Users/lijshu/Projects/7.9.1/kibana-7.9.1/packages/kbn-ui-shared-deps/public_path_module_creator.js ***!
-  \*******************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** /home/ec2-user/Projects/7.9.1/kibana/node_modules/val-loader/dist/cjs.js?key=opendistro-trace-analytics-kibana!/home/ec2-user/Projects/7.9.1/kibana/packages/kbn-ui-shared-deps/public_path_module_creator.js ***!
+  \*********************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -773,9 +773,9 @@ __webpack_require__.p = window.__kbnPublicPath__['opendistro-trace-analytics-kib
 /***/ }),
 
 /***/ "../../packages/kbn-optimizer/target/worker/entry_point_creator.js":
-/*!*************************************************************************************************************!*\
-  !*** /Users/lijshu/Projects/7.9.1/kibana-7.9.1/packages/kbn-optimizer/target/worker/entry_point_creator.js ***!
-  \*************************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/ec2-user/Projects/7.9.1/kibana/packages/kbn-optimizer/target/worker/entry_point_creator.js ***!
+  \********************************************************************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1026,9 +1026,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -1055,9 +1057,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 

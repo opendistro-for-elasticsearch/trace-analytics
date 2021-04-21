@@ -1,9 +1,9 @@
 (window["opendistro-trace-analytics-kibana_bundle_jsonpfunction"] = window["opendistro-trace-analytics-kibana_bundle_jsonpfunction"] || []).push([[1],{
 
 /***/ "../../packages/elastic-datemath/target/index.js":
-/*!*******************************************************************************************!*\
-  !*** /Users/lijshu/Projects/7.9.1/kibana-7.9.1/packages/elastic-datemath/target/index.js ***!
-  \*******************************************************************************************/
+/*!**************************************************************************************!*\
+  !*** /home/ec2-user/Projects/7.9.1/kibana/packages/elastic-datemath/target/index.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -584,7 +584,7 @@ function FilterEditPopover(props) {
     grow: false
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiButton"], {
     fill: true,
-    disabled: selectedFieldOptions.length === 0 || selectedOperatorOptions.length === 0 || filterValue.length === 0 && !((_selectedOperatorOpti = selectedOperatorOptions[0]) !== null && _selectedOperatorOpti !== void 0 && (_selectedOperatorOpti2 = _selectedOperatorOpti.label) !== null && _selectedOperatorOpti2 !== void 0 && _selectedOperatorOpti2.includes('exist')),
+    disabled: selectedFieldOptions.length === 0 || selectedOperatorOptions.length === 0 || filterValue.length === 0 && !((_selectedOperatorOpti = selectedOperatorOptions[0]) === null || _selectedOperatorOpti === void 0 ? void 0 : (_selectedOperatorOpti2 = _selectedOperatorOpti.label) === null || _selectedOperatorOpti2 === void 0 ? void 0 : _selectedOperatorOpti2.includes('exist')),
     onClick: () => {
       props.closePopover();
       props.setFilter({
@@ -732,7 +732,7 @@ const getValueComponent = (field, operator, value, setValue) => {
 
   const getRangeField = () => {
     const getFromValue = () => {
-      if (value !== null && value !== void 0 && value.from) {
+      if (value === null || value === void 0 ? void 0 : value.from) {
         return value.from.includes('\u221E') ? '' : value.from;
       }
 
@@ -740,7 +740,7 @@ const getValueComponent = (field, operator, value, setValue) => {
     };
 
     const getToValue = () => {
-      if (value !== null && value !== void 0 && value.to) {
+      if (value === null || value === void 0 ? void 0 : value.to) {
         return value.to.includes('\u221E') ? '' : value.to;
       }
 
@@ -902,7 +902,7 @@ function Filters(props) {
           var _filter$custom;
 
           return { ...filter,
-            inverted: filter.locked ? filter.inverted : (_filter$custom = filter.custom) !== null && _filter$custom !== void 0 && _filter$custom.query ? false : !filter.inverted
+            inverted: filter.locked ? filter.inverted : ((_filter$custom = filter.custom) === null || _filter$custom === void 0 ? void 0 : _filter$custom.query) ? false : !filter.inverted
           };
         }));
       }
@@ -940,7 +940,7 @@ function Filters(props) {
           type: "invert",
           size: "m"
         }),
-        disabled: !!((_filter$custom2 = filter.custom) !== null && _filter$custom2 !== void 0 && _filter$custom2.query) || validFilterFields.indexOf(filter.field) === -1,
+        disabled: !!((_filter$custom2 = filter.custom) === null || _filter$custom2 === void 0 ? void 0 : _filter$custom2.query) || validFilterFields.indexOf(filter.field) === -1,
         panel: 1
       }, {
         name: `${filter.inverted ? 'Include' : 'Exclude'} results`,
@@ -948,7 +948,7 @@ function Filters(props) {
           type: filter.inverted ? 'plusInCircle' : 'minusInCircle',
           size: "m"
         }),
-        disabled: !!((_filter$custom3 = filter.custom) !== null && _filter$custom3 !== void 0 && _filter$custom3.query) || validFilterFields.indexOf(filter.field) === -1,
+        disabled: !!((_filter$custom3 = filter.custom) === null || _filter$custom3 === void 0 ? void 0 : _filter$custom3.query) || validFilterFields.indexOf(filter.field) === -1,
         onClick: () => {
           filter.inverted = !filter.inverted;
           setFilter(filter, index);
@@ -1394,7 +1394,7 @@ const filtersToDsl = (filters, query, startTime, endTime) => {
   filters.filter(filter => !filter.disabled && !filter.locked).forEach(filter => {
     var _filter$custom;
 
-    if ((_filter$custom = filter.custom) !== null && _filter$custom !== void 0 && _filter$custom.query) {
+    if ((_filter$custom = filter.custom) === null || _filter$custom === void 0 ? void 0 : _filter$custom.query) {
       // add percentile filter
       DSL.query.bool.should.push(...filter.custom.query.bool.should);
       DSL.custom.percentiles.query.bool.should.push(...filter.custom.query.bool.should);
@@ -1789,7 +1789,7 @@ function ErrorRatePlt(props) {
   const layout = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => getLayout(), [props.items]);
 
   const onClick = event => {
-    if (!(event !== null && event !== void 0 && event.points)) return;
+    if (!(event === null || event === void 0 ? void 0 : event.points)) return;
     const point = event.points[0];
     const start = point.data.x[point.pointNumber];
     const end = start + Object(___WEBPACK_IMPORTED_MODULE_3__["fixedIntervalToMilli"])(props.items.fixedInterval);
@@ -1858,7 +1858,7 @@ __webpack_require__.r(__webpack_exports__);
 function LinePlt(props) {
   var _props$data$;
 
-  const maxY = (_props$data$ = props.data[0]) !== null && _props$data$ !== void 0 && _props$data$.y ? Math.max(...props.data[0].y) : 0;
+  const maxY = ((_props$data$ = props.data[0]) === null || _props$data$ === void 0 ? void 0 : _props$data$.y) ? Math.max(...props.data[0].y) : 0;
   const layout = Object(react__WEBPACK_IMPORTED_MODULE_1__["useMemo"])(() => ({
     plot_bgcolor: 'rgba(0, 0, 0, 0)',
     paper_bgcolor: 'rgba(0, 0, 0, 0)',
@@ -2442,7 +2442,7 @@ function ThroughputPlt(props) {
   }, [props.items]);
 
   const onClick = event => {
-    if (!(event !== null && event !== void 0 && event.points)) return;
+    if (!(event === null || event === void 0 ? void 0 : event.points)) return;
     const point = event.points[0];
     const start = point.data.x[point.pointNumber];
     const end = start + Object(___WEBPACK_IMPORTED_MODULE_3__["fixedIntervalToMilli"])(props.items.fixedInterval);
@@ -5202,11 +5202,11 @@ const getTracesQuery = (traceId = null, sort) => {
             max: {
               script: {
                 source: `
-                if (!doc.containsKey('traceGroupFields') || doc['traceGroupFields'].empty) {
-                    return 0
+                if (doc.containsKey('traceGroupFields.durationInNanos') && !doc['traceGroupFields.durationInNanos'].empty) {
+                  return Math.round(doc['traceGroupFields.durationInNanos'].value / 10000) / 100.0
                 }
 
-                return Math.round(doc['traceGroupFields.durationInNanos'].value / 10000) / 100.0
+                return 0
                 `,
                 lang: 'painless'
               }
@@ -5414,7 +5414,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 function handleDslRequest(http, DSL, query) {
-  if (DSL !== null && DSL !== void 0 && DSL.query) {
+  if (DSL === null || DSL === void 0 ? void 0 : DSL.query) {
     query.query.bool.must.push(...DSL.query.bool.must);
     query.query.bool.filter.push(...DSL.query.bool.filter);
     query.query.bool.should.push(...DSL.query.bool.should);
