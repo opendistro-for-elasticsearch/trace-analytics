@@ -74,12 +74,12 @@ describe('Testing dashboard table', () => {
 
     cy.get('h2.euiTitle').contains('Traces').should('exist');
     cy.contains(' (7)').should('exist');
-    cy.contains('traceGroup: client_create_order').should('exist');
+    cy.contains('traceGroup: HTTP GET').should('exist');
 
     cy.get('.euiSideNavItemButton__label').contains('Dashboard').click();
     cy.wait(delay);
 
-    cy.get('.globalFilterItem-isDisabled').should('not.exist');
+    cy.contains('traceGroup: HTTP GET').should('exist');
   });
 });
 
