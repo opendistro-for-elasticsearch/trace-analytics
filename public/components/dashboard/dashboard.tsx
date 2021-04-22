@@ -128,9 +128,11 @@ export function Dashboard(props: DashboardProps) {
             const range = must?.range?.['traceGroupFields.durationInNanos'];
             if (range) {
               const duration = range.lt || range.lte || range.gt || range.gte;
-              must.range['traceGroupFields.durationInNanos'] = {
-                [condition]: duration,
-              };
+              if (duration || duration === 0) {
+                must.range['traceGroupFields.durationInNanos'] = {
+                  [condition]: duration,
+                };
+              }
             }
           })
         );
