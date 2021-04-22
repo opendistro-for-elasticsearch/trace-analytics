@@ -2731,7 +2731,22 @@ function Dashboard(props) {
 
     for (let i = 0; i < props.filters.length; i++) {
       if (props.filters[i].custom) {
-        const newFilter = JSON.parse(JSON.stringify(props.filters[i]).replace(/{"range":{"durationInNanos":{"[gl]te?"/g, `{"range":{"durationInNanos":{"${condition}"`));
+        const newFilter = JSON.parse(JSON.stringify(props.filters[i]));
+        newFilter.custom.query.bool.should.forEach(should => should.bool.must.forEach(must => {
+          var _must$range;
+
+          const range = must === null || must === void 0 ? void 0 : (_must$range = must.range) === null || _must$range === void 0 ? void 0 : _must$range['traceGroupFields.durationInNanos'];
+
+          if (range) {
+            const duration = range.lt || range.lte || range.gt || range.gte;
+
+            if (duration || duration === 0) {
+              must.range['traceGroupFields.durationInNanos'] = {
+                [condition]: duration
+              };
+            }
+          }
+        }));
         newFilter.value = condition === 'gte' ? '>= 95th' : '< 95th';
         const newFilters = [...props.filters, ...additionalFilters];
         newFilters.splice(i, 1, newFilter);
@@ -5476,7 +5491,7 @@ const handleServicesRequest = async (http, DSL, items, setItems, setServiceMap, 
   Object(_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleDslRequest"])(http, DSL, Object(_queries_services_queries__WEBPACK_IMPORTED_MODULE_1__["getServicesQuery"])(serviceNameFilter, DSL)).then(async response => {
     const serviceObject = await handleServiceMapRequest(http, DSL);
     if (setServiceMap) setServiceMap(serviceObject);
-    return Promise.all(response.aggregations.service.buckets.map(bucket => {
+    return Promise.all(response.aggregations.service.buckets.filter(bucket => serviceObject[bucket.key]).map(bucket => {
       const connectedServices = [...serviceObject[bucket.key].targetServices, ...serviceObject[bucket.key].destServices];
       return {
         name: bucket.key,
@@ -5517,8 +5532,11 @@ const handleServiceMapRequest = async (http, DSL, items, setItems, currService) 
     bucket.resource.buckets.map(resource => {
       resource.domain.buckets.map(domain => {
         const targetService = targets[resource.key + ':' + domain.key];
-        if (map[bucket.key].targetServices.indexOf(targetService) === -1) map[bucket.key].targetServices.push(targetService);
-        if (map[targetService].destServices.indexOf(bucket.key) === -1) map[targetService].destServices.push(bucket.key);
+
+        if (targetService) {
+          if (map[bucket.key].targetServices.indexOf(targetService) === -1) map[bucket.key].targetServices.push(targetService);
+          if (map[targetService].destServices.indexOf(bucket.key) === -1) map[targetService].destServices.push(bucket.key);
+        }
       });
     });
   }))).catch(error => console.error(error)); // service map handles DSL differently
