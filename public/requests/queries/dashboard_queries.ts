@@ -27,7 +27,7 @@ export const getDashboardQuery = () => {
     aggs: {
       trace_group_name: {
         terms: {
-          field: 'traceGroup',
+          field: 'traceGroup.name',
           size: 10000,
         },
         aggs: {
@@ -48,12 +48,12 @@ export const getDashboardQuery = () => {
                 aggs: {
                   duration: {
                     max: {
-                      field: 'traceGroupFields.durationInNanos',
+                      field: 'traceGroup.durationInNanos',
                     },
                   },
                   last_updated: {
                     max: {
-                      field: 'traceGroupFields.endTime',
+                      field: 'traceGroup.endTime',
                     },
                   },
                 },
@@ -85,12 +85,12 @@ export const getDashboardQuery = () => {
             aggs: {
               duration: {
                 max: {
-                  field: 'traceGroupFields.durationInNanos',
+                  field: 'traceGroup.durationInNanos',
                 },
               },
               last_updated: {
                 max: {
-                  field: 'traceGroupFields.endTime',
+                  field: 'traceGroup.endTime',
                 },
               },
             },
@@ -117,7 +117,7 @@ export const getDashboardQuery = () => {
           error_count: {
             filter: {
               term: {
-                'traceGroupFields.statusCode': '2',
+                'traceGroup.statusCode': '2',
               },
             },
             aggs: {
@@ -166,12 +166,12 @@ export const getDashboardTraceGroupPercentiles = () => {
     aggs: {
       trace_group: {
         terms: {
-          field: 'traceGroup',
+          field: 'traceGroup.name',
         },
         aggs: {
           latency_variance_nanos: {
             percentiles: {
-              field: 'traceGroupFields.durationInNanos',
+              field: 'traceGroup.durationInNanos',
               percents: [0, 95, 100],
             },
           },
@@ -202,7 +202,7 @@ export const getErrorRatePltQuery = (fixedInterval) => {
           error_count: {
             filter: {
               term: {
-                'traceGroupFields.statusCode': '2',
+                'traceGroup.statusCode': '2',
               },
             },
             aggs: {
