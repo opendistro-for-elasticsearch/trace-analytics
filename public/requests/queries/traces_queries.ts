@@ -82,11 +82,11 @@ export const getTracesQuery = (traceId = null, sort?: PropertySort) => {
             max: {
               script: {
                 source: `
-                if (doc.containsKey('traceGroupFields.durationInNanos') && !doc['traceGroupFields.durationInNanos'].empty) {
-                  return Math.round(doc['traceGroupFields.durationInNanos'].value / 10000) / 100.0
+                if (!doc.containsKey('traceGroupFields') || doc['traceGroupFields'].empty) {
+                    return 0
                 }
 
-                return 0
+                return Math.round(doc['traceGroupFields.durationInNanos'].value / 10000) / 100.0
                 `,
                 lang: 'painless',
               },
