@@ -639,9 +639,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const getFields = page => ({
-  dashboard: ['traceGroup', 'serviceName', 'error', 'status.message', 'latency'],
-  traces: ['traceId', 'traceGroup', 'serviceName', 'error', 'status.message', 'latency'],
-  services: ['traceGroup', 'serviceName', 'error', 'status.message', 'latency']
+  dashboard: ['traceGroup.name', 'serviceName', 'error', 'status.message', 'latency'],
+  traces: ['traceId', 'traceGroup.name', 'serviceName', 'error', 'status.message', 'latency'],
+  services: ['traceGroup.name', 'serviceName', 'error', 'status.message', 'latency']
 })[page]; // filters will take effect and can be manually added
 
 
@@ -1325,13 +1325,13 @@ const getPercentileFilter = (percentileMaps, conditionString) => {
       bool: {
         must: [{
           term: {
-            'traceGroup': {
+            'traceGroup.name': {
               value: map.traceGroupName
             }
           }
         }, {
           range: {
-            'traceGroupFields.durationInNanos': map.durationFilter
+            'traceGroup.durationInNanos': map.durationFilter
           }
         }]
       }
@@ -1405,7 +1405,7 @@ const filtersToDsl = (filters, query, startTime, endTime) => {
 
     let filterQuery = {};
     let field = filter.field;
-    if (field === 'latency') field = 'traceGroupFields.durationInNanos';else if (field === 'error') field = 'traceGroupFields.statusCode';
+    if (field === 'latency') field = 'traceGroup.durationInNanos';else if (field === 'error') field = 'traceGroup.statusCode';
     let value;
 
     switch (filter.operator) {
@@ -1422,9 +1422,9 @@ const filtersToDsl = (filters, query, startTime, endTime) => {
       case 'is not':
         value = filter.value; // latency and error are not actual fields, need to convert first
 
-        if (field === 'traceGroupFields.durationInNanos') {
+        if (field === 'traceGroup.durationInNanos') {
           value = milliToNanoSec(value);
-        } else if (field === 'traceGroupFields.statusCode') {
+        } else if (field === 'traceGroup.statusCode') {
           value = value[0].label === 'true' ? '2' : '0';
         }
 
@@ -1441,7 +1441,7 @@ const filtersToDsl = (filters, query, startTime, endTime) => {
         if (!filter.value.from.includes('\u221E')) range.gte = filter.value.from;
         if (!filter.value.to.includes('\u221E')) range.lte = filter.value.to;
 
-        if (field === 'traceGroupFields.durationInNanos') {
+        if (field === 'traceGroup.durationInNanos') {
           if (range.lte) range.lte = milliToNanoSec(parseInt(range.lte || '')).toString();
           if (range.gte) range.gte = milliToNanoSec(parseInt(range.gte || '')).toString();
         }
@@ -2735,13 +2735,13 @@ function Dashboard(props) {
         newFilter.custom.query.bool.should.forEach(should => should.bool.must.forEach(must => {
           var _must$range;
 
-          const range = must === null || must === void 0 ? void 0 : (_must$range = must.range) === null || _must$range === void 0 ? void 0 : _must$range['traceGroupFields.durationInNanos'];
+          const range = must === null || must === void 0 ? void 0 : (_must$range = must.range) === null || _must$range === void 0 ? void 0 : _must$range['traceGroup.durationInNanos'];
 
           if (range) {
             const duration = range.lt || range.lte || range.gt || range.gte;
 
             if (duration || duration === 0) {
-              must.range['traceGroupFields.durationInNanos'] = {
+              must.range['traceGroup.durationInNanos'] = {
                 [condition]: duration
               };
             }
@@ -2903,7 +2903,7 @@ function DashboardTable(props) {
     render: item => item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
       "data-test-subj": "dashboard-table-trace-group-name-button",
       onClick: () => props.addFilter({
-        field: 'traceGroup',
+        field: 'traceGroup.name',
         operator: 'is',
         value: item,
         inverted: false,
@@ -2948,7 +2948,7 @@ function DashboardTable(props) {
           currPercentileFilter,
           addFilter: condition => {
             const traceGroupFilter = {
-              field: 'traceGroup',
+              field: 'traceGroup.name',
               operator: 'is',
               value: row.dashboard_trace_group_name,
               inverted: false,
@@ -3037,7 +3037,7 @@ function DashboardTable(props) {
       onClick: () => {
         props.setRedirect(true);
         props.addFilter({
-          field: 'traceGroup',
+          field: 'traceGroup.name',
           operator: 'is',
           value: row.dashboard_trace_group_name,
           inverted: false,
@@ -4572,7 +4572,7 @@ const getDashboardQuery = () => {
     aggs: {
       trace_group_name: {
         terms: {
-          field: 'traceGroup',
+          field: 'traceGroup.name',
           size: 10000
         },
         aggs: {
@@ -4593,12 +4593,12 @@ const getDashboardQuery = () => {
                 aggs: {
                   duration: {
                     max: {
-                      field: 'traceGroupFields.durationInNanos'
+                      field: 'traceGroup.durationInNanos'
                     }
                   },
                   last_updated: {
                     max: {
-                      field: 'traceGroupFields.endTime'
+                      field: 'traceGroup.endTime'
                     }
                   }
                 }
@@ -4630,12 +4630,12 @@ const getDashboardQuery = () => {
             aggs: {
               duration: {
                 max: {
-                  field: 'traceGroupFields.durationInNanos'
+                  field: 'traceGroup.durationInNanos'
                 }
               },
               last_updated: {
                 max: {
-                  field: 'traceGroupFields.endTime'
+                  field: 'traceGroup.endTime'
                 }
               }
             }
@@ -4662,7 +4662,7 @@ const getDashboardQuery = () => {
           error_count: {
             filter: {
               term: {
-                'traceGroupFields.statusCode': '2'
+                'traceGroup.statusCode': '2'
               }
             },
             aggs: {
@@ -4708,12 +4708,12 @@ const getDashboardTraceGroupPercentiles = () => {
     aggs: {
       trace_group: {
         terms: {
-          field: 'traceGroup'
+          field: 'traceGroup.name'
         },
         aggs: {
           latency_variance_nanos: {
             percentiles: {
-              field: 'traceGroupFields.durationInNanos',
+              field: 'traceGroup.durationInNanos',
               percents: [0, 95, 100]
             }
           }
@@ -4743,7 +4743,7 @@ const getErrorRatePltQuery = fixedInterval => {
           error_count: {
             filter: {
               term: {
-                'traceGroupFields.statusCode': '2'
+                'traceGroup.statusCode': '2'
               }
             },
             aggs: {
@@ -5015,8 +5015,8 @@ const getServiceMetricsQuery = (DSL, serviceNames, map) => {
   const traceGroupFilter = new Set((DSL === null || DSL === void 0 ? void 0 : (_DSL$query = DSL.query) === null || _DSL$query === void 0 ? void 0 : _DSL$query.bool.must.filter(must => {
     var _must$term;
 
-    return (_must$term = must.term) === null || _must$term === void 0 ? void 0 : _must$term['traceGroup'];
-  }).map(must => must.term['traceGroup'])) || []);
+    return (_must$term = must.term) === null || _must$term === void 0 ? void 0 : _must$term['traceGroup.name'];
+  }).map(must => must.term['traceGroup.name'])) || []);
   const targetResource = traceGroupFilter.size > 0 ? [].concat(...[].concat(...serviceNames.map(service => map[service].traceGroups.filter(traceGroup => traceGroupFilter.has(traceGroup.traceGroup)).map(traceGroup => traceGroup.targetResource)))) : [].concat(...Object.keys(map).map(service => Object(_components_common__WEBPACK_IMPORTED_MODULE_1__["getServiceMapTargetResources"])(map, service)));
   const query = {
     size: 0,
@@ -5217,8 +5217,8 @@ const getTracesQuery = (traceId = null, sort) => {
             max: {
               script: {
                 source: `
-                if (doc.containsKey('traceGroupFields.durationInNanos') && !doc['traceGroupFields.durationInNanos'].empty) {
-                  return Math.round(doc['traceGroupFields.durationInNanos'].value / 10000) / 100.0
+                if (doc.containsKey('traceGroup.durationInNanos') && !doc['traceGroup.durationInNanos'].empty) {
+                  return Math.round(doc['traceGroup.durationInNanos'].value / 10000) / 100.0
                 }
 
                 return 0
@@ -5229,20 +5229,20 @@ const getTracesQuery = (traceId = null, sort) => {
           },
           trace_group: {
             terms: {
-              field: 'traceGroup',
+              field: 'traceGroup.name',
               size: 1
             }
           },
           error_count: {
             filter: {
               term: {
-                'traceGroupFields.statusCode': '2'
+                'traceGroup.statusCode': '2'
               }
             }
           },
           last_updated: {
             max: {
-              field: 'traceGroupFields.endTime'
+              field: 'traceGroup.endTime'
             }
           }
         }
@@ -5375,7 +5375,7 @@ const getValidTraceIdsQuery = DSL => {
   };
   if (((_DSL$custom = DSL.custom) === null || _DSL$custom === void 0 ? void 0 : _DSL$custom.timeFilter.length) > 0) query.query.bool.must.push(...DSL.custom.timeFilter);
 
-  if (((_DSL$custom2 = DSL.custom) === null || _DSL$custom2 === void 0 ? void 0 : _DSL$custom2.traceGroupFields.length) > 0) {
+  if (((_DSL$custom2 = DSL.custom) === null || _DSL$custom2 === void 0 ? void 0 : _DSL$custom2.traceGroup.length) > 0) {
     query.query.bool.filter.push({
       terms: {
         traceGroup: DSL.custom.traceGroup
