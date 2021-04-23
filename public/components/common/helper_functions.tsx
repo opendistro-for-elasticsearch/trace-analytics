@@ -239,14 +239,14 @@ export const getPercentileFilter = (
         must: [
           {
             term: {
-              'traceGroup': {
+              'traceGroup.name': {
                 value: map.traceGroupName,
               },
             },
           },
           {
             range: {
-              'traceGroupFields.durationInNanos': map.durationFilter,
+              'traceGroup.durationInNanos': map.durationFilter,
             },
           },
         ],
@@ -327,8 +327,8 @@ export const filtersToDsl = (
 
       let filterQuery = {};
       let field = filter.field;
-      if (field === 'latency') field = 'traceGroupFields.durationInNanos';
-      else if (field === 'error') field = 'traceGroupFields.statusCode';
+      if (field === 'latency') field = 'traceGroup.durationInNanos';
+      else if (field === 'error') field = 'traceGroup.statusCode';
       let value;
 
       switch (filter.operator) {
@@ -345,9 +345,9 @@ export const filtersToDsl = (
         case 'is not':
           value = filter.value;
           // latency and error are not actual fields, need to convert first
-          if (field === 'traceGroupFields.durationInNanos') {
+          if (field === 'traceGroup.durationInNanos') {
             value = milliToNanoSec(value);
-          } else if (field === 'traceGroupFields.statusCode') {
+          } else if (field === 'traceGroup.statusCode') {
             value = value[0].label === 'true' ? '2' : '0';
           }
 
@@ -363,7 +363,7 @@ export const filtersToDsl = (
           const range: { gte?: string; lte?: string } = {};
           if (!filter.value.from.includes('\u221E')) range.gte = filter.value.from;
           if (!filter.value.to.includes('\u221E')) range.lte = filter.value.to;
-          if (field === 'traceGroupFields.durationInNanos') {
+          if (field === 'traceGroup.durationInNanos') {
             if (range.lte) range.lte = milliToNanoSec(parseInt(range.lte || '')).toString();
             if (range.gte) range.gte = milliToNanoSec(parseInt(range.gte || '')).toString();
           }

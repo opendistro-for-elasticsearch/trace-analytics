@@ -29,7 +29,7 @@ describe('Filter helper functions', () => {
   it('returns fields by page', () => {
     const fields = getFilterFields('dashboard');
     expect(fields).toEqual([
-      'traceGroup',
+      'traceGroup.name',
       'serviceName',
       'error',
       'status.message',
@@ -41,7 +41,7 @@ describe('Filter helper functions', () => {
     const dashboardFields = getValidFilterFields('dashboard');
     const servicesFields = getValidFilterFields('services');
     expect(dashboardFields).toEqual([
-      'traceGroup',
+      'traceGroup.name',
       'serviceName',
       'error',
       'status.message',
@@ -49,7 +49,7 @@ describe('Filter helper functions', () => {
       'Latency percentile within trace group',
     ]);
     expect(servicesFields).toEqual([
-      'traceGroup',
+      'traceGroup.name',
       'serviceName',
       'error',
       'status.message',
