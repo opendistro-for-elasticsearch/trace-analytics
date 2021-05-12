@@ -37,9 +37,9 @@ describe('Testing services table', () => {
 
   it('Renders the services table', () => {
     cy.contains(' (8)').should('exist');
-    cy.contains('analytics-service, recommendation, frontend-client').should('exist');
-    cy.contains('183.52').should('exist');
-    cy.contains('9.09%').should('exist');
+    cy.contains('analytics-service, frontend-client, recommendation').should('exist');
+    cy.contains('186.95').should('exist');
+    cy.contains('14.29%').should('exist');
   });
 
   it('Searches correctly', () => {
@@ -47,24 +47,7 @@ describe('Testing services table', () => {
     cy.get('.euiButton__text').contains('Refresh').click();
     cy.wait(delay);
     cy.contains(' (1)').should('exist');
-    cy.contains('7.41%').should('exist');
-  });
-
-  it('Renders service map', () => {
-    cy.get('text.ytitle[data-unformatted="Latency (ms)"]').should('exist');
-    cy.get('text[data-unformatted="250"]').should('exist');
-    cy.get('.vis-network').should('exist');
-
-    cy.get('.euiToggle__input[title="Error rate"]').click();
-    cy.get('text.ytitle[data-unformatted="Error rate"]').should('exist');
-    cy.get('text[data-unformatted="10%"]').should('exist');
-
-    cy.get('.euiToggle__input[title="Throughput"]').click();
-    cy.get('text.ytitle[data-unformatted="Throughput"]').should('exist');
-    cy.get('text[data-unformatted="60"]').should('exist');
-
-    cy.get('input[type="search"]').eq(1).focus().type('payment{enter}');
-    cy.wait(delay);
+    cy.contains('3.57%').should('exist');
   });
 });
 
@@ -89,8 +72,8 @@ describe('Testing service view', () => {
   
   it('Renders service view', () => {
     cy.get('h2.euiTitle').contains('frontend-client').should('exist');
-    cy.contains('207.71').should('exist');
-    cy.contains('7.41%').should('exist');
+    cy.contains('178.6').should('exist');
+    cy.contains('3.57%').should('exist');
     cy.get('div.vis-network').should('exist');
   });
 });
