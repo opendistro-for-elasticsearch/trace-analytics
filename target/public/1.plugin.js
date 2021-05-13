@@ -1,9 +1,9 @@
 (window["opendistro-trace-analytics-kibana_bundle_jsonpfunction"] = window["opendistro-trace-analytics-kibana_bundle_jsonpfunction"] || []).push([[1],{
 
 /***/ "../../packages/elastic-datemath/target/index.js":
-/*!**************************************************************************************!*\
-  !*** /home/ec2-user/Projects/7.9.1/kibana/packages/elastic-datemath/target/index.js ***!
-  \**************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** /Users/lijshu/Projects/7.9.1/kibana-7.9.1/packages/elastic-datemath/target/index.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -584,7 +584,7 @@ function FilterEditPopover(props) {
     grow: false
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiButton"], {
     fill: true,
-    disabled: selectedFieldOptions.length === 0 || selectedOperatorOptions.length === 0 || filterValue.length === 0 && !((_selectedOperatorOpti = selectedOperatorOptions[0]) === null || _selectedOperatorOpti === void 0 ? void 0 : (_selectedOperatorOpti2 = _selectedOperatorOpti.label) === null || _selectedOperatorOpti2 === void 0 ? void 0 : _selectedOperatorOpti2.includes('exist')),
+    disabled: selectedFieldOptions.length === 0 || selectedOperatorOptions.length === 0 || filterValue.length === 0 && !((_selectedOperatorOpti = selectedOperatorOptions[0]) !== null && _selectedOperatorOpti !== void 0 && (_selectedOperatorOpti2 = _selectedOperatorOpti.label) !== null && _selectedOperatorOpti2 !== void 0 && _selectedOperatorOpti2.includes('exist')),
     onClick: () => {
       props.closePopover();
       props.setFilter({
@@ -639,9 +639,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const getFields = page => ({
-  dashboard: ['traceGroup.name', 'serviceName', 'error', 'status.message', 'latency'],
-  traces: ['traceId', 'traceGroup.name', 'serviceName', 'error', 'status.message', 'latency'],
-  services: ['traceGroup.name', 'serviceName', 'error', 'status.message', 'latency']
+  dashboard: ['traceGroup', 'serviceName', 'error', 'status.message', 'latency'],
+  traces: ['traceId', 'traceGroup', 'serviceName', 'error', 'status.message', 'latency'],
+  services: ['traceGroup', 'serviceName', 'error', 'status.message', 'latency']
 })[page]; // filters will take effect and can be manually added
 
 
@@ -732,7 +732,7 @@ const getValueComponent = (field, operator, value, setValue) => {
 
   const getRangeField = () => {
     const getFromValue = () => {
-      if (value === null || value === void 0 ? void 0 : value.from) {
+      if (value !== null && value !== void 0 && value.from) {
         return value.from.includes('\u221E') ? '' : value.from;
       }
 
@@ -740,7 +740,7 @@ const getValueComponent = (field, operator, value, setValue) => {
     };
 
     const getToValue = () => {
-      if (value === null || value === void 0 ? void 0 : value.to) {
+      if (value !== null && value !== void 0 && value.to) {
         return value.to.includes('\u221E') ? '' : value.to;
       }
 
@@ -902,7 +902,7 @@ function Filters(props) {
           var _filter$custom;
 
           return { ...filter,
-            inverted: filter.locked ? filter.inverted : ((_filter$custom = filter.custom) === null || _filter$custom === void 0 ? void 0 : _filter$custom.query) ? false : !filter.inverted
+            inverted: filter.locked ? filter.inverted : (_filter$custom = filter.custom) !== null && _filter$custom !== void 0 && _filter$custom.query ? false : !filter.inverted
           };
         }));
       }
@@ -940,7 +940,7 @@ function Filters(props) {
           type: "invert",
           size: "m"
         }),
-        disabled: !!((_filter$custom2 = filter.custom) === null || _filter$custom2 === void 0 ? void 0 : _filter$custom2.query) || validFilterFields.indexOf(filter.field) === -1,
+        disabled: !!((_filter$custom2 = filter.custom) !== null && _filter$custom2 !== void 0 && _filter$custom2.query) || validFilterFields.indexOf(filter.field) === -1,
         panel: 1
       }, {
         name: `${filter.inverted ? 'Include' : 'Exclude'} results`,
@@ -948,7 +948,7 @@ function Filters(props) {
           type: filter.inverted ? 'plusInCircle' : 'minusInCircle',
           size: "m"
         }),
-        disabled: !!((_filter$custom3 = filter.custom) === null || _filter$custom3 === void 0 ? void 0 : _filter$custom3.query) || validFilterFields.indexOf(filter.field) === -1,
+        disabled: !!((_filter$custom3 = filter.custom) !== null && _filter$custom3 !== void 0 && _filter$custom3.query) || validFilterFields.indexOf(filter.field) === -1,
         onClick: () => {
           filter.inverted = !filter.inverted;
           setFilter(filter, index);
@@ -1325,13 +1325,13 @@ const getPercentileFilter = (percentileMaps, conditionString) => {
       bool: {
         must: [{
           term: {
-            'traceGroup.name': {
+            'traceGroup': {
               value: map.traceGroupName
             }
           }
         }, {
           range: {
-            'traceGroup.durationInNanos': map.durationFilter
+            'traceGroupFields.durationInNanos': map.durationFilter
           }
         }]
       }
@@ -1394,7 +1394,7 @@ const filtersToDsl = (filters, query, startTime, endTime) => {
   filters.filter(filter => !filter.disabled && !filter.locked).forEach(filter => {
     var _filter$custom;
 
-    if ((_filter$custom = filter.custom) === null || _filter$custom === void 0 ? void 0 : _filter$custom.query) {
+    if ((_filter$custom = filter.custom) !== null && _filter$custom !== void 0 && _filter$custom.query) {
       // add percentile filter
       DSL.query.bool.should.push(...filter.custom.query.bool.should);
       DSL.custom.percentiles.query.bool.should.push(...filter.custom.query.bool.should);
@@ -1405,7 +1405,7 @@ const filtersToDsl = (filters, query, startTime, endTime) => {
 
     let filterQuery = {};
     let field = filter.field;
-    if (field === 'latency') field = 'traceGroup.durationInNanos';else if (field === 'error') field = 'traceGroup.statusCode';
+    if (field === 'latency') field = 'traceGroupFields.durationInNanos';else if (field === 'error') field = 'traceGroupFields.statusCode';
     let value;
 
     switch (filter.operator) {
@@ -1422,9 +1422,9 @@ const filtersToDsl = (filters, query, startTime, endTime) => {
       case 'is not':
         value = filter.value; // latency and error are not actual fields, need to convert first
 
-        if (field === 'traceGroup.durationInNanos') {
+        if (field === 'traceGroupFields.durationInNanos') {
           value = milliToNanoSec(value);
-        } else if (field === 'traceGroup.statusCode') {
+        } else if (field === 'traceGroupFields.statusCode') {
           value = value[0].label === 'true' ? '2' : '0';
         }
 
@@ -1441,7 +1441,7 @@ const filtersToDsl = (filters, query, startTime, endTime) => {
         if (!filter.value.from.includes('\u221E')) range.gte = filter.value.from;
         if (!filter.value.to.includes('\u221E')) range.lte = filter.value.to;
 
-        if (field === 'traceGroup.durationInNanos') {
+        if (field === 'traceGroupFields.durationInNanos') {
           if (range.lte) range.lte = milliToNanoSec(parseInt(range.lte || '')).toString();
           if (range.gte) range.gte = milliToNanoSec(parseInt(range.gte || '')).toString();
         }
@@ -1789,7 +1789,7 @@ function ErrorRatePlt(props) {
   const layout = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => getLayout(), [props.items]);
 
   const onClick = event => {
-    if (!(event === null || event === void 0 ? void 0 : event.points)) return;
+    if (!(event !== null && event !== void 0 && event.points)) return;
     const point = event.points[0];
     const start = point.data.x[point.pointNumber];
     const end = start + Object(___WEBPACK_IMPORTED_MODULE_3__["fixedIntervalToMilli"])(props.items.fixedInterval);
@@ -1858,7 +1858,7 @@ __webpack_require__.r(__webpack_exports__);
 function LinePlt(props) {
   var _props$data$;
 
-  const maxY = ((_props$data$ = props.data[0]) === null || _props$data$ === void 0 ? void 0 : _props$data$.y) ? Math.max(...props.data[0].y) : 0;
+  const maxY = (_props$data$ = props.data[0]) !== null && _props$data$ !== void 0 && _props$data$.y ? Math.max(...props.data[0].y) : 0;
   const layout = Object(react__WEBPACK_IMPORTED_MODULE_1__["useMemo"])(() => ({
     plot_bgcolor: 'rgba(0, 0, 0, 0)',
     paper_bgcolor: 'rgba(0, 0, 0, 0)',
@@ -2442,7 +2442,7 @@ function ThroughputPlt(props) {
   }, [props.items]);
 
   const onClick = event => {
-    if (!(event === null || event === void 0 ? void 0 : event.points)) return;
+    if (!(event !== null && event !== void 0 && event.points)) return;
     const point = event.points[0];
     const start = point.data.x[point.pointNumber];
     const end = start + Object(___WEBPACK_IMPORTED_MODULE_3__["fixedIntervalToMilli"])(props.items.fixedInterval);
@@ -2735,13 +2735,13 @@ function Dashboard(props) {
         newFilter.custom.query.bool.should.forEach(should => should.bool.must.forEach(must => {
           var _must$range;
 
-          const range = must === null || must === void 0 ? void 0 : (_must$range = must.range) === null || _must$range === void 0 ? void 0 : _must$range['traceGroup.durationInNanos'];
+          const range = must === null || must === void 0 ? void 0 : (_must$range = must.range) === null || _must$range === void 0 ? void 0 : _must$range['traceGroupFields.durationInNanos'];
 
           if (range) {
             const duration = range.lt || range.lte || range.gt || range.gte;
 
             if (duration || duration === 0) {
-              must.range['traceGroup.durationInNanos'] = {
+              must.range['traceGroupFields.durationInNanos'] = {
                 [condition]: duration
               };
             }
@@ -2903,7 +2903,7 @@ function DashboardTable(props) {
     render: item => item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
       "data-test-subj": "dashboard-table-trace-group-name-button",
       onClick: () => props.addFilter({
-        field: 'traceGroup.name',
+        field: 'traceGroup',
         operator: 'is',
         value: item,
         inverted: false,
@@ -2948,7 +2948,7 @@ function DashboardTable(props) {
           currPercentileFilter,
           addFilter: condition => {
             const traceGroupFilter = {
-              field: 'traceGroup.name',
+              field: 'traceGroup',
               operator: 'is',
               value: row.dashboard_trace_group_name,
               inverted: false,
@@ -3037,7 +3037,7 @@ function DashboardTable(props) {
       onClick: () => {
         props.setRedirect(true);
         props.addFilter({
-          field: 'traceGroup.name',
+          field: 'traceGroup',
           operator: 'is',
           value: row.dashboard_trace_group_name,
           inverted: false,
@@ -3381,7 +3381,13 @@ function ServiceView(props) {
     }, "Connected services"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
       size: "s",
       className: "overview-content"
-    }, fields.connected_services || '-')))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+    }, fields.connected_services ? fields.connected_services.map(service => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+      href: `#/services/${service}`,
+      target: "_blank",
+      key: service
+    }, service)).reduce((prev, curr) => {
+      return [prev, ', ', curr];
+    }) : '-')))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
       direction: "column"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
       grow: false
@@ -3413,9 +3419,20 @@ function ServiceView(props) {
     }, "Traces"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
       size: "s",
       className: "overview-content"
-    }, fields.traces !== undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiI18nNumber"], {
+    }, fields.traces === 0 || fields.traces ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+      onClick: () => {
+        props.addFilter({
+          field: 'serviceName',
+          operator: 'is',
+          value: props.serviceName,
+          inverted: false,
+          disabled: false
+        });
+        location.assign('#/traces');
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiI18nNumber"], {
       value: fields.traces
-    }) : '-'))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], null));
+    })) : '-'))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], null));
   };
 
   const overview = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => renderOverview(), [fields, props.serviceName]);
@@ -3647,9 +3664,9 @@ function ServicesTable(props) {
     align: 'left',
     sortable: true,
     truncateText: true,
-    render: item => item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    render: items => items ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
       size: "s"
-    }, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.truncate(item, {
+    }, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.truncate(items.join(', '), {
       length: 50
     })) : '-'
   }, {
@@ -4001,7 +4018,7 @@ function TraceView(props) {
     }, "Trace group name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
       size: "s",
       className: "overview-content"
-    }, fields.trace_group)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+    }, fields.trace_group || '-')))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
       direction: "column"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
       grow: false
@@ -4261,11 +4278,11 @@ function TracesTable(props) {
     align: 'left',
     sortable: true,
     truncateText: true,
-    render: item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    render: item => item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
       size: "s"
     }, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.truncate(item, {
       length: 24
-    }))
+    })) : '-'
   }, {
     field: 'latency',
     name: 'Latency (ms)',
@@ -4572,7 +4589,7 @@ const getDashboardQuery = () => {
     aggs: {
       trace_group_name: {
         terms: {
-          field: 'traceGroup.name',
+          field: 'traceGroup',
           size: 10000
         },
         aggs: {
@@ -4593,12 +4610,12 @@ const getDashboardQuery = () => {
                 aggs: {
                   duration: {
                     max: {
-                      field: 'traceGroup.durationInNanos'
+                      field: 'traceGroupFields.durationInNanos'
                     }
                   },
                   last_updated: {
                     max: {
-                      field: 'traceGroup.endTime'
+                      field: 'traceGroupFields.endTime'
                     }
                   }
                 }
@@ -4630,12 +4647,12 @@ const getDashboardQuery = () => {
             aggs: {
               duration: {
                 max: {
-                  field: 'traceGroup.durationInNanos'
+                  field: 'traceGroupFields.durationInNanos'
                 }
               },
               last_updated: {
                 max: {
-                  field: 'traceGroup.endTime'
+                  field: 'traceGroupFields.endTime'
                 }
               }
             }
@@ -4662,7 +4679,7 @@ const getDashboardQuery = () => {
           error_count: {
             filter: {
               term: {
-                'traceGroup.statusCode': '2'
+                'traceGroupFields.statusCode': '2'
               }
             },
             aggs: {
@@ -4708,12 +4725,12 @@ const getDashboardTraceGroupPercentiles = () => {
     aggs: {
       trace_group: {
         terms: {
-          field: 'traceGroup.name'
+          field: 'traceGroup'
         },
         aggs: {
           latency_variance_nanos: {
             percentiles: {
-              field: 'traceGroup.durationInNanos',
+              field: 'traceGroupFields.durationInNanos',
               percents: [0, 95, 100]
             }
           }
@@ -4743,7 +4760,7 @@ const getErrorRatePltQuery = fixedInterval => {
           error_count: {
             filter: {
               term: {
-                'traceGroup.statusCode': '2'
+                'traceGroupFields.statusCode': '2'
               }
             },
             aggs: {
@@ -4854,7 +4871,8 @@ const getServicesQuery = (serviceName = null, DSL) => {
     aggs: {
       service: {
         terms: {
-          field: 'serviceName'
+          field: 'serviceName',
+          size: 10000
         },
         aggs: {
           trace_count: {
@@ -5015,8 +5033,8 @@ const getServiceMetricsQuery = (DSL, serviceNames, map) => {
   const traceGroupFilter = new Set((DSL === null || DSL === void 0 ? void 0 : (_DSL$query = DSL.query) === null || _DSL$query === void 0 ? void 0 : _DSL$query.bool.must.filter(must => {
     var _must$term;
 
-    return (_must$term = must.term) === null || _must$term === void 0 ? void 0 : _must$term['traceGroup.name'];
-  }).map(must => must.term['traceGroup.name'])) || []);
+    return (_must$term = must.term) === null || _must$term === void 0 ? void 0 : _must$term['traceGroup'];
+  }).map(must => must.term['traceGroup'])) || []);
   const targetResource = traceGroupFilter.size > 0 ? [].concat(...[].concat(...serviceNames.map(service => map[service].traceGroups.filter(traceGroup => traceGroupFilter.has(traceGroup.traceGroup)).map(traceGroup => traceGroup.targetResource)))) : [].concat(...Object.keys(map).map(service => Object(_components_common__WEBPACK_IMPORTED_MODULE_1__["getServiceMapTargetResources"])(map, service)));
   const query = {
     size: 0,
@@ -5217,8 +5235,8 @@ const getTracesQuery = (traceId = null, sort) => {
             max: {
               script: {
                 source: `
-                if (doc.containsKey('traceGroup.durationInNanos') && !doc['traceGroup.durationInNanos'].empty) {
-                  return Math.round(doc['traceGroup.durationInNanos'].value / 10000) / 100.0
+                if (doc.containsKey('traceGroupFields.durationInNanos') && !doc['traceGroupFields.durationInNanos'].empty) {
+                  return Math.round(doc['traceGroupFields.durationInNanos'].value / 10000) / 100.0
                 }
 
                 return 0
@@ -5229,20 +5247,20 @@ const getTracesQuery = (traceId = null, sort) => {
           },
           trace_group: {
             terms: {
-              field: 'traceGroup.name',
+              field: 'traceGroup',
               size: 1
             }
           },
           error_count: {
             filter: {
               term: {
-                'traceGroup.statusCode': '2'
+                'traceGroupFields.statusCode': '2'
               }
             }
           },
           last_updated: {
             max: {
-              field: 'traceGroup.endTime'
+              field: 'traceGroupFields.endTime'
             }
           }
         }
@@ -5375,7 +5393,7 @@ const getValidTraceIdsQuery = DSL => {
   };
   if (((_DSL$custom = DSL.custom) === null || _DSL$custom === void 0 ? void 0 : _DSL$custom.timeFilter.length) > 0) query.query.bool.must.push(...DSL.custom.timeFilter);
 
-  if (((_DSL$custom2 = DSL.custom) === null || _DSL$custom2 === void 0 ? void 0 : _DSL$custom2.traceGroup.length) > 0) {
+  if (((_DSL$custom2 = DSL.custom) === null || _DSL$custom2 === void 0 ? void 0 : _DSL$custom2.traceGroupFields.length) > 0) {
     query.query.bool.filter.push({
       terms: {
         traceGroup: DSL.custom.traceGroup
@@ -5429,7 +5447,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 function handleDslRequest(http, DSL, query) {
-  if (DSL === null || DSL === void 0 ? void 0 : DSL.query) {
+  if (DSL !== null && DSL !== void 0 && DSL.query) {
     query.query.bool.must.push(...DSL.query.bool.must);
     query.query.bool.filter.push(...DSL.query.bool.filter);
     query.query.bool.should.push(...DSL.query.bool.should);
@@ -5499,7 +5517,7 @@ const handleServicesRequest = async (http, DSL, items, setItems, setServiceMap, 
         error_rate: serviceObject[bucket.key].error_rate,
         throughput: serviceObject[bucket.key].throughput,
         traces: bucket.trace_count.value,
-        connected_services: connectedServices.join(', '),
+        connected_services: connectedServices.sort(),
         number_of_connected_services: connectedServices.length
       };
     }));
@@ -5572,7 +5590,7 @@ const handleServiceViewRequest = (serviceName, http, DSL, fields, setFields) => 
     const connectedServices = [...serviceObject[bucket.key].targetServices, ...serviceObject[bucket.key].destServices];
     return {
       name: bucket.key,
-      connected_services: connectedServices.join(', '),
+      connected_services: connectedServices.sort(),
       number_of_connected_services: connectedServices.length,
       average_latency: serviceObject[bucket.key].latency,
       error_rate: serviceObject[bucket.key].error_rate,
