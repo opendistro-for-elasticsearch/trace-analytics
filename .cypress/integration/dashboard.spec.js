@@ -62,7 +62,8 @@ describe('Testing dashboard table', () => {
     cy.contains('383.05').should('exist');
   });
 
-  it('Opens latency trend popover', () => {
+  it.only('Opens latency trend popover', () => {
+    setTimeFilter(true);
     cy.get('.euiButtonIcon[aria-label="Open popover"]').first().click();
     cy.get('text.ytitle[data-unformatted="Hourly latency (ms)"]').should('exist');
   });
