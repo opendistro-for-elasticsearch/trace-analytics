@@ -60,7 +60,11 @@ export function TracesTable(props: {
             <EuiFlexGroup gutterSize="s" alignItems="center">
               <EuiFlexItem grow={10}>
                 <EuiLink href={`#/traces/${encodeURIComponent(item)}`}>
-                  {_.truncate(item, { length: 24 })}
+                  {item.length < 24 ? (
+                    item
+                  ) : (
+                    <div title={item}>{_.truncate(item, { length: 24 })}</div>
+                  )}
                 </EuiLink>
               </EuiFlexItem>
               <EuiFlexItem grow={false}>
@@ -86,7 +90,18 @@ export function TracesTable(props: {
           align: 'left',
           sortable: true,
           truncateText: true,
-          render: (item) => item ? <EuiText size="s">{_.truncate(item, { length: 24 })}</EuiText> : '-',
+          render: (item) =>
+            item ? (
+              <EuiText size="s">
+                {item.length < 36 ? (
+                  item
+                ) : (
+                  <div title={item}>{_.truncate(item, { length: 36 })}</div>
+                )}
+              </EuiText>
+            ) : (
+              '-'
+            ),
         },
         {
           field: 'latency',
