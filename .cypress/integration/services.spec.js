@@ -67,7 +67,7 @@ describe('Testing service view empty state', () => {
 describe('Testing service view', () => {
   beforeEach(() => {
     cy.visit(`app/opendistro-trace-analytics#/services/${SERVICE_NAME}`);
-    setTimeFilter(undefined, undefined, false);
+    setTimeFilter(undefined, false);
   });
   
   it('Renders service view', () => {
