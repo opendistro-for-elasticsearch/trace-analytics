@@ -45,10 +45,14 @@ export const getDashboardQuery = () => {
                 }
                 `,
               combine_script: `
-                def average_latency_nanos = state.total_latency / state.count;
-                return Math.round(average_latency_nanos / 10000) / 100.0;
-                `,
-              reduce_script: 'return states[0]',
+                return state.total_latency / state.count;
+              `,
+              reduce_script: `
+                def total = 0.0;
+                for (latency_nanos in states)
+                  total += (latency_nanos instanceof Double ? latency_nanos : 0);
+                return Math.round(total / states.size() / 10000) / 100.0;
+              `,
             },
           },
           trace_count: {
@@ -124,10 +128,14 @@ export const getLatencyTrendQuery = () => {
                     }
                     `,
                   combine_script: `
-                    def average_latency_nanos = state.total_latency / state.count;
-                    return Math.round(average_latency_nanos / 10000) / 100.0;
-                    `,
-                  reduce_script: 'return states[0]',
+                    return state.total_latency / state.count;
+                  `,
+                  reduce_script: `
+                    def total = 0.0;
+                    for (latency_nanos in states)
+                      total += (latency_nanos instanceof Double ? latency_nanos : 0);
+                    return Math.round(total / states.size() / 10000) / 100.0;
+                  `,
                 },
               },
             },
