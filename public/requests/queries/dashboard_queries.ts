@@ -33,31 +33,39 @@ export const getDashboardQuery = () => {
         aggs: {
           average_latency: {
             scripted_metric: {
-              init_script: 'state.map = [:]; state.total_latency = 0.0; state.count = 0.0;',
+              init_script: 'state.traceIdToLatencyMap = [:];',
               map_script: `
                 if (doc.containsKey('traceGroupFields.durationInNanos') && !doc['traceGroupFields.durationInNanos'].empty) {
-                  def id = doc['traceId'].value;
-                  if (!state.map.containsKey(id)) {
-                    state.map[id] = true;
-                    state.count++;
-                    state.total_latency += doc['traceGroupFields.durationInNanos'].value;
+                  def traceId = doc['traceId'].value;
+                  if (!state.traceIdToLatencyMap.containsKey(traceId)) {
+                    state.traceIdToLatencyMap[traceId] = doc['traceGroupFields.durationInNanos'].value;
                   }
                 }
-                `,
-              combine_script: `
-                return state.total_latency / state.count;
               `,
+              combine_script: 'return state.traceIdToLatencyMap',
               reduce_script: `
-                double total = 0.0;
-                int length = 0;
-                for (latency_nanos in states) {
-                  if (latency_nanos != null) {
-                    length++;
-                    total += latency_nanos;
+                def seenTraceIdsMap = [:];
+                def totalLatency = 0.0;
+                def traceCount = 0.0;
+
+                for (s in states) {
+                  if (s == null) {
+                    continue;
+                  }
+
+                  for (entry in s.entrySet()) {
+                    def traceId = entry.getKey();
+                    def traceLatency = entry.getValue();
+                    if (!seenTraceIdsMap.containsKey(traceId)) {
+                      seenTraceIdsMap[traceId] = true;
+                      totalLatency += traceLatency;
+                      traceCount++;
+                    }
                   }
                 }
-                if (length == 0) return null;
-                return Math.round(total / length / 10000) / 100.0;
+
+                def average_latency_nanos = totalLatency / traceCount;
+                return Math.round(average_latency_nanos / 10000) / 100.0;
               `,
             },
           },
@@ -122,31 +130,39 @@ export const getLatencyTrendQuery = () => {
             aggs: {
               average_latency: {
                 scripted_metric: {
-                  init_script: 'state.map = [:]; state.total_latency = 0.0; state.count = 0.0;',
+                  init_script: 'state.traceIdToLatencyMap = [:];',
                   map_script: `
                     if (doc.containsKey('traceGroupFields.durationInNanos') && !doc['traceGroupFields.durationInNanos'].empty) {
-                      def id = doc['traceId'].value;
-                      if (!state.map.containsKey(id)) {
-                        state.map[id] = true;
-                        state.count++;
-                        state.total_latency += doc['traceGroupFields.durationInNanos'].value;
+                      def traceId = doc['traceId'].value;
+                      if (!state.traceIdToLatencyMap.containsKey(traceId)) {
+                        state.traceIdToLatencyMap[traceId] = doc['traceGroupFields.durationInNanos'].value;
                       }
                     }
-                    `,
-                  combine_script: `
-                    return state.total_latency / state.count;
                   `,
+                  combine_script: 'return state.traceIdToLatencyMap',
                   reduce_script: `
-                    double total = 0.0;
-                    int length = 0;
-                    for (latency_nanos in states) {
-                      if (latency_nanos != null) {
-                        length++;
-                        total += latency_nanos;
+                    def seenTraceIdsMap = [:];
+                    def totalLatency = 0.0;
+                    def traceCount = 0.0;
+
+                    for (s in states) {
+                      if (s == null) {
+                        continue;
+                      }
+
+                      for (entry in s.entrySet()) {
+                        def traceId = entry.getKey();
+                        def traceLatency = entry.getValue();
+                        if (!seenTraceIdsMap.containsKey(traceId)) {
+                          seenTraceIdsMap[traceId] = true;
+                          totalLatency += traceLatency;
+                          traceCount++;
+                        }
                       }
                     }
-                    if (length == 0) return null;
-                    return Math.round(total / length / 10000) / 100.0;
+
+                    def average_latency_nanos = totalLatency / traceCount;
+                    return Math.round(average_latency_nanos / 10000) / 100.0;
                   `,
                 },
               },
