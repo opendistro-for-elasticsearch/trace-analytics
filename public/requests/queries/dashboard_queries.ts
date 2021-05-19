@@ -110,39 +110,24 @@ export const getLatencyTrendQuery = () => {
               calendar_interval: 'hour',
             },
             aggs: {
-              traces: {
-                terms: {
-                  field: 'traceId',
-                  order: {
-                    last_updated: 'desc',
-                  },
-                  size: 10000,
-                },
-                aggs: {
-                  duration: {
-                    max: {
-                      field: 'traceGroupFields.durationInNanos',
-                    },
-                  },
-                  last_updated: {
-                    max: {
-                      field: 'traceGroupFields.endTime',
-                    },
-                  },
-                },
-              },
-              average_latency_nanos: {
-                avg_bucket: {
-                  buckets_path: 'traces>duration',
-                },
-              },
               average_latency: {
-                bucket_script: {
-                  buckets_path: {
-                    count: '_count',
-                    latency: 'average_latency_nanos.value',
-                  },
-                  script: 'Math.round(params.latency / 10000) / 100.0',
+                scripted_metric: {
+                  init_script: 'state.map = [:]; state.total_latency = 0.0; state.count = 0.0;',
+                  map_script: `
+                    if (doc.containsKey('traceGroupFields.durationInNanos') && !doc['traceGroupFields.durationInNanos'].empty) {
+                      def id = doc['traceId'].value;
+                      if (!state.map.containsKey(id)) {
+                        state.map[id] = true;
+                        state.count++;
+                        state.total_latency += doc['traceGroupFields.durationInNanos'].value;
+                      }
+                    }
+                    `,
+                  combine_script: `
+                    def average_latency_nanos = state.total_latency / state.count;
+                    return Math.round(average_latency_nanos / 10000) / 100.0;
+                    `,
+                  reduce_script: 'return states[0]',
                 },
               },
             },
