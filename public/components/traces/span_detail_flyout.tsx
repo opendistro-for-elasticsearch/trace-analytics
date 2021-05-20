@@ -15,6 +15,7 @@
 
 import {
   EuiButtonIcon,
+  EuiCodeBlock,
   EuiCopy,
   EuiFlexGroup,
   EuiFlexItem,
@@ -28,7 +29,7 @@ import {
 } from '@elastic/eui';
 import _ from 'lodash';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import { DATE_FORMAT } from '../../../common';
 import { handleSpansFlyoutRequest } from '../../requests/traces_request_handler';
@@ -59,7 +60,15 @@ export function SpanDetailFlyout(props: {
     );
   };
 
-  const renderContent = () => {
+  const isEmpty = (value) => {
+    return (
+      value == null ||
+      (value.hasOwnProperty('length') && value.length === 0) ||
+      (value.constructor === Object && Object.keys(value).length === 0)
+    );
+  };
+
+  const renderContent = useMemo(() => () => {
     if (!span || _.isEmpty(span)) return '-';
     const overviewList = [
       getListItem(
@@ -114,6 +123,7 @@ export function SpanDetailFlyout(props: {
       'startTime',
       'endTime',
       'status.code',
+      'events',
       'traceId',
       'traceGroup',
       'traceGroupFields.endTime',
@@ -123,19 +133,31 @@ export function SpanDetailFlyout(props: {
     const attributesList = Object.keys(span)
       .filter((key) => !ignoredKeys.has(key))
       .sort((keyA, keyB) => {
-        const isANull = _.isEmpty(span[keyA]);
-        const isBNull = _.isEmpty(span[keyB]);
+        const isANull = isEmpty(span[keyA]);
+        const isBNull = isEmpty(span[keyB]);
         if ((isANull && isBNull) || (!isANull && !isBNull)) return keyA < keyB ? -1 : 1;
         if (isANull) return 1;
         return -1;
       })
       .map((key) => {
-        if (_.isEmpty(span[key])) return getListItem(key, key, '-');
+        if (isEmpty(span[key])) return getListItem(key, key, '-');
         let value = span[key];
-        if (typeof value === 'object')
-          value = JSON.stringify(value, null, 2).replace(/ /g, '\u00a0');
+        if (typeof value === 'object') value = JSON.stringify(value);
         return getListItem(key, key, value);
       });
+
+    const eventsComponent = _.isEmpty(span['events']) ? null : (
+      <>
+        <EuiText size="m">
+          <span className="panel-title">Event</span>
+        </EuiText>
+        <EuiCodeBlock language="json" paddingSize="s" isCopyable overflowHeight={400}>
+          {JSON.stringify(span['events'], null, 2)}
+        </EuiCodeBlock>
+        <EuiSpacer size="xs" />
+        <EuiHorizontalRule margin="s" />
+      </>
+    );
 
     return (
       <>
@@ -146,6 +168,7 @@ export function SpanDetailFlyout(props: {
         {overviewList}
         <EuiSpacer size="xs" />
         <EuiHorizontalRule margin="s" />
+        {eventsComponent}
         <EuiText size="m">
           <span className="panel-title">Span attributes</span>
           {attributesList.length === 0 || attributesList.length ? (
@@ -156,7 +179,7 @@ export function SpanDetailFlyout(props: {
         {attributesList}
       </>
     );
-  };
+  }, [span]);
 
   return (
     <>

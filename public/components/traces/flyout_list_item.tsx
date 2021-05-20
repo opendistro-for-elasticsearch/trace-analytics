@@ -34,7 +34,7 @@ export function FlyoutListItem(props: FlyoutListItemProps) {
   const [hover, setHover] = useState(false);
 
   const descriptionComponent =
-    props.description && props.description !== '-' ? (
+    props.description !== '-' ? (
       <EuiFlexGroup gutterSize="none">
         <EuiFlexItem>
           <EuiText size="s" style={{ wordBreak: 'break-all', wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
@@ -48,7 +48,7 @@ export function FlyoutListItem(props: FlyoutListItemProps) {
                 aria-label="span-flyout-filter-icon"
                 iconType="filter"
                 onClick={props.addSpanFilter}
-                style={{ marginBottom: -8, marginTop: -2 }}
+                style={{ margin: -5 }}
               />
             </EuiToolTip>
           )}

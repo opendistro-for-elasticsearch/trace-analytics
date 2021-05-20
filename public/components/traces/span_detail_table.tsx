@@ -13,8 +13,7 @@
  *   permissions and limitations under the License.
  */
 
-import { EuiDataGrid, EuiDataGridColumn } from '@elastic/eui';
-import _ from 'lodash';
+import { EuiDataGrid, EuiDataGridColumn, EuiLink } from '@elastic/eui';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
@@ -24,6 +23,7 @@ import { nanoToMilliSec } from '../common';
 
 interface SpanDetailTableProps {
   http: CoreStart['http'];
+  openFlyout: (spanId: string) => void;
   DSL?: any;
 }
 
@@ -54,7 +54,7 @@ export function SpanDetailTable(props: SpanDetailTableProps) {
       sortingColumns: tableParams.sortingColumns.map(({ id, direction }) => ({ [id]: direction })),
     };
     handleSpansRequest(props.http, setItems, setTotal, spanSearchParams, props.DSL);
-  }, [tableParams]);
+  }, [tableParams, props.DSL]);
 
   const columns: EuiDataGridColumn[] = [
     {
@@ -94,8 +94,10 @@ export function SpanDetailTable(props: SpanDetailTableProps) {
       let adjustedRowIndex = rowIndex - tableParams.page * tableParams.size;
       if (!items.hasOwnProperty(adjustedRowIndex)) return '-';
       const value = items[adjustedRowIndex][columnId];
-      if (_.isEmpty(value)) return '-';
+      if (value == null || value === '') return '-';
       switch (columnId) {
+        case 'spanId':
+          return <EuiLink onClick={() => props.openFlyout(value)}>{value}</EuiLink>;
         case 'durationInNanos':
           return `${nanoToMilliSec(value)} ms`;
         case 'startTime':

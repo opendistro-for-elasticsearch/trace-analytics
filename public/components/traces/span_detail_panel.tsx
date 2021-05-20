@@ -40,6 +40,7 @@ export function SpanDetailPanel(props: {
   const [spanFilters, setSpanFilters] = useState<Array<{ field: string; value: any }>>(
     storedFilters ? JSON.parse(storedFilters) : []
   );
+  const [DSL, setDSL] = useState<any>({});
 
   const setSpanFiltersWithStorage = (newFilters: Array<{ field: string; value: any }>) => {
     setSpanFilters(newFilters);
@@ -70,7 +71,13 @@ export function SpanDetailPanel(props: {
     const DSL: any = {
       query: {
         bool: {
-          must: [],
+          must: [
+            {
+              term: {
+                traceId: props.traceId,
+              },
+            },
+          ],
           filter: [],
           should: [],
           must_not: [],
@@ -96,6 +103,7 @@ export function SpanDetailPanel(props: {
   const refresh = _.debounce(() => {
     if (_.isEmpty(props.colorMap)) return;
     const DSL = spanFiltersToDSL();
+    setDSL(DSL);
     handleSpansGanttRequest(props.traceId, props.http, setData, props.colorMap, DSL);
   }, 150);
 
@@ -159,8 +167,6 @@ export function SpanDetailPanel(props: {
     ));
   }, [spanFilters]);
 
-  const [cursorStyle, setCursorStyle] = useState({});
-
   const onHover = () => {
     const dragLayer = document.getElementsByClassName('nsewdrag')?.[0];
     dragLayer.style.cursor = 'pointer';
@@ -182,6 +188,17 @@ export function SpanDetailPanel(props: {
     },
   ];
   const [toggleIdSelected, setToggleIdSelected] = useState(toggleOptions[0].id);
+
+  const spanDetailTable = useMemo(
+    () => (
+      <SpanDetailTable
+        http={props.http}
+        DSL={DSL}
+        openFlyout={(spanId: string) => setCurrentSpan(spanId)}
+      />
+    ),
+    [DSL, setCurrentSpan]
+  );
 
   return (
     <>
@@ -218,7 +235,7 @@ export function SpanDetailPanel(props: {
               onUnhoverHandler={onUnhover}
             />
           ) : (
-            <SpanDetailTable http={props.http} />
+            spanDetailTable
           )}
         </div>
       </EuiPanel>
