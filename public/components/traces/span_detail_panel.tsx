@@ -14,17 +14,30 @@
  */
 
 import { EuiHorizontalRule, EuiPanel } from '@elastic/eui';
-import React, { useMemo, useState } from 'react';
+import _ from 'lodash';
+import React, { useEffect, useMemo, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
+import { handleSpansGanttRequest } from '../../requests/traces_request_handler';
 import { PanelTitle } from '../common';
 import { Plt } from '../common/plots/plt';
 import { SpanDetailFlyout } from './span_detail_flyout';
 
 export function SpanDetailPanel(props: {
   http: CoreStart['http'];
-  data: { gantt: Plotly.Data[]; table: any[]; ganttMaxX: number };
+  traceId: string;
+  colorMap: any;
 }) {
-  // const [data, setData] = useState({ gantt: [], table: [], ganttMaxX: 0 });
+  const [data, setData] = useState({ gantt: [], table: [], ganttMaxX: 0 });
+
+  useEffect(() => {
+    refresh();
+  }, [props.colorMap]);
+
+  const refresh = () => {
+    if (_.isEmpty(props.colorMap)) return;
+    handleSpansGanttRequest(props.traceId, props.http, setData, props.colorMap);
+  };
+
   const getSpanDetailLayout = (plotTraces: Plotly.Data[], maxX: number): Partial<Plotly.Layout> => {
     // get unique labels from traces
     const yLabels = plotTraces
@@ -57,9 +70,9 @@ export function SpanDetailPanel(props: {
     };
   };
 
-  const layout = useMemo(() => getSpanDetailLayout(props.data.gantt, props.data.ganttMaxX), [
-    props.data.gantt,
-    props.data.ganttMaxX,
+  const layout = useMemo(() => getSpanDetailLayout(data.gantt, data.ganttMaxX), [
+    data.gantt,
+    data.ganttMaxX,
   ]);
 
   const [currentSpan, setCurrentSpan] = useState('');
@@ -78,7 +91,7 @@ export function SpanDetailPanel(props: {
         <PanelTitle title="Span detail" />
         <EuiHorizontalRule margin="m" />
         <div style={{ overflowY: 'auto', maxHeight: 500 }}>
-          <Plt data={props.data.gantt} layout={layout} onClickHandler={onClick} />
+          <Plt data={data.gantt} layout={layout} onClickHandler={onClick} />
         </div>
       </EuiPanel>
       {!!currentSpan && (

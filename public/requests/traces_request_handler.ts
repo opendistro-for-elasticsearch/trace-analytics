@@ -113,13 +113,12 @@ export const handleTraceViewRequest = (traceId, http, fields, setFields) => {
     .catch((error) => console.error(error));
 };
 
-export const handleTracesChartsRequest = async (
+// setColorMap sets serviceName to color mappings
+export const handleServicesPieChartRequest = async (
   traceId,
   http,
-  serviceBreakdownData,
   setServiceBreakdownData,
-  spanDetailData,
-  setSpanDetailData
+  setColorMap
 ) => {
   const colors = [
     '#7492e7',
@@ -137,47 +136,48 @@ export const handleTracesChartsRequest = async (
   ];
   const colorMap = {};
   let index = 0;
-  Promise.all([
-    handleDslRequest(http, null, getServiceBreakdownQuery(traceId))
-      .then((response) =>
-        Promise.all(
-          response.aggregations.service_type.buckets.map((bucket) => {
-            colorMap[bucket.key] = colors[index++ % colors.length];
-            return {
-              name: bucket.key,
-              color: colorMap[bucket.key],
-              value: bucket.total_latency.value,
-              benchmark: 0,
-            };
-          })
-        )
+  await handleDslRequest(http, null, getServiceBreakdownQuery(traceId))
+    .then((response) =>
+      Promise.all(
+        response.aggregations.service_type.buckets.map((bucket) => {
+          colorMap[bucket.key] = colors[index++ % colors.length];
+          return {
+            name: bucket.key,
+            color: colorMap[bucket.key],
+            value: bucket.total_latency.value,
+            benchmark: 0,
+          };
+        })
       )
-      .then((newItems) => {
-        const latencySum = newItems.map((item) => item.value).reduce((a, b) => a + b, 0);
-        return [
-          {
-            values: newItems.map((item) =>
-              latencySum === 0 ? 100 : (item.value / latencySum) * 100
-            ),
-            labels: newItems.map((item) => item.name),
-            benchmarks: newItems.map((item) => item.benchmark),
-            marker: {
-              colors: newItems.map((item) => item.color),
-            },
-            type: 'pie',
-            textinfo: 'none',
-            hovertemplate: '%{label}<br>%{value:.2f}%<extra></extra>',
+    )
+    .then((newItems) => {
+      const latencySum = newItems.map((item) => item.value).reduce((a, b) => a + b, 0);
+      return [
+        {
+          values: newItems.map((item) =>
+            latencySum === 0 ? 100 : (item.value / latencySum) * 100
+          ),
+          labels: newItems.map((item) => item.name),
+          benchmarks: newItems.map((item) => item.benchmark),
+          marker: {
+            colors: newItems.map((item) => item.color),
           },
-        ];
-      })
-      .then((newItems) => {
-        setServiceBreakdownData(newItems);
-      })
-      .catch((error) => console.error(error)),
+          type: 'pie',
+          textinfo: 'none',
+          hovertemplate: '%{label}<br>%{value:.2f}%<extra></extra>',
+        },
+      ];
+    })
+    .then((newItems) => {
+      setServiceBreakdownData(newItems);
+      setColorMap(colorMap);
+    })
+    .catch((error) => console.error(error));
+};
 
-    handleDslRequest(http, null, getSpanDetailQuery(traceId)),
-  ])
-    .then((response) => hitsToSpanDetailData(response[1].hits.hits, colorMap))
+export const handleSpansGanttRequest = (traceId, http, setSpanDetailData, colorMap) => {
+  handleDslRequest(http, null, getSpanDetailQuery(traceId))
+    .then((response) => hitsToSpanDetailData(response.hits.hits, colorMap))
     .then((newItems) => setSpanDetailData(newItems))
     .catch((error) => console.error(error));
 };
@@ -185,7 +185,7 @@ export const handleTracesChartsRequest = async (
 export const handleSpansFlyoutRequest = (http, spanId, setItems) => {
   handleDslRequest(http, null, getSpanFlyoutQuery(spanId))
     .then((response) => {
-      setItems(response?.hits.hits?.[0]._source)
+      setItems(response?.hits.hits?.[0]._source);
     })
     .catch((error) => console.error(error));
 };

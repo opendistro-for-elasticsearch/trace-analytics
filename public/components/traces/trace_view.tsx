@@ -14,7 +14,6 @@
  */
 
 import {
-  EuiButton,
   EuiButtonIcon,
   EuiCodeBlock,
   EuiCopy,
@@ -25,18 +24,17 @@ import {
   EuiPageBody,
   EuiPanel,
   EuiSpacer,
-  EuiSuperSelect,
   EuiText,
   EuiTitle,
 } from '@elastic/eui';
 import React, { useEffect, useState } from 'react';
 import {
   handlePayloadRequest,
-  handleTracesChartsRequest,
+  handleServicesPieChartRequest,
   handleTraceViewRequest,
 } from '../../requests/traces_request_handler';
 import { CoreDeps } from '../app';
-import { PanelTitle, renderBenchmark } from '../common';
+import { PanelTitle } from '../common';
 import { ServiceBreakdownPanel } from './service_breakdown_panel';
 import { SpanDetailPanel } from './span_detail_panel';
 
@@ -131,8 +129,8 @@ export function TraceView(props: TraceViewProps) {
 
   const [fields, setFields] = useState({});
   const [serviceBreakdownData, setServiceBreakdownData] = useState([]);
-  const [spanDetailData, setSpanDetailData] = useState({ gantt: [], table: [], ganttMaxX: 0 });
   const [payloadData, setPayloadData] = useState('');
+  const [colorMap, setColorMap] = useState({});
 
   useEffect(() => {
     props.setBreadcrumbs([
@@ -152,16 +150,9 @@ export function TraceView(props: TraceViewProps) {
     refresh();
   }, []);
 
-  const refresh = () => {
+  const refresh = async () => {
     handleTraceViewRequest(props.traceId, props.http, fields, setFields);
-    handleTracesChartsRequest(
-      props.traceId,
-      props.http,
-      serviceBreakdownData,
-      setServiceBreakdownData,
-      spanDetailData,
-      setSpanDetailData
-    );
+    handleServicesPieChartRequest(props.traceId, props.http, setServiceBreakdownData, setColorMap);
     handlePayloadRequest(props.traceId, props.http, payloadData, setPayloadData);
   };
 
@@ -181,7 +172,7 @@ export function TraceView(props: TraceViewProps) {
               <ServiceBreakdownPanel data={serviceBreakdownData} />
             </EuiFlexItem>
             <EuiFlexItem grow={7}>
-              <SpanDetailPanel http={props.http} data={spanDetailData} />
+              <SpanDetailPanel traceId={props.traceId} http={props.http} colorMap={colorMap} />
             </EuiFlexItem>
           </EuiFlexGroup>
           <EuiSpacer />
