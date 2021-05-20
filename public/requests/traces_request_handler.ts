@@ -191,7 +191,7 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
     const duration = _.round(nanoToMilliSec(hit._source.durationInNanos), 2);
     const serviceName = _.get(hit, ['_source', 'serviceName']);
     const name = _.get(hit, '_source.name');
-    const error = hit._source['status.code'] ? 'Error' : '';
+    const error = hit._source['status.code'] === 2 ? 'Error' : '';
     const uniqueLabel = `${serviceName} <br>${name} ` + uuid();
     maxEndTime = Math.max(maxEndTime, startTime + duration);
 
