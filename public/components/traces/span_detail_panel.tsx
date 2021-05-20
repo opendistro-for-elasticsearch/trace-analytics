@@ -14,13 +14,17 @@
  */
 
 import { EuiHorizontalRule, EuiPanel } from '@elastic/eui';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+import { CoreStart } from '../../../../../src/core/public';
 import { PanelTitle } from '../common';
 import { Plt } from '../common/plots/plt';
+import { SpanDetailFlyout } from './span_detail_flyout';
 
 export function SpanDetailPanel(props: {
+  http: CoreStart['http'];
   data: { gantt: Plotly.Data[]; table: any[]; ganttMaxX: number };
 }) {
+  // const [data, setData] = useState({ gantt: [], table: [], ganttMaxX: 0 });
   const getSpanDetailLayout = (plotTraces: Plotly.Data[], maxX: number): Partial<Plotly.Layout> => {
     // get unique labels from traces
     const yLabels = plotTraces
@@ -58,15 +62,33 @@ export function SpanDetailPanel(props: {
     props.data.ganttMaxX,
   ]);
 
+  const [currentSpan, setCurrentSpan] = useState('');
+
+  const onClick = (event) => {
+    console.log('event', event);
+    if (!event?.points) return;
+    const point = event.points[0];
+    const start = point.data.x[point.pointNumber];
+    setCurrentSpan(point.data.spanId);
+  };
+
   return (
     <>
       <EuiPanel>
         <PanelTitle title="Span detail" />
         <EuiHorizontalRule margin="m" />
         <div style={{ overflowY: 'auto', maxHeight: 500 }}>
-          <Plt data={props.data.gantt} layout={layout} />
+          <Plt data={props.data.gantt} layout={layout} onClickHandler={onClick} />
         </div>
       </EuiPanel>
+      {!!currentSpan && (
+        <SpanDetailFlyout
+          http={props.http}
+          spanId={currentSpan}
+          isFlyoutVisible={!!currentSpan}
+          closeFlyout={() => setCurrentSpan('')}
+        />
+      )}
     </>
   );
 }

@@ -15,6 +15,7 @@
 
 import _ from 'lodash';
 import moment from 'moment';
+import { SpanSearchParams } from 'public/components/traces/span_details_table';
 import { v1 as uuid } from 'uuid';
 import { DATE_FORMAT } from '../../common';
 import { nanoToMilliSec } from '../components/common';
@@ -22,6 +23,8 @@ import {
   getPayloadQuery,
   getServiceBreakdownQuery,
   getSpanDetailQuery,
+  getSpanFlyoutQuery,
+  getSpansQuery,
   getTraceGroupPercentilesQuery,
   getTracesQuery,
   getValidTraceIdsQuery,
@@ -172,10 +175,18 @@ export const handleTracesChartsRequest = async (
       })
       .catch((error) => console.error(error)),
 
-    handleDslRequest(http, null, getSpanDetailQuery(traceId))
+    handleDslRequest(http, null, getSpanDetailQuery(traceId)),
   ])
     .then((response) => hitsToSpanDetailData(response[1].hits.hits, colorMap))
     .then((newItems) => setSpanDetailData(newItems))
+    .catch((error) => console.error(error));
+};
+
+export const handleSpansFlyoutRequest = (http, spanId, setItems) => {
+  handleDslRequest(http, null, getSpanFlyoutQuery(spanId))
+    .then((response) => {
+      setItems(response?.hits.hits?.[0]._source)
+    })
     .catch((error) => console.error(error));
 };
 
@@ -191,7 +202,7 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
     const duration = _.round(nanoToMilliSec(hit._source.durationInNanos), 2);
     const serviceName = _.get(hit, ['_source', 'serviceName']);
     const name = _.get(hit, '_source.name');
-    const error = hit._source['status.code'] === 2 ? 'Error' : '';
+    const error = hit._source['status.code'] === 2 ? ' \u26a0 Error' : '';
     const uniqueLabel = `${serviceName} <br>${name} ` + uuid();
     maxEndTime = Math.max(maxEndTime, startTime + duration);
 
@@ -216,6 +227,7 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
         orientation: 'h',
         hoverinfo: 'none',
         showlegend: false,
+        spanId: hit._source.spanId,
       },
       {
         x: [duration],
@@ -230,6 +242,7 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
         type: 'bar',
         orientation: 'h',
         hovertemplate: '%{x}<extra></extra>',
+        spanId: hit._source.spanId,
       }
     );
   });
@@ -241,5 +254,20 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
 export const handlePayloadRequest = (traceId, http, payloadData, setPayloadData) => {
   handleDslRequest(http, null, getPayloadQuery(traceId))
     .then((response) => setPayloadData(JSON.stringify(response.hits.hits, null, 2)))
+    .catch((error) => console.error(error));
+};
+
+export const handleSpansRequest = (
+  http,
+  setItems,
+  setTotal,
+  spanSearchParams: SpanSearchParams
+) => {
+  handleDslRequest(http, null, getSpansQuery(spanSearchParams))
+    .then((response) => {
+      console.log('response', response);
+      setItems(response.hits.hits.map((hit) => hit._source));
+      setTotal(response.hits.total?.value || 0);
+    })
     .catch((error) => console.error(error));
 };

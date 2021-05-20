@@ -181,7 +181,7 @@ export function TraceView(props: TraceViewProps) {
               <ServiceBreakdownPanel data={serviceBreakdownData} />
             </EuiFlexItem>
             <EuiFlexItem grow={7}>
-              <SpanDetailPanel data={spanDetailData} />
+              <SpanDetailPanel http={props.http} data={spanDetailData} />
             </EuiFlexItem>
           </EuiFlexGroup>
           <EuiSpacer />

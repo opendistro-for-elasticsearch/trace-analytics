@@ -237,6 +237,26 @@ export const getPayloadQuery = (traceId: string, size = 1000) => {
   };
 };
 
+export const getSpanFlyoutQuery = (spanId?: string, size = 1000) => {
+  return {
+    size,
+    query: {
+      bool: {
+        must: [
+          {
+            term: {
+              spanId,
+            },
+          },
+        ],
+        filter: [],
+        should: [],
+        must_not: [],
+      },
+    },
+  };
+};
+
 export const getValidTraceIdsQuery = (DSL) => {
   const query: any = {
     size: 0,
