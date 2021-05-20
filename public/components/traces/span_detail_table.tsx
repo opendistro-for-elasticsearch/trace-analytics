@@ -14,17 +14,20 @@
  */
 
 import { EuiDataGrid, EuiDataGridColumn, EuiLink } from '@elastic/eui';
+import _ from 'lodash';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import { DATE_FORMAT } from '../../../common';
 import { handleSpansRequest } from '../../requests/traces_request_handler';
-import { nanoToMilliSec } from '../common';
+import { nanoToMilliSec, NoMatchMessage } from '../common';
 
 interface SpanDetailTableProps {
   http: CoreStart['http'];
+  hiddenColumns: string[];
   openFlyout: (spanId: string) => void;
   DSL?: any;
+  setTotal?: (total: number) => void;
 }
 
 export interface SpanSearchParams {
@@ -56,6 +59,10 @@ export function SpanDetailTable(props: SpanDetailTableProps) {
     handleSpansRequest(props.http, setItems, setTotal, spanSearchParams, props.DSL);
   }, [tableParams, props.DSL]);
 
+  useEffect(() => {
+    if (props.setTotal) props.setTotal(total);
+  }, [total]);
+
   const columns: EuiDataGridColumn[] = [
     {
       id: 'spanId',
@@ -64,6 +71,14 @@ export function SpanDetailTable(props: SpanDetailTableProps) {
     {
       id: 'parentSpanId',
       display: 'Parent span ID',
+    },
+    {
+      id: 'traceId',
+      display: 'Trace ID',
+    },
+    {
+      id: 'traceGroup',
+      display: 'Trace group',
     },
     {
       id: 'serviceName',
@@ -85,9 +100,17 @@ export function SpanDetailTable(props: SpanDetailTableProps) {
       id: 'endTime',
       display: 'End time',
     },
+    {
+      id: 'status.code',
+      display: 'Errors',
+    },
   ];
 
-  const [visibleColumns, setVisibleColumns] = useState(() => columns.map(({ id }) => id));
+  const [visibleColumns, setVisibleColumns] = useState(() =>
+    columns
+      .filter(({ id }) => props.hiddenColumns.findIndex((column) => column === id) === -1)
+      .map(({ id }) => id)
+  );
 
   const renderCellValue = useMemo(() => {
     return ({ rowIndex, columnId }) => {
@@ -99,10 +122,12 @@ export function SpanDetailTable(props: SpanDetailTableProps) {
         case 'spanId':
           return <EuiLink onClick={() => props.openFlyout(value)}>{value}</EuiLink>;
         case 'durationInNanos':
-          return `${nanoToMilliSec(value)} ms`;
+          return `${_.round(nanoToMilliSec(Math.max(0, value)), 2)} ms`;
         case 'startTime':
         case 'endTime':
           return moment(value).format(DATE_FORMAT);
+        case 'status.code':
+          return value === 2 ? 'Yes' : 'No';
 
         default:
           return value;
@@ -144,6 +169,7 @@ export function SpanDetailTable(props: SpanDetailTableProps) {
           onChangePage: onChangePage,
         }}
       />
+      {total === 0 && <NoMatchMessage size="xl" />}
     </>
   );
 }

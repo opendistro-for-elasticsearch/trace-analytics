@@ -29,7 +29,7 @@ import {
 } from '@elastic/eui';
 import _ from 'lodash';
 import moment from 'moment';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import { DATE_FORMAT } from '../../../common';
 import { handleSpansFlyoutRequest } from '../../requests/traces_request_handler';
@@ -68,7 +68,7 @@ export function SpanDetailFlyout(props: {
     );
   };
 
-  const renderContent = useMemo(() => () => {
+  const renderContent = () => {
     if (!span || _.isEmpty(span)) return '-';
     const overviewList = [
       getListItem(
@@ -109,10 +109,14 @@ export function SpanDetailFlyout(props: {
       ),
       getListItem('serviceName', 'Service', span.serviceName || '-'),
       getListItem('name', 'Operation', span.name || '-'),
-      getListItem('durationInNanos', 'Duration', `${nanoToMilliSec(span.durationInNanos)} ms`),
+      getListItem(
+        'durationInNanos',
+        'Duration',
+        `${_.round(nanoToMilliSec(Math.max(0, span.durationInNanos)), 2)} ms`
+      ),
       getListItem('startTime', 'Start time', moment(span.startTime).format(DATE_FORMAT)),
       getListItem('endTime', 'End time', moment(span.endTime).format(DATE_FORMAT)),
-      getListItem('status.code', 'Has error', span['status.code'] === 2 ? 'Yes' : 'No'),
+      getListItem('status.code', 'Errors', span['status.code'] === 2 ? 'Yes' : 'No'),
     ];
     const ignoredKeys = new Set([
       'spanId',
@@ -179,7 +183,7 @@ export function SpanDetailFlyout(props: {
         {attributesList}
       </>
     );
-  }, [span]);
+  };
 
   return (
     <>

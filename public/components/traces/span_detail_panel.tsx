@@ -193,6 +193,7 @@ export function SpanDetailPanel(props: {
     () => (
       <SpanDetailTable
         http={props.http}
+        hiddenColumns={['traceId', 'traceGroup']}
         DSL={DSL}
         openFlyout={(spanId: string) => setCurrentSpan(spanId)}
       />
