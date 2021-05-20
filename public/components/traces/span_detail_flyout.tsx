@@ -122,7 +122,13 @@ export function SpanDetailFlyout(props: {
     ]);
     const attributesList = Object.keys(span)
       .filter((key) => !ignoredKeys.has(key))
-      .sort()
+      .sort((keyA, keyB) => {
+        const isANull = _.isEmpty(span[keyA]);
+        const isBNull = _.isEmpty(span[keyB]);
+        if ((isANull && isBNull) || (!isANull && !isBNull)) return keyA < keyB ? -1 : 1;
+        if (isANull) return 1;
+        return -1;
+      })
       .map((key) => getListItem(key, key, _.isEmpty(span[key]) ? '-' : span[key]));
     return (
       <>
