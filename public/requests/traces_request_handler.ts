@@ -222,7 +222,7 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
       end_time: hit._source.endTime,
     });
     data.gantt.push(
-      {  // transparent bar for positioning gantt chart bar
+      {
         x: [startTime],
         y: [uniqueLabel],
         marker: {
@@ -235,7 +235,7 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
         showlegend: false,
         spanId: hit._source.spanId,
       },
-      {  // actual bar visible for gantt chart
+      {
         x: [duration],
         y: [uniqueLabel],
         text: [error],
@@ -249,30 +249,11 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
         orientation: 'h',
         hovertemplate: '%{x}<extra></extra>',
         spanId: hit._source.spanId,
-      },
-      {  // transparent bar after, for easier clicking
-        x: [startTime + duration],
-        y: [uniqueLabel],
-        marker: {
-          color: 'rgba(0, 0, 0, 0)',
-        },
-        width: 0.4,
-        type: 'bar',
-        orientation: 'h',
-        hoverinfo: 'none',
-        showlegend: false,
-        spanId: hit._source.spanId,
-      },
+      }
     );
   });
-  
-  data.ganttMaxX = maxEndTime;
 
-  // third bar for easier clicking should not exceed maxEndTime
-  for (let i = 2; i < data.gantt.length; i+=3) {
-    const thirdBar = data.gantt[i];
-    thirdBar.x[0] = maxEndTime - thirdBar.x[0];
-  }
+  data.ganttMaxX = maxEndTime;
   return data;
 };
 

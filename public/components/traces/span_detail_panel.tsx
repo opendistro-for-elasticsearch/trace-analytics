@@ -107,7 +107,7 @@ export function SpanDetailPanel(props: {
     const yTexts = yLabels.map((label) => label.substring(0, label.length - 36));
 
     return {
-      height: 25 * plotTraces.length * (2 / 3) + 60,
+      height: 25 * plotTraces.length + 60,
       width: 800,
       margin: {
         l: 260,
@@ -158,6 +158,8 @@ export function SpanDetailPanel(props: {
     ));
   }, [spanFilters]);
 
+  const [cursorStyle, setCursorStyle] = useState({});
+
   const onHover = () => {
     const dragLayer = document.getElementsByClassName('nsewdrag')?.[0];
     dragLayer.style.cursor = 'pointer';
@@ -171,7 +173,7 @@ export function SpanDetailPanel(props: {
   return (
     <>
       <EuiPanel>
-        <PanelTitle title="Span detail" totalItems={data.gantt.length / 3} />
+        <PanelTitle title="Span detail" totalItems={data.gantt.length / 2} />
         {spanFilters.length > 0 && (
           <>
             <EuiSpacer size="s" />
