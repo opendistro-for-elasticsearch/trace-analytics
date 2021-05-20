@@ -35,7 +35,15 @@ export function SpanDetailPanel(props: {
   colorMap: any;
 }) {
   const [data, setData] = useState({ gantt: [], table: [], ganttMaxX: 0 });
-  const [spanFilters, setSpanFilters] = useState<Array<{ field: string; value: any }>>([]);
+  const storedFilters = sessionStorage.getItem('TraceAnalyticsSpanFilters');
+  const [spanFilters, setSpanFilters] = useState<Array<{ field: string; value: any }>>(
+    storedFilters ? JSON.parse(storedFilters) : []
+  );
+
+  const setSpanFiltersWithStorage = (newFilters: Array<{ field: string; value: any }>) => {
+    setSpanFilters(newFilters);
+    sessionStorage.setItem('TraceAnalyticsSpanFilters', JSON.stringify(newFilters));
+  };
 
   const addSpanFilter = (field: string, value: any) => {
     const newFilters = [...spanFilters];
@@ -45,7 +53,7 @@ export function SpanDetailPanel(props: {
     } else {
       newFilters.splice(index, 1, { field, value });
     }
-    setSpanFilters(newFilters);
+    setSpanFiltersWithStorage(newFilters);
   };
 
   const removeSpanFilter = (field: string) => {
@@ -53,7 +61,7 @@ export function SpanDetailPanel(props: {
     const index = newFilters.findIndex(({ field: filterField }) => field === filterField);
     if (index !== -1) {
       newFilters.splice(index, 1);
-      setSpanFilters(newFilters);
+      setSpanFiltersWithStorage(newFilters);
     }
   };
 
@@ -84,11 +92,11 @@ export function SpanDetailPanel(props: {
     refresh();
   }, [props.colorMap, spanFilters]);
 
-  const refresh = () => {
+  const refresh = _.debounce(() => {
     if (_.isEmpty(props.colorMap)) return;
     const DSL = spanFiltersToDSL();
     handleSpansGanttRequest(props.traceId, props.http, setData, props.colorMap, DSL);
-  };
+  }, 150);
 
   const getSpanDetailLayout = (plotTraces: Plotly.Data[], maxX: number): Partial<Plotly.Layout> => {
     // get unique labels from traces
