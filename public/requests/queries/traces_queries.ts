@@ -14,6 +14,7 @@
  */
 
 import { PropertySort } from '@elastic/eui';
+import { SpanSearchParams } from '../../components/traces/span_detail_table';
 import { TRACES_MAX_NUM } from '../../../common';
 
 export const getTraceGroupPercentilesQuery = () => {
@@ -255,6 +256,23 @@ export const getSpanFlyoutQuery = (spanId?: string, size = 1000) => {
       },
     },
   };
+};
+
+export const getSpansQuery = (spanSearchParams: SpanSearchParams) => {
+  const query: any = {
+    size: spanSearchParams.size,
+    from: spanSearchParams.from,
+    query: {
+      bool: {
+        must: [],
+        filter: [],
+        should: [],
+        must_not: [],
+      },
+    },
+    sort: spanSearchParams.sortingColumns,
+  };
+  return query;
 };
 
 export const getValidTraceIdsQuery = (DSL) => {

@@ -15,7 +15,7 @@
 
 import _ from 'lodash';
 import moment from 'moment';
-import { SpanSearchParams } from 'public/components/traces/span_details_table';
+import { SpanSearchParams } from '../components/traces/span_detail_table';
 import { v1 as uuid } from 'uuid';
 import { DATE_FORMAT } from '../../common';
 import { nanoToMilliSec } from '../components/common';
@@ -267,9 +267,10 @@ export const handleSpansRequest = (
   http,
   setItems,
   setTotal,
-  spanSearchParams: SpanSearchParams
+  spanSearchParams: SpanSearchParams,
+  DSL,
 ) => {
-  handleDslRequest(http, null, getSpansQuery(spanSearchParams))
+  handleDslRequest(http, DSL, getSpansQuery(spanSearchParams))
     .then((response) => {
       setItems(response.hits.hits.map((hit) => hit._source));
       setTotal(response.hits.total?.value || 0);

@@ -15,6 +15,7 @@
 
 import {
   EuiBadge,
+  EuiButtonGroup,
   EuiFlexGroup,
   EuiFlexItem,
   EuiHorizontalRule,
@@ -25,9 +26,9 @@ import _ from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
 import { handleSpansGanttRequest } from '../../requests/traces_request_handler';
-import { PanelTitle } from '../common';
-import { Plt } from '../common/plots/plt';
+import { PanelTitle, Plt } from '../common';
 import { SpanDetailFlyout } from './span_detail_flyout';
+import { SpanDetailTable } from './span_detail_table';
 
 export function SpanDetailPanel(props: {
   http: CoreStart['http'];
@@ -170,10 +171,34 @@ export function SpanDetailPanel(props: {
     dragLayer.style.cursor = '';
   };
 
+  const toggleOptions = [
+    {
+      id: 'timeline',
+      label: 'Timeline',
+    },
+    {
+      id: 'span_list',
+      label: 'Span list',
+    },
+  ];
+  const [toggleIdSelected, setToggleIdSelected] = useState(toggleOptions[0].id);
+
   return (
     <>
       <EuiPanel>
-        <PanelTitle title="Span detail" totalItems={data.gantt.length / 2} />
+        <EuiFlexGroup>
+          <EuiFlexItem>
+            <PanelTitle title="Spans" totalItems={data.gantt.length / 2} />
+          </EuiFlexItem>
+          <EuiFlexItem grow={false}>
+            <EuiButtonGroup
+              legend="Select view of spans"
+              options={toggleOptions}
+              idSelected={toggleIdSelected}
+              onChange={(id) => setToggleIdSelected(id)}
+            />
+          </EuiFlexItem>
+        </EuiFlexGroup>
         {spanFilters.length > 0 && (
           <>
             <EuiSpacer size="s" />
@@ -184,13 +209,17 @@ export function SpanDetailPanel(props: {
         )}
         <EuiHorizontalRule margin="m" />
         <div style={{ overflowY: 'auto', maxHeight: 500 }}>
-          <Plt
-            data={data.gantt}
-            layout={layout}
-            onClickHandler={onClick}
-            onHoverHandler={onHover}
-            onUnhoverHandler={onUnhover}
-          />
+          {toggleIdSelected === 'timeline' ? (
+            <Plt
+              data={data.gantt}
+              layout={layout}
+              onClickHandler={onClick}
+              onHoverHandler={onHover}
+              onUnhoverHandler={onUnhover}
+            />
+          ) : (
+            <SpanDetailTable http={props.http} />
+          )}
         </div>
       </EuiPanel>
       {!!currentSpan && (
