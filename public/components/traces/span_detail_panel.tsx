@@ -28,6 +28,7 @@ export function SpanDetailPanel(props: {
   colorMap: any;
 }) {
   const [data, setData] = useState({ gantt: [], table: [], ganttMaxX: 0 });
+  const [spanFilters, setSpanFilters] = useState<any>([]);
 
   useEffect(() => {
     refresh();
@@ -78,17 +79,15 @@ export function SpanDetailPanel(props: {
   const [currentSpan, setCurrentSpan] = useState('');
 
   const onClick = (event) => {
-    console.log('event', event);
     if (!event?.points) return;
     const point = event.points[0];
-    const start = point.data.x[point.pointNumber];
     setCurrentSpan(point.data.spanId);
   };
 
   return (
     <>
       <EuiPanel>
-        <PanelTitle title="Span detail" />
+        <PanelTitle title="Span detail" totalItems={data.gantt.length / 2} />
         <EuiHorizontalRule margin="m" />
         <div style={{ overflowY: 'auto', maxHeight: 500 }}>
           <Plt data={data.gantt} layout={layout} onClickHandler={onClick} />

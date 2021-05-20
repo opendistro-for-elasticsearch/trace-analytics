@@ -58,12 +58,13 @@ export function SpanDetailFlyout(props: {
         span.spanId ? (
           <EuiFlexGroup
             gutterSize="xs"
-            alignItems="center"
             style={{ marginTop: -4, marginBottom: -4 }}
           >
             <EuiFlexItem grow={false}>
               <EuiCopy textToCopy={span.spanId}>
-                {(copy) => <EuiButtonIcon aria-label="copy-button" onClick={copy} iconType="copyClipboard" />}
+                {(copy) => (
+                  <EuiButtonIcon aria-label="copy-button" onClick={copy} iconType="copyClipboard" />
+                )}
               </EuiCopy>
             </EuiFlexItem>
             <EuiFlexItem>{span.spanId}</EuiFlexItem>
@@ -77,12 +78,13 @@ export function SpanDetailFlyout(props: {
         span.parentSpanId ? (
           <EuiFlexGroup
             gutterSize="xs"
-            alignItems="center"
             style={{ marginTop: -4, marginBottom: -4 }}
           >
             <EuiFlexItem grow={false}>
               <EuiCopy textToCopy={span.parentSpanId}>
-                {(copy) => <EuiButtonIcon aria-label="copy-button" onClick={copy} iconType="copyClipboard" />}
+                {(copy) => (
+                  <EuiButtonIcon aria-label="copy-button" onClick={copy} iconType="copyClipboard" />
+                )}
               </EuiCopy>
             </EuiFlexItem>
             <EuiFlexItem>{span.parentSpanId}</EuiFlexItem>
@@ -115,13 +117,14 @@ export function SpanDetailFlyout(props: {
     ]);
     const attributesList = Object.keys(span)
       .filter((key) => !ignoredKeys.has(key))
+      .sort()
       .map((key) => getListItem(key, _.isEmpty(span[key]) ? '-' : span[key]));
     return (
       <>
         <EuiText size="m">
           <span className="panel-title">Overview</span>
         </EuiText>
-        <EuiSpacer size="xs" />
+        <EuiSpacer size="s" />
         {overviewList}
         <EuiSpacer size="xs" />
         <EuiHorizontalRule margin="s" />
@@ -131,7 +134,7 @@ export function SpanDetailFlyout(props: {
             <span className="panel-title-count">{` (${attributesList.length})`}</span>
           ) : null}
         </EuiText>
-        <EuiSpacer size="xs" />
+        <EuiSpacer size="s" />
         {attributesList}
       </>
     );

@@ -35,7 +35,7 @@ export function FlyoutListItem(props: FlyoutListItemProps) {
     props.description && props.description !== '-' ? (
       <EuiFlexGroup gutterSize="none">
         <EuiFlexItem>
-          <EuiText size="s" style={{ wordWrap: 'break-word' }}>
+          <EuiText size="s" style={{ wordBreak: 'break-all', wordWrap: 'break-word' }}>
             <b>{props.description}</b>
           </EuiText>
         </EuiFlexItem>
@@ -50,7 +50,7 @@ export function FlyoutListItem(props: FlyoutListItemProps) {
         </EuiFlexItem>
       </EuiFlexGroup>
     ) : (
-      <EuiText size="s" style={{ wordWrap: 'break-word' }}>
+      <EuiText size="s" style={{ wordBreak: 'break-all', wordWrap: 'break-word' }}>
         <b>{props.description}</b>
       </EuiText>
     );
@@ -61,7 +61,7 @@ export function FlyoutListItem(props: FlyoutListItemProps) {
           listItems={[
             {
               title: (
-                <EuiText size="s" color="subdued" style={{ wordWrap: 'break-word' }}>
+                <EuiText size="s" color="subdued" style={{ wordBreak: 'break-all', wordWrap: 'break-word' }}>
                   {props.title}
                 </EuiText>
               ),
