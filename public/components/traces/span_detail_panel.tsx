@@ -13,7 +13,14 @@
  *   permissions and limitations under the License.
  */
 
-import { EuiHorizontalRule, EuiPanel } from '@elastic/eui';
+import {
+  EuiBadge,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiHorizontalRule,
+  EuiPanel,
+  EuiSpacer,
+} from '@elastic/eui';
 import _ from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 import { CoreStart } from '../../../../../src/core/public';
@@ -28,15 +35,59 @@ export function SpanDetailPanel(props: {
   colorMap: any;
 }) {
   const [data, setData] = useState({ gantt: [], table: [], ganttMaxX: 0 });
-  const [spanFilters, setSpanFilters] = useState<any>([]);
+  const [spanFilters, setSpanFilters] = useState<Array<{ field: string; value: any }>>([]);
+
+  const addSpanFilter = (field: string, value: any) => {
+    const newFilters = [...spanFilters];
+    const index = newFilters.findIndex(({ field: filterField }) => field === filterField);
+    if (index === -1) {
+      newFilters.push({ field, value });
+    } else {
+      newFilters.splice(index, 1, { field, value });
+    }
+    setSpanFilters(newFilters);
+  };
+
+  const removeSpanFilter = (field: string) => {
+    const newFilters = [...spanFilters];
+    const index = newFilters.findIndex(({ field: filterField }) => field === filterField);
+    if (index !== -1) {
+      newFilters.splice(index, 1);
+      setSpanFilters(newFilters);
+    }
+  };
+
+  const spanFiltersToDSL = () => {
+    const DSL: any = {
+      query: {
+        bool: {
+          must: [],
+          filter: [],
+          should: [],
+          must_not: [],
+        },
+      },
+    };
+    spanFilters.map(({ field, value }) => {
+      if (value != null) {
+        DSL.query.bool.must.push({
+          term: {
+            [field]: value,
+          },
+        });
+      }
+    });
+    return DSL;
+  };
 
   useEffect(() => {
     refresh();
-  }, [props.colorMap]);
+  }, [props.colorMap, spanFilters]);
 
   const refresh = () => {
     if (_.isEmpty(props.colorMap)) return;
-    handleSpansGanttRequest(props.traceId, props.http, setData, props.colorMap);
+    const DSL = spanFiltersToDSL();
+    handleSpansGanttRequest(props.traceId, props.http, setData, props.colorMap, DSL);
   };
 
   const getSpanDetailLayout = (plotTraces: Plotly.Data[], maxX: number): Partial<Plotly.Layout> => {
@@ -84,10 +135,33 @@ export function SpanDetailPanel(props: {
     setCurrentSpan(point.data.spanId);
   };
 
+  const renderFilters = useMemo(() => {
+    return spanFilters.map(({ field, value }) => (
+      <EuiFlexItem grow={false} key={`span-filter-badge-${field}`}>
+        <EuiBadge
+          iconType="cross"
+          iconSide="right"
+          iconOnClick={() => removeSpanFilter(field)}
+          iconOnClickAriaLabel="remove current filter"
+        >
+          {`${field}: ${value}`}
+        </EuiBadge>
+      </EuiFlexItem>
+    ));
+  }, [spanFilters]);
+
   return (
     <>
       <EuiPanel>
         <PanelTitle title="Span detail" totalItems={data.gantt.length / 2} />
+        {spanFilters.length > 0 && (
+          <>
+            <EuiSpacer size="s" />
+            <EuiFlexGroup gutterSize="s" wrap>
+              {renderFilters}
+            </EuiFlexGroup>
+          </>
+        )}
         <EuiHorizontalRule margin="m" />
         <div style={{ overflowY: 'auto', maxHeight: 500 }}>
           <Plt data={data.gantt} layout={layout} onClickHandler={onClick} />
@@ -99,6 +173,7 @@ export function SpanDetailPanel(props: {
           spanId={currentSpan}
           isFlyoutVisible={!!currentSpan}
           closeFlyout={() => setCurrentSpan('')}
+          addSpanFilter={addSpanFilter}
         />
       )}
     </>

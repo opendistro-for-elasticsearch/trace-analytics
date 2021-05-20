@@ -20,12 +20,14 @@ import {
   EuiFlexItem,
   EuiSpacer,
   EuiText,
+  EuiToolTip,
 } from '@elastic/eui';
 import React, { useState } from 'react';
 
 interface FlyoutListItemProps {
   title: React.ReactNode;
   description: React.ReactNode;
+  addSpanFilter: () => void;
 }
 
 export function FlyoutListItem(props: FlyoutListItemProps) {
@@ -41,11 +43,14 @@ export function FlyoutListItem(props: FlyoutListItemProps) {
         </EuiFlexItem>
         <EuiFlexItem grow={false}>
           {hover && (
-            <EuiButtonIcon
-              aria-label="span-flyout-filter-icon"
-              iconType="filter"
-              style={{ marginBottom: -8, marginTop: -2 }}
-            />
+            <EuiToolTip position="top" content="Filter spans on this value">
+              <EuiButtonIcon
+                aria-label="span-flyout-filter-icon"
+                iconType="filter"
+                onClick={props.addSpanFilter}
+                style={{ marginBottom: -8, marginTop: -2 }}
+              />
+            </EuiToolTip>
           )}
         </EuiFlexItem>
       </EuiFlexGroup>
@@ -61,7 +66,11 @@ export function FlyoutListItem(props: FlyoutListItemProps) {
           listItems={[
             {
               title: (
-                <EuiText size="s" color="subdued" style={{ wordBreak: 'break-all', wordWrap: 'break-word' }}>
+                <EuiText
+                  size="s"
+                  color="subdued"
+                  style={{ wordBreak: 'break-all', wordWrap: 'break-word' }}
+                >
                   {props.title}
                 </EuiText>
               ),

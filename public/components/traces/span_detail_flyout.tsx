@@ -40,26 +40,33 @@ export function SpanDetailFlyout(props: {
   spanId: string;
   isFlyoutVisible: boolean;
   closeFlyout: () => void;
+  addSpanFilter: (field: string, value: any) => void;
 }) {
   const [span, setSpan] = useState<any>({});
+
   useEffect(() => {
     handleSpansFlyoutRequest(props.http, props.spanId, setSpan);
   }, [props.spanId]);
 
-  const getListItem = (title: React.ReactNode, description: React.ReactNode) => (
-    <FlyoutListItem title={title} description={description} key={`list-item-${title}`} />
-  );
+  const getListItem = (field: string, title: React.ReactNode, description: React.ReactNode) => {
+    return (
+      <FlyoutListItem
+        title={title}
+        description={description}
+        key={`list-item-${title}`}
+        addSpanFilter={() => props.addSpanFilter(field, span[field])}
+      />
+    );
+  };
 
   const renderContent = () => {
     if (!span || _.isEmpty(span)) return '-';
     const overviewList = [
       getListItem(
+        'spanId',
         'Span ID',
         span.spanId ? (
-          <EuiFlexGroup
-            gutterSize="xs"
-            style={{ marginTop: -4, marginBottom: -4 }}
-          >
+          <EuiFlexGroup gutterSize="xs" style={{ marginTop: -4, marginBottom: -4 }}>
             <EuiFlexItem grow={false}>
               <EuiCopy textToCopy={span.spanId}>
                 {(copy) => (
@@ -74,12 +81,10 @@ export function SpanDetailFlyout(props: {
         )
       ),
       getListItem(
+        'parentSpanId',
         'Parent Span ID',
         span.parentSpanId ? (
-          <EuiFlexGroup
-            gutterSize="xs"
-            style={{ marginTop: -4, marginBottom: -4 }}
-          >
+          <EuiFlexGroup gutterSize="xs" style={{ marginTop: -4, marginBottom: -4 }}>
             <EuiFlexItem grow={false}>
               <EuiCopy textToCopy={span.parentSpanId}>
                 {(copy) => (
@@ -93,12 +98,12 @@ export function SpanDetailFlyout(props: {
           '-'
         )
       ),
-      getListItem('Service', span.serviceName || '-'),
-      getListItem('Operation', span.name || '-'),
-      getListItem('Duration', `${nanoToMilliSec(span.durationInNanos)} ms`),
-      getListItem('Start time', moment(span.startTime).format(DATE_FORMAT)),
-      getListItem('End time', moment(span.endTime).format(DATE_FORMAT)),
-      getListItem('Has error', span['status.code'] === 2 ? 'Yes' : 'No'),
+      getListItem('serviceName', 'Service', span.serviceName || '-'),
+      getListItem('name', 'Operation', span.name || '-'),
+      getListItem('durationInNanos', 'Duration', `${nanoToMilliSec(span.durationInNanos)} ms`),
+      getListItem('startTime', 'Start time', moment(span.startTime).format(DATE_FORMAT)),
+      getListItem('endTime', 'End time', moment(span.endTime).format(DATE_FORMAT)),
+      getListItem('status.code', 'Has error', span['status.code'] === 2 ? 'Yes' : 'No'),
     ];
     const ignoredKeys = new Set([
       'spanId',
@@ -118,7 +123,7 @@ export function SpanDetailFlyout(props: {
     const attributesList = Object.keys(span)
       .filter((key) => !ignoredKeys.has(key))
       .sort()
-      .map((key) => getListItem(key, _.isEmpty(span[key]) ? '-' : span[key]));
+      .map((key) => getListItem(key, key, _.isEmpty(span[key]) ? '-' : span[key]));
     return (
       <>
         <EuiText size="m">

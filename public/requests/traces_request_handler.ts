@@ -175,8 +175,14 @@ export const handleServicesPieChartRequest = async (
     .catch((error) => console.error(error));
 };
 
-export const handleSpansGanttRequest = (traceId, http, setSpanDetailData, colorMap) => {
-  handleDslRequest(http, null, getSpanDetailQuery(traceId))
+export const handleSpansGanttRequest = (
+  traceId,
+  http,
+  setSpanDetailData,
+  colorMap,
+  spanFiltersDSL
+) => {
+  handleDslRequest(http, spanFiltersDSL, getSpanDetailQuery(traceId))
     .then((response) => hitsToSpanDetailData(response.hits.hits, colorMap))
     .then((newItems) => setSpanDetailData(newItems))
     .catch((error) => console.error(error));
