@@ -116,7 +116,17 @@ export function SpanDetailFlyout(props: {
       ),
       getListItem('startTime', 'Start time', moment(span.startTime).format(DATE_FORMAT)),
       getListItem('endTime', 'End time', moment(span.endTime).format(DATE_FORMAT)),
-      getListItem('status.code', 'Errors', span['status.code'] === 2 ? 'Yes' : 'No'),
+      getListItem(
+        'status.code',
+        'Errors',
+        span['status.code'] === 2 ? (
+          <EuiText color="danger" size="s" style={{fontWeight: 700}}>
+            Yes
+          </EuiText>
+        ) : (
+          'No'
+        )
+      ),
     ];
     const ignoredKeys = new Set([
       'spanId',

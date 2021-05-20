@@ -13,7 +13,7 @@
  *   permissions and limitations under the License.
  */
 
-import { EuiDataGrid, EuiDataGridColumn, EuiLink } from '@elastic/eui';
+import { EuiDataGrid, EuiDataGridColumn, EuiLink, EuiText } from '@elastic/eui';
 import _ from 'lodash';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -127,7 +127,13 @@ export function SpanDetailTable(props: SpanDetailTableProps) {
         case 'endTime':
           return moment(value).format(DATE_FORMAT);
         case 'status.code':
-          return value === 2 ? 'Yes' : 'No';
+          return value === 2 ? (
+            <EuiText color="danger" size="s">
+              Yes
+            </EuiText>
+          ) : (
+            'No'
+          );
 
         default:
           return value;

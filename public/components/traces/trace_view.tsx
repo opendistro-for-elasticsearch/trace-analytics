@@ -25,13 +25,13 @@ import {
   EuiPanel,
   EuiSpacer,
   EuiText,
-  EuiTitle,
+  EuiTitle
 } from '@elastic/eui';
 import React, { useEffect, useState } from 'react';
 import {
   handlePayloadRequest,
   handleServicesPieChartRequest,
-  handleTraceViewRequest,
+  handleTraceViewRequest
 } from '../../requests/traces_request_handler';
 import { CoreDeps } from '../app';
 import { PanelTitle } from '../common';
@@ -117,7 +117,13 @@ export function TraceView(props: TraceViewProps) {
               <EuiFlexItem grow={false}>
                 <EuiText className="overview-title">Errors</EuiText>
                 <EuiText size="s" className="overview-content">
-                  {fields.error_count}
+                  {fields.error_count == null ? (
+                    '-'
+                  ) : fields.error_count > 0 ? (
+                    <EuiText color="danger" size="s" style={{fontWeight: 430}}>Yes</EuiText>
+                  ) : (
+                    'No'
+                  )}
                 </EuiText>
               </EuiFlexItem>
             </EuiFlexGroup>
