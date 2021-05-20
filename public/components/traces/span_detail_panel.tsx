@@ -158,6 +158,18 @@ export function SpanDetailPanel(props: {
     ));
   }, [spanFilters]);
 
+  const [cursorStyle, setCursorStyle] = useState({});
+
+  const onHover = () => {
+    const dragLayer = document.getElementsByClassName('nsewdrag')?.[0];
+    dragLayer.style.cursor = 'pointer';
+  };
+
+  const onUnhover = (pr) => {
+    const dragLayer = document.getElementsByClassName('nsewdrag')?.[0];
+    dragLayer.style.cursor = '';
+  };
+
   return (
     <>
       <EuiPanel>
@@ -172,7 +184,13 @@ export function SpanDetailPanel(props: {
         )}
         <EuiHorizontalRule margin="m" />
         <div style={{ overflowY: 'auto', maxHeight: 500 }}>
-          <Plt data={data.gantt} layout={layout} onClickHandler={onClick} />
+          <Plt
+            data={data.gantt}
+            layout={layout}
+            onClickHandler={onClick}
+            onHoverHandler={onHover}
+            onUnhoverHandler={onUnhover}
+          />
         </div>
       </EuiPanel>
       {!!currentSpan && (
