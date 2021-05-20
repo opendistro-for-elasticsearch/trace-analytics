@@ -67,7 +67,7 @@ export function ServiceView(props: ServiceViewProps) {
 
   useEffect(() => {
     if (!redirect) refresh();
-  }, [props.startTime, props.endTime]);
+  }, [props.startTime, props.endTime, props.serviceName]);
 
   const refresh = () => {
     const DSL = filtersToDsl(props.filters, props.query, props.startTime, props.endTime);
@@ -126,7 +126,7 @@ export function ServiceView(props: ServiceViewProps) {
                   {fields.connected_services
                     ? fields.connected_services
                         .map((service: string) => (
-                          <EuiLink href={`#/services/${service}`} target="_blank" key={service}>
+                          <EuiLink href={`#/services/${service}`} key={service}>
                             {service}
                           </EuiLink>
                         ))
