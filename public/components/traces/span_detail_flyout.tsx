@@ -129,7 +129,14 @@ export function SpanDetailFlyout(props: {
         if (isANull) return 1;
         return -1;
       })
-      .map((key) => getListItem(key, key, _.isEmpty(span[key]) ? '-' : span[key]));
+      .map((key) => {
+        if (_.isEmpty(span[key])) return getListItem(key, key, '-');
+        let value = span[key];
+        if (typeof value === 'object')
+          value = JSON.stringify(value, null, 2).replace(/ /g, '\u00a0');
+        return getListItem(key, key, value);
+      });
+
     return (
       <>
         <EuiText size="m">

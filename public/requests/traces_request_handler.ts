@@ -271,7 +271,6 @@ export const handleSpansRequest = (
 ) => {
   handleDslRequest(http, null, getSpansQuery(spanSearchParams))
     .then((response) => {
-      console.log('response', response);
       setItems(response.hits.hits.map((hit) => hit._source));
       setTotal(response.hits.total?.value || 0);
     })
