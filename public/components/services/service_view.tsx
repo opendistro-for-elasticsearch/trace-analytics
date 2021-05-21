@@ -359,7 +359,7 @@ export function ServiceView(props: ServiceViewProps) {
               </>
             )}
             <EuiHorizontalRule margin="m" />
-            <div style={{ overflowY: 'auto', maxHeight: 500 }}>{spanDetailTable}</div>
+            <div>{spanDetailTable}</div>
           </EuiPanel>
           {!!currentSpan && (
             <SpanDetailFlyout

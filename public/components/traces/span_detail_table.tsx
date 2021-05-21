@@ -152,10 +152,10 @@ export function SpanDetailTable(props: SpanDetailTableProps) {
   );
 
   const onChangeItemsPerPage = useCallback((size) => setTableParams({ ...tableParams, size }), [
-    setTableParams,
+    tableParams, setTableParams,
   ]);
   const onChangePage = useCallback((page) => setTableParams({ ...tableParams, page }), [
-    setTableParams,
+    tableParams, setTableParams,
   ]);
 
   return (
