@@ -191,7 +191,7 @@ export const handleSpansGanttRequest = (
 export const handleSpansFlyoutRequest = (http, spanId, setItems) => {
   handleDslRequest(http, null, getSpanFlyoutQuery(spanId))
     .then((response) => {
-      setItems(response?.hits.hits?.[0]._source);
+      setItems(response?.hits.hits?.[0]?._source);
     })
     .catch((error) => console.error(error));
 };
