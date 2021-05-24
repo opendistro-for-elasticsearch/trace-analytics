@@ -269,34 +269,6 @@ export function ServiceView(props: ServiceViewProps) {
     }
   };
 
-  const spanFiltersToDSL = () => {
-    const DSL: any = {
-      query: {
-        bool: {
-          must: [
-            {
-              term: {
-                serviceName: props.serviceName,
-              },
-            },
-          ],
-          filter: [],
-          should: [],
-          must_not: [],
-        },
-      },
-    };
-    spanFilters.map(({ field, value }) => {
-      if (value != null) {
-        DSL.query.bool.must.push({
-          term: {
-            [field]: value,
-          },
-        });
-      }
-    });
-    return DSL;
-  };
   const renderFilters = useMemo(() => {
     return spanFilters.map(({ field, value }) => (
       <EuiFlexItem grow={false} key={`span-filter-badge-${field}`}>
