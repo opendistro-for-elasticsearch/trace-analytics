@@ -91,7 +91,7 @@ describe('Testing trace view', () => {
 
     cy.get('button[data-datagrid-interactable="true"]').eq(0).click({ force: true });
     cy.wait(delay);
-    cy.contains('Span Detail').should('exist');
+    cy.contains('Span detail').should('exist');
     cy.contains('Span attributes').should('exist');
     cy.get('.euiTextColor').contains('Span ID').trigger('mouseover');
     cy.get('.euiButtonIcon[aria-label="span-flyout-filter-icon"').click({ force: true });

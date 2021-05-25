@@ -63,7 +63,7 @@ describe('Testing service view empty state', () => {
   beforeEach(() => {
     // exception is thrown on loading EuiDataGrid in cypress only, ignore for now
     cy.on('uncaught:exception', (err, runnable) => {
-      if (err.message.includes('ResizeObserver loop completed with undelivered notifications'))
+      if (err.message.includes('ResizeObserver loop'))
         return false;
     });
     cy.visit(`app/opendistro-trace-analytics#/services/${SERVICE_NAME}`, {
@@ -85,7 +85,7 @@ describe('Testing service view', () => {
   beforeEach(() => {
     // exception is thrown on loading EuiDataGrid in cypress only, ignore for now
     cy.on('uncaught:exception', (err, runnable) => {
-      if (err.message.includes('ResizeObserver loop completed with undelivered notifications'))
+      if (err.message.includes('ResizeObserver loop'))
         return false;
     });
     cy.visit(`app/opendistro-trace-analytics#/services/${SERVICE_NAME}`, {
@@ -106,7 +106,7 @@ describe('Testing service view', () => {
   it('Renders spans data grid, flyout, filters', () => {
     cy.get('button[data-datagrid-interactable="true"]').eq(0).click({ force: true });
     cy.wait(delay);
-    cy.contains('Span Detail').should('exist');
+    cy.contains('Span detail').should('exist');
     cy.contains('Span attributes').should('exist');
     cy.get('.euiTextColor').contains('Span ID').trigger('mouseover');
     cy.get('.euiButtonIcon[aria-label="span-flyout-filter-icon"').click({ force: true });
