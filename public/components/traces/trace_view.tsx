@@ -14,7 +14,6 @@
  */
 
 import {
-  EuiButton,
   EuiButtonIcon,
   EuiCodeBlock,
   EuiCopy,
@@ -25,18 +24,17 @@ import {
   EuiPageBody,
   EuiPanel,
   EuiSpacer,
-  EuiSuperSelect,
   EuiText,
-  EuiTitle,
+  EuiTitle
 } from '@elastic/eui';
 import React, { useEffect, useState } from 'react';
 import {
   handlePayloadRequest,
-  handleTracesChartsRequest,
-  handleTraceViewRequest,
+  handleServicesPieChartRequest,
+  handleTraceViewRequest
 } from '../../requests/traces_request_handler';
 import { CoreDeps } from '../app';
-import { PanelTitle, renderBenchmark } from '../common';
+import { PanelTitle } from '../common';
 import { ServiceBreakdownPanel } from './service_breakdown_panel';
 import { SpanDetailPanel } from './span_detail_panel';
 
@@ -119,7 +117,13 @@ export function TraceView(props: TraceViewProps) {
               <EuiFlexItem grow={false}>
                 <EuiText className="overview-title">Errors</EuiText>
                 <EuiText size="s" className="overview-content">
-                  {fields.error_count}
+                  {fields.error_count == null ? (
+                    '-'
+                  ) : fields.error_count > 0 ? (
+                    <EuiText color="danger" size="s" style={{fontWeight: 430}}>Yes</EuiText>
+                  ) : (
+                    'No'
+                  )}
                 </EuiText>
               </EuiFlexItem>
             </EuiFlexGroup>
@@ -131,8 +135,8 @@ export function TraceView(props: TraceViewProps) {
 
   const [fields, setFields] = useState({});
   const [serviceBreakdownData, setServiceBreakdownData] = useState([]);
-  const [spanDetailData, setSpanDetailData] = useState({ gantt: [], table: [], ganttMaxX: 0 });
   const [payloadData, setPayloadData] = useState('');
+  const [colorMap, setColorMap] = useState({});
 
   useEffect(() => {
     props.setBreadcrumbs([
@@ -152,16 +156,9 @@ export function TraceView(props: TraceViewProps) {
     refresh();
   }, []);
 
-  const refresh = () => {
+  const refresh = async () => {
     handleTraceViewRequest(props.traceId, props.http, fields, setFields);
-    handleTracesChartsRequest(
-      props.traceId,
-      props.http,
-      serviceBreakdownData,
-      setServiceBreakdownData,
-      spanDetailData,
-      setSpanDetailData
-    );
+    handleServicesPieChartRequest(props.traceId, props.http, setServiceBreakdownData, setColorMap);
     handlePayloadRequest(props.traceId, props.http, payloadData, setPayloadData);
   };
 
@@ -181,7 +178,7 @@ export function TraceView(props: TraceViewProps) {
               <ServiceBreakdownPanel data={serviceBreakdownData} />
             </EuiFlexItem>
             <EuiFlexItem grow={7}>
-              <SpanDetailPanel data={spanDetailData} />
+              <SpanDetailPanel traceId={props.traceId} http={props.http} colorMap={colorMap} />
             </EuiFlexItem>
           </EuiFlexGroup>
           <EuiSpacer />
