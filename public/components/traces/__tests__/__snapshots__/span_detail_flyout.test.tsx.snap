@@ -356,7 +356,7 @@ exports[`<SpanDetailFlyout /> spec renders the component with data 1`] = `
                           style="word-break: break-all; word-wrap: break-word; white-space: pre-line;"
                         >
                           <b>
-                            03/25/2021 10:23:45
+                            03/25/2021 17:23:45
                           </b>
                         </div>
                       </div>
@@ -402,7 +402,7 @@ exports[`<SpanDetailFlyout /> spec renders the component with data 1`] = `
                           style="word-break: break-all; word-wrap: break-word; white-space: pre-line;"
                         >
                           <b>
-                            03/25/2021 10:23:45
+                            03/25/2021 17:23:45
                           </b>
                         </div>
                       </div>
