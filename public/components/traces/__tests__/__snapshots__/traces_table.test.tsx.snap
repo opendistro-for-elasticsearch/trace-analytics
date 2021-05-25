@@ -1547,7 +1547,7 @@ exports[`Traces table component renders traces table 1`] = `
                               <div
                                 className="euiTableCellContent euiTableCellContent--alignRight euiTableCellContent--overflowingContent"
                               >
-                                Yes
+                                No
                               </div>
                             </td>
                           </EuiTableRowCell>

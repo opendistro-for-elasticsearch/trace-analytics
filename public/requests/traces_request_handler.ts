@@ -15,6 +15,7 @@
 
 import _ from 'lodash';
 import moment from 'moment';
+import { SpanSearchParams } from '../components/traces/span_detail_table';
 import { v1 as uuid } from 'uuid';
 import { DATE_FORMAT } from '../../common';
 import { nanoToMilliSec } from '../components/common';
@@ -22,6 +23,8 @@ import {
   getPayloadQuery,
   getServiceBreakdownQuery,
   getSpanDetailQuery,
+  getSpanFlyoutQuery,
+  getSpansQuery,
   getTraceGroupPercentilesQuery,
   getTracesQuery,
   getValidTraceIdsQuery,
@@ -72,7 +75,7 @@ export const handleTracesRequest = async (http, DSL, timeFilterDSL, items, setIt
             trace_group: bucket.trace_group.buckets[0]?.key,
             latency: bucket.latency.value,
             last_updated: moment(bucket.last_updated.value).format(DATE_FORMAT),
-            error_count: bucket.error_count.doc_count > 0 ? 'Yes' : 'No',
+            error_count: bucket.error_count.doc_count,
             percentile_in_trace_group: binarySearch(
               percentileRanges[bucket.trace_group.buckets[0]?.key],
               bucket.latency.value
@@ -100,7 +103,7 @@ export const handleTraceViewRequest = (traceId, http, fields, setFields) => {
         latency: bucket.latency.value,
         latency_vs_benchmark: 'N/A',
         percentile_in_trace_group: 'N/A',
-        error_count: bucket.error_count.doc_count > 0 ? 'Yes' : 'No',
+        error_count: bucket.error_count.doc_count,
         errors_vs_benchmark: 'N/A',
       };
     })
@@ -110,13 +113,12 @@ export const handleTraceViewRequest = (traceId, http, fields, setFields) => {
     .catch((error) => console.error(error));
 };
 
-export const handleTracesChartsRequest = async (
+// setColorMap sets serviceName to color mappings
+export const handleServicesPieChartRequest = async (
   traceId,
   http,
-  serviceBreakdownData,
   setServiceBreakdownData,
-  spanDetailData,
-  setSpanDetailData
+  setColorMap
 ) => {
   const colors = [
     '#7492e7',
@@ -134,48 +136,63 @@ export const handleTracesChartsRequest = async (
   ];
   const colorMap = {};
   let index = 0;
-  Promise.all([
-    handleDslRequest(http, null, getServiceBreakdownQuery(traceId))
-      .then((response) =>
-        Promise.all(
-          response.aggregations.service_type.buckets.map((bucket) => {
-            colorMap[bucket.key] = colors[index++ % colors.length];
-            return {
-              name: bucket.key,
-              color: colorMap[bucket.key],
-              value: bucket.total_latency.value,
-              benchmark: 0,
-            };
-          })
-        )
+  await handleDslRequest(http, null, getServiceBreakdownQuery(traceId))
+    .then((response) =>
+      Promise.all(
+        response.aggregations.service_type.buckets.map((bucket) => {
+          colorMap[bucket.key] = colors[index++ % colors.length];
+          return {
+            name: bucket.key,
+            color: colorMap[bucket.key],
+            value: bucket.total_latency.value,
+            benchmark: 0,
+          };
+        })
       )
-      .then((newItems) => {
-        const latencySum = newItems.map((item) => item.value).reduce((a, b) => a + b, 0);
-        return [
-          {
-            values: newItems.map((item) =>
-              latencySum === 0 ? 100 : (item.value / latencySum) * 100
-            ),
-            labels: newItems.map((item) => item.name),
-            benchmarks: newItems.map((item) => item.benchmark),
-            marker: {
-              colors: newItems.map((item) => item.color),
-            },
-            type: 'pie',
-            textinfo: 'none',
-            hovertemplate: '%{label}<br>%{value:.2f}%<extra></extra>',
+    )
+    .then((newItems) => {
+      const latencySum = newItems.map((item) => item.value).reduce((a, b) => a + b, 0);
+      return [
+        {
+          values: newItems.map((item) =>
+            latencySum === 0 ? 100 : (item.value / latencySum) * 100
+          ),
+          labels: newItems.map((item) => item.name),
+          benchmarks: newItems.map((item) => item.benchmark),
+          marker: {
+            colors: newItems.map((item) => item.color),
           },
-        ];
-      })
-      .then((newItems) => {
-        setServiceBreakdownData(newItems);
-      })
-      .catch((error) => console.error(error)),
+          type: 'pie',
+          textinfo: 'none',
+          hovertemplate: '%{label}<br>%{value:.2f}%<extra></extra>',
+        },
+      ];
+    })
+    .then((newItems) => {
+      setServiceBreakdownData(newItems);
+      setColorMap(colorMap);
+    })
+    .catch((error) => console.error(error));
+};
 
-    handleDslRequest(http, null, getSpanDetailQuery(traceId))
-  ])
-    .then((response) => hitsToSpanDetailData(response[1].hits.hits, colorMap))
+export const handleSpansGanttRequest = (
+  traceId,
+  http,
+  setSpanDetailData,
+  colorMap,
+  spanFiltersDSL
+) => {
+  handleDslRequest(http, spanFiltersDSL, getSpanDetailQuery(traceId))
+    .then((response) => hitsToSpanDetailData(response.hits.hits, colorMap))
     .then((newItems) => setSpanDetailData(newItems))
+    .catch((error) => console.error(error));
+};
+
+export const handleSpansFlyoutRequest = (http, spanId, setItems) => {
+  handleDslRequest(http, null, getSpanFlyoutQuery(spanId))
+    .then((response) => {
+      setItems(response?.hits.hits?.[0]?._source);
+    })
     .catch((error) => console.error(error));
 };
 
@@ -191,7 +208,7 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
     const duration = _.round(nanoToMilliSec(hit._source.durationInNanos), 2);
     const serviceName = _.get(hit, ['_source', 'serviceName']);
     const name = _.get(hit, '_source.name');
-    const error = hit._source['status.code'] ? 'Error' : '';
+    const error = hit._source['status.code'] === 2 ? ' \u26a0 Error' : '';
     const uniqueLabel = `${serviceName} <br>${name} ` + uuid();
     maxEndTime = Math.max(maxEndTime, startTime + duration);
 
@@ -216,6 +233,7 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
         orientation: 'h',
         hoverinfo: 'none',
         showlegend: false,
+        spanId: hit._source.spanId,
       },
       {
         x: [duration],
@@ -230,6 +248,7 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
         type: 'bar',
         orientation: 'h',
         hovertemplate: '%{x}<extra></extra>',
+        spanId: hit._source.spanId,
       }
     );
   });
@@ -241,5 +260,20 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
 export const handlePayloadRequest = (traceId, http, payloadData, setPayloadData) => {
   handleDslRequest(http, null, getPayloadQuery(traceId))
     .then((response) => setPayloadData(JSON.stringify(response.hits.hits, null, 2)))
+    .catch((error) => console.error(error));
+};
+
+export const handleSpansRequest = (
+  http,
+  setItems,
+  setTotal,
+  spanSearchParams: SpanSearchParams,
+  DSL,
+) => {
+  handleDslRequest(http, DSL, getSpansQuery(spanSearchParams))
+    .then((response) => {
+      setItems(response.hits.hits.map((hit) => hit._source));
+      setTotal(response.hits.total?.value || 0);
+    })
     .catch((error) => console.error(error));
 };
