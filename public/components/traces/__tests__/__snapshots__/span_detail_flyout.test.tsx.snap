@@ -48,7 +48,7 @@ exports[`<SpanDetailFlyout /> spec renders the component with data 1`] = `
           <h2
             class="euiTitle euiTitle--medium"
           >
-            Span Detail
+            Span detail
           </h2>
         </div>
         <div
@@ -165,7 +165,7 @@ exports[`<SpanDetailFlyout /> spec renders the component with data 1`] = `
                       <div
                         class="euiTextColor euiTextColor--subdued"
                       >
-                        Parent Span ID
+                        Parent span ID
                       </div>
                     </div>
                   </dt>
@@ -1186,7 +1186,7 @@ exports[`<SpanDetailFlyout /> spec renders the empty component 1`] = `
                             <h2
                               class="euiTitle euiTitle--medium"
                             >
-                              Span Detail
+                              Span detail
                             </h2>
                           </div>
                           <div
@@ -1260,7 +1260,7 @@ exports[`<SpanDetailFlyout /> spec renders the empty component 1`] = `
                               <h2
                                 class="euiTitle euiTitle--medium"
                               >
-                                Span Detail
+                                Span detail
                               </h2>
                             </div>
                             <div
@@ -1334,7 +1334,7 @@ exports[`<SpanDetailFlyout /> spec renders the empty component 1`] = `
                                 <h2
                                   class="euiTitle euiTitle--medium"
                                 >
-                                  Span Detail
+                                  Span detail
                                 </h2>
                               </div>
                               <div
@@ -1396,7 +1396,7 @@ exports[`<SpanDetailFlyout /> spec renders the empty component 1`] = `
                                   <h2
                                     class="euiTitle euiTitle--medium"
                                   >
-                                    Span Detail
+                                    Span detail
                                   </h2>
                                 </div>
                                 <div
@@ -1509,7 +1509,7 @@ exports[`<SpanDetailFlyout /> spec renders the empty component 1`] = `
                               <h2
                                 className="euiTitle euiTitle--medium"
                               >
-                                Span Detail
+                                Span detail
                               </h2>
                             </EuiTitle>
                           </div>
@@ -1763,7 +1763,7 @@ exports[`<SpanDetailFlyout /> spec renders the empty component 2`] = `
                             <h2
                               class="euiTitle euiTitle--medium"
                             >
-                              Span Detail
+                              Span detail
                             </h2>
                           </div>
                           <div
@@ -1837,7 +1837,7 @@ exports[`<SpanDetailFlyout /> spec renders the empty component 2`] = `
                               <h2
                                 class="euiTitle euiTitle--medium"
                               >
-                                Span Detail
+                                Span detail
                               </h2>
                             </div>
                             <div
@@ -1911,7 +1911,7 @@ exports[`<SpanDetailFlyout /> spec renders the empty component 2`] = `
                                 <h2
                                   class="euiTitle euiTitle--medium"
                                 >
-                                  Span Detail
+                                  Span detail
                                 </h2>
                               </div>
                               <div
@@ -1973,7 +1973,7 @@ exports[`<SpanDetailFlyout /> spec renders the empty component 2`] = `
                                   <h2
                                     class="euiTitle euiTitle--medium"
                                   >
-                                    Span Detail
+                                    Span detail
                                   </h2>
                                 </div>
                                 <div
@@ -2086,7 +2086,7 @@ exports[`<SpanDetailFlyout /> spec renders the empty component 2`] = `
                               <h2
                                 className="euiTitle euiTitle--medium"
                               >
-                                Span Detail
+                                Span detail
                               </h2>
                             </EuiTitle>
                           </div>
