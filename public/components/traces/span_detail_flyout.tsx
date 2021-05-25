@@ -91,7 +91,7 @@ export function SpanDetailFlyout(props: {
       ),
       getListItem(
         'parentSpanId',
-        'Parent Span ID',
+        'Parent span ID',
         span.parentSpanId ? (
           <EuiFlexGroup gutterSize="xs" style={{ marginTop: -4, marginBottom: -4 }}>
             <EuiFlexItem grow={false}>
@@ -200,7 +200,7 @@ export function SpanDetailFlyout(props: {
       <EuiFlyout onClose={props.closeFlyout} size="s">
         <EuiFlyoutHeader hasBorder>
           <EuiTitle>
-            <h2>Span Detail</h2>
+            <h2>Span detail</h2>
           </EuiTitle>
         </EuiFlyoutHeader>
         <EuiFlyoutBody>{renderContent()}</EuiFlyoutBody>
