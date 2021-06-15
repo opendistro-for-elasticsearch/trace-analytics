@@ -13,11 +13,11 @@ exports[`<SpanDetailTable /> spec renders the component with data 1`] = `
     tabindex="-1"
   />
   <div
-    class="euiDataGrid__focusWrap"
     data-focus-lock-disabled="disabled"
+    style="height: 100%;"
   >
     <div
-      class="euiDataGrid euiDataGrid--bordersAll euiDataGrid--headerShade euiDataGrid--footerOverline euiDataGrid--rowHoverHighlight euiDataGrid--stickyFooter"
+      class="euiDataGrid euiDataGrid--bordersAll euiDataGrid--headerShade euiDataGrid--rowHoverHighlight"
     />
   </div>
   <div
@@ -145,135 +145,128 @@ exports[`<SpanDetailTable /> spec renders the empty component 1`] = `
         }
       >
         <EuiFocusTrap
-          className="euiDataGrid__focusWrap"
           disabled={true}
+          style={
+            Object {
+              "height": "100%",
+            }
+          }
         >
-          <ForwardRef
-            className="euiDataGrid__focusWrap"
-            enabled={false}
-            noIsolation={true}
+          <FocusLock
+            as="div"
+            autoFocus={true}
+            disabled={true}
+            lockProps={
+              Object {
+                "style": Object {
+                  "height": "100%",
+                },
+              }
+            }
+            noFocusGuards={false}
+            persistentFocus={false}
             returnFocus={true}
-            scrollLock={false}
           >
-            <ForwardRef
-              className="euiDataGrid__focusWrap"
-              enabled={false}
-              noIsolation={true}
-              returnFocus={true}
-              scrollLock={false}
-              sideCar={[Function]}
+            <div
+              data-focus-guard={true}
+              key="guard-first"
+              style={
+                Object {
+                  "height": "0px",
+                  "left": "1px",
+                  "overflow": "hidden",
+                  "padding": 0,
+                  "position": "fixed",
+                  "top": "1px",
+                  "width": "1px",
+                }
+              }
+              tabIndex={-1}
+            />
+            <div
+              data-focus-guard={true}
+              key="guard-nearest"
+              style={
+                Object {
+                  "height": "0px",
+                  "left": "1px",
+                  "overflow": "hidden",
+                  "padding": 0,
+                  "position": "fixed",
+                  "top": "1px",
+                  "width": "1px",
+                }
+              }
+              tabIndex={-1}
+            />
+            <div
+              data-focus-lock-disabled="disabled"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              style={
+                Object {
+                  "height": "100%",
+                }
+              }
             >
-              <ForwardRef
-                as={
-                  Object {
-                    "$$typeof": Symbol(react.forward_ref),
-                    "classNames": Object {
-                      "fullWidth": "width-before-scroll-bar",
-                      "zeroRight": "right-scroll-bar-position",
-                    },
-                    "defaultProps": Object {
-                      "enabled": true,
-                      "inert": false,
-                      "removeScrollBar": true,
-                    },
-                    "render": [Function],
-                  }
-                }
+              <SideEffect(FocusWatcher)
                 autoFocus={true}
-                className="euiDataGrid__focusWrap"
-                crossFrame={true}
                 disabled={true}
-                lockProps={
-                  Object {
-                    "allowPinchZoom": undefined,
-                    "as": undefined,
-                    "enabled": false,
-                    "inert": undefined,
-                    "shards": undefined,
-                    "sideCar": [Function],
-                    "style": undefined,
-                  }
-                }
-                noFocusGuards={false}
-                persistentFocus={false}
-                returnFocus={true}
-                sideCar={[Function]}
-              >
-                <div
-                  data-focus-guard={true}
-                  key="guard-first"
-                  style={
-                    Object {
-                      "height": "0px",
-                      "left": "1px",
-                      "overflow": "hidden",
-                      "padding": 0,
-                      "position": "fixed",
-                      "top": "1px",
-                      "width": "1px",
-                    }
-                  }
-                  tabIndex={-1}
-                />
-                <div
-                  data-focus-guard={true}
-                  key="guard-nearest"
-                  style={
-                    Object {
-                      "height": "0px",
-                      "left": "1px",
-                      "overflow": "hidden",
-                      "padding": 0,
-                      "position": "fixed",
-                      "top": "1px",
-                      "width": "1px",
-                    }
-                  }
-                  tabIndex={-1}
-                />
-                <ForwardRef
-                  className="euiDataGrid__focusWrap"
-                  data-focus-lock-disabled="disabled"
-                  enabled={false}
-                  inert={false}
-                  onBlur={[Function]}
-                  onFocus={[Function]}
-                  removeScrollBar={true}
-                  sideCar={[Function]}
-                >
+                observed={
                   <div
-                    className="euiDataGrid__focusWrap"
                     data-focus-lock-disabled="disabled"
-                    onBlur={[Function]}
-                    onFocus={[Function]}
-                    onScrollCapture={[Function]}
-                    onTouchMoveCapture={[Function]}
-                    onWheelCapture={[Function]}
+                    style="height: 100%;"
                   >
                     <div
-                      className="euiDataGrid euiDataGrid--bordersAll euiDataGrid--headerShade euiDataGrid--footerOverline euiDataGrid--rowHoverHighlight euiDataGrid--stickyFooter"
-                      onKeyDown={[Function]}
+                      class="euiDataGrid euiDataGrid--bordersAll euiDataGrid--headerShade euiDataGrid--rowHoverHighlight"
                     />
                   </div>
-                </ForwardRef>
-                <div
-                  data-focus-guard={true}
-                  style={
-                    Object {
-                      "height": "0px",
-                      "left": "1px",
-                      "overflow": "hidden",
-                      "padding": 0,
-                      "position": "fixed",
-                      "top": "1px",
-                      "width": "1px",
-                    }
+                }
+                onActivation={[Function]}
+                onDeactivation={[Function]}
+                persistentFocus={false}
+                shards={Array []}
+              >
+                <FocusWatcher
+                  autoFocus={true}
+                  disabled={true}
+                  observed={
+                    <div
+                      data-focus-lock-disabled="disabled"
+                      style="height: 100%;"
+                    >
+                      <div
+                        class="euiDataGrid euiDataGrid--bordersAll euiDataGrid--headerShade euiDataGrid--rowHoverHighlight"
+                      />
+                    </div>
                   }
-                  tabIndex={-1}
+                  onActivation={[Function]}
+                  onDeactivation={[Function]}
+                  persistentFocus={false}
+                  shards={Array []}
                 />
-              </ForwardRef>
-            </ForwardRef>
-          </ForwardRef>
+              </SideEffect(FocusWatcher)>
+              <div
+                className="euiDataGrid euiDataGrid--bordersAll euiDataGrid--headerShade euiDataGrid--rowHoverHighlight"
+                onKeyDown={[Function]}
+              />
+            </div>
+            <div
+              data-focus-guard={true}
+              style={
+                Object {
+                  "height": "0px",
+                  "left": "1px",
+                  "overflow": "hidden",
+                  "padding": 0,
+                  "position": "fixed",
+                  "top": "1px",
+                  "width": "1px",
+                }
+              }
+              tabIndex={-1}
+            />
+          </FocusLock>
         </EuiFocusTrap>
       </EuiI18n>
     </EuiI18n>

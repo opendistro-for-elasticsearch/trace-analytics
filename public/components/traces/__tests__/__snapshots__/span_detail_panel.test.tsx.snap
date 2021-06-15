@@ -175,46 +175,22 @@ exports[`Service breakdown panel component renders service breakdown panel 1`] =
                             size="s"
                             tabIndex={-1}
                           >
-                            <EuiButtonDisplay
-                              className="euiButtonToggle euiButtonGroup__button euiButtonGroup__button--selected"
-                              color="text"
-                              disabled={false}
-                              element="button"
-                              fill={true}
+                            <button
+                              className="euiButton euiButton--text euiButton--small euiButtonToggle euiButtonGroup__button euiButtonGroup__button--selected euiButton--fill"
                               id="timeline"
-                              isDisabled={false}
-                              size="s"
                               tabIndex={-1}
                               type="button"
                             >
-                              <button
-                                className="euiButton euiButton--text euiButton--small euiButtonToggle euiButtonGroup__button euiButtonGroup__button--selected euiButton--fill"
-                                disabled={false}
-                                id="timeline"
-                                tabIndex={-1}
-                                type="button"
+                              <span
+                                className="euiButton__content"
                               >
-                                <EuiButtonContent
-                                  className="euiButton__content"
-                                  iconSide="left"
-                                  textProps={
-                                    Object {
-                                      "className": "euiButton__text",
-                                    }
-                                  }
+                                <span
+                                  className="euiButton__text"
                                 >
-                                  <span
-                                    className="euiButtonContent euiButton__content"
-                                  >
-                                    <span
-                                      className="euiButton__text"
-                                    >
-                                      Timeline
-                                    </span>
-                                  </span>
-                                </EuiButtonContent>
-                              </button>
-                            </EuiButtonDisplay>
+                                  Timeline
+                                </span>
+                              </span>
+                            </button>
                           </EuiButton>
                         </div>
                       </EuiToggle>
@@ -260,46 +236,22 @@ exports[`Service breakdown panel component renders service breakdown panel 1`] =
                             size="s"
                             tabIndex={-1}
                           >
-                            <EuiButtonDisplay
-                              className="euiButtonToggle euiButtonGroup__button"
-                              color="text"
-                              disabled={false}
-                              element="button"
-                              fill={false}
+                            <button
+                              className="euiButton euiButton--text euiButton--small euiButtonToggle euiButtonGroup__button"
                               id="span_list"
-                              isDisabled={false}
-                              size="s"
                               tabIndex={-1}
                               type="button"
                             >
-                              <button
-                                className="euiButton euiButton--text euiButton--small euiButtonToggle euiButtonGroup__button"
-                                disabled={false}
-                                id="span_list"
-                                tabIndex={-1}
-                                type="button"
+                              <span
+                                className="euiButton__content"
                               >
-                                <EuiButtonContent
-                                  className="euiButton__content"
-                                  iconSide="left"
-                                  textProps={
-                                    Object {
-                                      "className": "euiButton__text",
-                                    }
-                                  }
+                                <span
+                                  className="euiButton__text"
                                 >
-                                  <span
-                                    className="euiButtonContent euiButton__content"
-                                  >
-                                    <span
-                                      className="euiButton__text"
-                                    >
-                                      Span list
-                                    </span>
-                                  </span>
-                                </EuiButtonContent>
-                              </button>
-                            </EuiButtonDisplay>
+                                  Span list
+                                </span>
+                              </span>
+                            </button>
                           </EuiButton>
                         </div>
                       </EuiToggle>

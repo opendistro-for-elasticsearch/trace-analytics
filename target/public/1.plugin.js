@@ -364,30 +364,30 @@ const TraceAnalyticsApp = ({
   navigation
 }) => {
   const [indicesExist, setIndicesExist] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(true);
-  const storedFilters = localStorage.getItem('TraceAnalyticsFilters');
-  const [query, setQuery] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(localStorage.getItem('TraceAnalyticsQuery') || '');
+  const storedFilters = sessionStorage.getItem('TraceAnalyticsFilters');
+  const [query, setQuery] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(sessionStorage.getItem('TraceAnalyticsQuery') || '');
   const [filters, setFilters] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(storedFilters ? JSON.parse(storedFilters) : []);
-  const [startTime, setStartTime] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(localStorage.getItem('TraceAnalyticsStartTime') || 'now-5m');
-  const [endTime, setEndTime] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(localStorage.getItem('TraceAnalyticsEndTime') || 'now');
+  const [startTime, setStartTime] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(sessionStorage.getItem('TraceAnalyticsStartTime') || 'now-5m');
+  const [endTime, setEndTime] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(sessionStorage.getItem('TraceAnalyticsEndTime') || 'now');
 
   const setFiltersWithStorage = newFilters => {
     setFilters(newFilters);
-    localStorage.setItem('TraceAnalyticsFilters', JSON.stringify(newFilters));
+    sessionStorage.setItem('TraceAnalyticsFilters', JSON.stringify(newFilters));
   };
 
   const setQueryWithStorage = newQuery => {
     setQuery(newQuery);
-    localStorage.setItem('TraceAnalyticsQuery', newQuery);
+    sessionStorage.setItem('TraceAnalyticsQuery', newQuery);
   };
 
   const setStartTimeWithStorage = newStartTime => {
     setStartTime(newStartTime);
-    localStorage.setItem('TraceAnalyticsStartTime', newStartTime);
+    sessionStorage.setItem('TraceAnalyticsStartTime', newStartTime);
   };
 
   const setEndTimeWithStorage = newEndTime => {
     setEndTime(newEndTime);
-    localStorage.setItem('TraceAnalyticsEndTime', newEndTime);
+    sessionStorage.setItem('TraceAnalyticsEndTime', newEndTime);
   };
 
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
@@ -1979,6 +1979,7 @@ function Plt(props) {
       height: '100%'
     },
     onHover: props.onHoverHandler,
+    onUnhover: props.onUnhoverHandler,
     onClick: props.onClickHandler,
     useResizeHandler: true,
     config: {
@@ -2637,18 +2638,20 @@ const renderPageWithSidebar = (BodyComponent, activeId = 1) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Dashboard", function() { return Dashboard; });
-/* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @elastic/eui */ "@elastic/eui");
-/* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _requests_dashboard_request_handler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../requests/dashboard_request_handler */ "./public/requests/dashboard_request_handler.ts");
-/* harmony import */ var _requests_services_request_handler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../requests/services_request_handler */ "./public/requests/services_request_handler.ts");
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common */ "./public/components/common/index.ts");
-/* harmony import */ var _common_filters_filter_helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common/filters/filter_helpers */ "./public/components/common/filters/filter_helpers.tsx");
-/* harmony import */ var _common_plots_error_rate_plt__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common/plots/error_rate_plt */ "./public/components/common/plots/error_rate_plt.tsx");
-/* harmony import */ var _common_plots_service_map__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../common/plots/service_map */ "./public/components/common/plots/service_map.tsx");
-/* harmony import */ var _common_plots_throughput_plt__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../common/plots/throughput_plt */ "./public/components/common/plots/throughput_plt.tsx");
-/* harmony import */ var _dashboard_table__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./dashboard_table */ "./public/components/dashboard/dashboard_table.tsx");
+/* harmony import */ var _elastic_datemath__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @elastic/datemath */ "../../packages/elastic-datemath/target/index.js");
+/* harmony import */ var _elastic_datemath__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_elastic_datemath__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @elastic/eui */ "@elastic/eui");
+/* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_elastic_eui__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _requests_dashboard_request_handler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../requests/dashboard_request_handler */ "./public/requests/dashboard_request_handler.ts");
+/* harmony import */ var _requests_services_request_handler__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../requests/services_request_handler */ "./public/requests/services_request_handler.ts");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common */ "./public/components/common/index.ts");
+/* harmony import */ var _common_filters_filter_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common/filters/filter_helpers */ "./public/components/common/filters/filter_helpers.tsx");
+/* harmony import */ var _common_plots_error_rate_plt__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../common/plots/error_rate_plt */ "./public/components/common/plots/error_rate_plt.tsx");
+/* harmony import */ var _common_plots_service_map__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../common/plots/service_map */ "./public/components/common/plots/service_map.tsx");
+/* harmony import */ var _common_plots_throughput_plt__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../common/plots/throughput_plt */ "./public/components/common/plots/throughput_plt.tsx");
+/* harmony import */ var _dashboard_table__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./dashboard_table */ "./public/components/dashboard/dashboard_table.tsx");
 /*
  *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -2673,21 +2676,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function Dashboard(props) {
-  const [tableItems, setTableItems] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]);
-  const [throughputPltItems, setThroughputPltItems] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
+  const [tableItems, setTableItems] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]);
+  const [throughputPltItems, setThroughputPltItems] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
     items: [],
     fixedInterval: '1h'
   });
-  const [errorRatePltItems, setErrorRatePltItems] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
+  const [errorRatePltItems, setErrorRatePltItems] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
     items: [],
     fixedInterval: '1h'
   });
-  const [serviceMap, setServiceMap] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({});
-  const [serviceMapIdSelected, setServiceMapIdSelected] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])('latency');
-  const [percentileMap, setPercentileMap] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({});
-  const [redirect, setRedirect] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(true);
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
+  const [serviceMap, setServiceMap] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({});
+  const [serviceMapIdSelected, setServiceMapIdSelected] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])('latency');
+  const [percentileMap, setPercentileMap] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({});
+  const [redirect, setRedirect] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(true);
+  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(() => {
     props.setBreadcrumbs([{
       text: 'Trace Analytics',
       href: '#'
@@ -2695,24 +2699,28 @@ function Dashboard(props) {
       text: 'Dashboard',
       href: '#/dashboard'
     }]);
-    const validFilters = Object(_common_filters_filter_helpers__WEBPACK_IMPORTED_MODULE_5__["getValidFilterFields"])('dashboard');
+    const validFilters = Object(_common_filters_filter_helpers__WEBPACK_IMPORTED_MODULE_6__["getValidFilterFields"])('dashboard');
     props.setFilters([...props.filters.map(filter => ({ ...filter,
       locked: validFilters.indexOf(filter.field) === -1
     }))]);
     setRedirect(false);
   }, []);
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
+  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(() => {
     if (!redirect && props.indicesExist) refresh();
   }, [props.filters, props.startTime, props.endTime]);
 
   const refresh = async () => {
-    const DSL = Object(_common__WEBPACK_IMPORTED_MODULE_4__["filtersToDsl"])(props.filters, props.query, props.startTime, props.endTime);
-    const timeFilterDSL = Object(_common__WEBPACK_IMPORTED_MODULE_4__["filtersToDsl"])([], '', props.startTime, props.endTime);
-    const fixedInterval = Object(_common__WEBPACK_IMPORTED_MODULE_4__["minFixedInterval"])(props.startTime, props.endTime);
-    Object(_requests_dashboard_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleDashboardRequest"])(props.http, DSL, timeFilterDSL, tableItems, setTableItems, setPercentileMap);
-    Object(_requests_dashboard_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleDashboardThroughputPltRequest"])(props.http, DSL, fixedInterval, throughputPltItems, setThroughputPltItems);
-    Object(_requests_dashboard_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleDashboardErrorRatePltRequest"])(props.http, DSL, fixedInterval, errorRatePltItems, setErrorRatePltItems);
-    Object(_requests_services_request_handler__WEBPACK_IMPORTED_MODULE_3__["handleServiceMapRequest"])(props.http, DSL, serviceMap, setServiceMap);
+    var _dateMath$parse;
+
+    const DSL = Object(_common__WEBPACK_IMPORTED_MODULE_5__["filtersToDsl"])(props.filters, props.query, props.startTime, props.endTime);
+    const timeFilterDSL = Object(_common__WEBPACK_IMPORTED_MODULE_5__["filtersToDsl"])([], '', props.startTime, props.endTime);
+    const latencyTrendStartTime = (_dateMath$parse = _elastic_datemath__WEBPACK_IMPORTED_MODULE_0___default.a.parse(props.endTime)) === null || _dateMath$parse === void 0 ? void 0 : _dateMath$parse.subtract(24, 'hours').toISOString();
+    const latencyTrendDSL = Object(_common__WEBPACK_IMPORTED_MODULE_5__["filtersToDsl"])(props.filters, props.query, latencyTrendStartTime, props.endTime);
+    const fixedInterval = Object(_common__WEBPACK_IMPORTED_MODULE_5__["minFixedInterval"])(props.startTime, props.endTime);
+    Object(_requests_dashboard_request_handler__WEBPACK_IMPORTED_MODULE_3__["handleDashboardRequest"])(props.http, DSL, timeFilterDSL, latencyTrendDSL, tableItems, setTableItems, setPercentileMap);
+    Object(_requests_dashboard_request_handler__WEBPACK_IMPORTED_MODULE_3__["handleDashboardThroughputPltRequest"])(props.http, DSL, fixedInterval, throughputPltItems, setThroughputPltItems);
+    Object(_requests_dashboard_request_handler__WEBPACK_IMPORTED_MODULE_3__["handleDashboardErrorRatePltRequest"])(props.http, DSL, fixedInterval, errorRatePltItems, setErrorRatePltItems);
+    Object(_requests_services_request_handler__WEBPACK_IMPORTED_MODULE_4__["handleServiceMapRequest"])(props.http, DSL, serviceMap, setServiceMap);
   };
 
   const addFilter = filter => {
@@ -2758,21 +2766,21 @@ function Dashboard(props) {
     const percentileMaps = Object.keys(percentileMap).map(traceGroup => ({
       traceGroupName: traceGroup,
       durationFilter: {
-        [condition]: Object(_common__WEBPACK_IMPORTED_MODULE_4__["milliToNanoSec"])(percentileMap[traceGroup][1])
+        [condition]: Object(_common__WEBPACK_IMPORTED_MODULE_5__["milliToNanoSec"])(percentileMap[traceGroup][1])
       }
     }));
-    const percentileFilter = Object(_common__WEBPACK_IMPORTED_MODULE_4__["getPercentileFilter"])(percentileMaps, condition === 'gte' ? '>= 95th' : '< 95th');
+    const percentileFilter = Object(_common__WEBPACK_IMPORTED_MODULE_5__["getPercentileFilter"])(percentileMaps, condition === 'gte' ? '>= 95th' : '< 95th');
     const newFilters = [...props.filters, percentileFilter, ...additionalFilters];
     props.setFilters(newFilters);
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiTitle"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_1__["EuiTitle"], {
     size: "l"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h2", {
     style: {
       fontWeight: 430
     }
-  }, "Dashboard")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_4__["SearchBar"], {
+  }, "Dashboard")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_5__["SearchBar"], {
     query: props.query,
     filters: props.filters,
     setFilters: props.setFilters,
@@ -2783,34 +2791,34 @@ function Dashboard(props) {
     setEndTime: props.setEndTime,
     refresh: refresh,
     page: "dashboard"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_1__["EuiSpacer"], {
     size: "m"
-  }), props.indicesExist ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_dashboard_table__WEBPACK_IMPORTED_MODULE_9__["DashboardTable"], {
+  }), props.indicesExist ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_dashboard_table__WEBPACK_IMPORTED_MODULE_10__["DashboardTable"], {
     items: tableItems,
     filters: props.filters,
     addFilter: addFilter,
     addPercentileFilter: addPercentileFilter,
     setRedirect: setRedirect
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_1__["EuiSpacer"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_1__["EuiFlexGroup"], {
     alignItems: "baseline"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_1__["EuiFlexItem"], {
     grow: 4
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_plots_service_map__WEBPACK_IMPORTED_MODULE_7__["ServiceMap"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common_plots_service_map__WEBPACK_IMPORTED_MODULE_8__["ServiceMap"], {
     addFilter: addFilter,
     serviceMap: serviceMap,
     idSelected: serviceMapIdSelected,
     setIdSelected: setServiceMapIdSelected
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_1__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_1__["EuiFlexGroup"], {
     direction: "column"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_plots_error_rate_plt__WEBPACK_IMPORTED_MODULE_6__["ErrorRatePlt"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_1__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common_plots_error_rate_plt__WEBPACK_IMPORTED_MODULE_7__["ErrorRatePlt"], {
     items: errorRatePltItems,
     setStartTime: props.setStartTime,
     setEndTime: props.setEndTime
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_plots_throughput_plt__WEBPACK_IMPORTED_MODULE_8__["ThroughputPlt"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_1__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common_plots_throughput_plt__WEBPACK_IMPORTED_MODULE_9__["ThroughputPlt"], {
     items: throughputPltItems,
     setStartTime: props.setStartTime,
     setEndTime: props.setEndTime
-  })))))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_4__["MissingConfigurationMessage"], null));
+  })))))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_5__["MissingConfigurationMessage"], null));
 }
 
 /***/ }),
@@ -2909,9 +2917,11 @@ function DashboardTable(props) {
         inverted: false,
         disabled: false
       })
+    }, item.length < 48 ? item : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      title: item
     }, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.truncate(item, {
-      length: 24
-    })) : '-'
+      length: 48
+    }))) : '-'
   }, {
     field: 'dashboard_latency_variance',
     name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
@@ -3294,6 +3304,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _requests_services_request_handler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../requests/services_request_handler */ "./public/requests/services_request_handler.ts");
 /* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common */ "./public/components/common/index.ts");
 /* harmony import */ var _common_plots_service_map__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common/plots/service_map */ "./public/components/common/plots/service_map.tsx");
+/* harmony import */ var _traces_span_detail_flyout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../traces/span_detail_flyout */ "./public/components/traces/span_detail_flyout.tsx");
+/* harmony import */ var _traces_span_detail_table__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../traces/span_detail_table */ "./public/components/traces/span_detail_table.tsx");
 /*
  *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -3308,6 +3320,8 @@ __webpack_require__.r(__webpack_exports__);
  *   express or implied. See the License for the specific language governing
  *   permissions and limitations under the License.
  */
+
+
 
 
 
@@ -3333,7 +3347,7 @@ function ServiceView(props) {
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(() => {
     if (!redirect) refresh();
-  }, [props.startTime, props.endTime]);
+  }, [props.startTime, props.endTime, props.serviceName]);
 
   const refresh = () => {
     const DSL = Object(_common__WEBPACK_IMPORTED_MODULE_4__["filtersToDsl"])(props.filters, props.query, props.startTime, props.endTime);
@@ -3383,7 +3397,6 @@ function ServiceView(props) {
       className: "overview-content"
     }, fields.connected_services ? fields.connected_services.map(service => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
       href: `#/services/${service}`,
-      target: "_blank",
       key: service
     }, service)).reduce((prev, curr) => {
       return [prev, ', ', curr];
@@ -3438,6 +3451,93 @@ function ServiceView(props) {
   const overview = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => renderOverview(), [fields, props.serviceName]);
   const title = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => renderTitle(props.serviceName, props.startTime, props.setStartTime, props.endTime, props.setEndTime, props.addFilter), [props.serviceName, props.startTime, props.endTime]);
   const activeFilters = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => props.filters.filter(filter => !filter.locked && !filter.disabled), [props.filters]);
+  const [currentSpan, setCurrentSpan] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])('');
+  const storedFilters = sessionStorage.getItem('TraceAnalyticsSpanFilters');
+  const [spanFilters, setSpanFilters] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(storedFilters ? JSON.parse(storedFilters) : []);
+  const [DSL, setDSL] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({});
+
+  const setSpanFiltersWithStorage = newFilters => {
+    setSpanFilters(newFilters);
+    sessionStorage.setItem('TraceAnalyticsSpanFilters', JSON.stringify(newFilters));
+  };
+
+  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(() => {
+    const DSL = Object(_common__WEBPACK_IMPORTED_MODULE_4__["filtersToDsl"])(props.filters, props.query, props.startTime, props.endTime);
+    DSL.query.bool.must.push({
+      term: {
+        serviceName: props.serviceName
+      }
+    });
+    spanFilters.map(({
+      field,
+      value
+    }) => {
+      if (value != null) {
+        DSL.query.bool.must.push({
+          term: {
+            [field]: value
+          }
+        });
+      }
+    });
+    setDSL(DSL);
+  }, [props.startTime, props.endTime, props.serviceName, spanFilters]);
+
+  const addSpanFilter = (field, value) => {
+    const newFilters = [...spanFilters];
+    const index = newFilters.findIndex(({
+      field: filterField
+    }) => field === filterField);
+
+    if (index === -1) {
+      newFilters.push({
+        field,
+        value
+      });
+    } else {
+      newFilters.splice(index, 1, {
+        field,
+        value
+      });
+    }
+
+    setSpanFiltersWithStorage(newFilters);
+  };
+
+  const removeSpanFilter = field => {
+    const newFilters = [...spanFilters];
+    const index = newFilters.findIndex(({
+      field: filterField
+    }) => field === filterField);
+
+    if (index !== -1) {
+      newFilters.splice(index, 1);
+      setSpanFiltersWithStorage(newFilters);
+    }
+  };
+
+  const renderFilters = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => {
+    return spanFilters.map(({
+      field,
+      value
+    }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+      grow: false,
+      key: `span-filter-badge-${field}`
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiBadge"], {
+      iconType: "cross",
+      iconSide: "right",
+      iconOnClick: () => removeSpanFilter(field),
+      iconOnClickAriaLabel: "remove current filter"
+    }, `${field}: ${value}`)));
+  }, [spanFilters]);
+  const [total, setTotal] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(0);
+  const spanDetailTable = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_traces_span_detail_table__WEBPACK_IMPORTED_MODULE_7__["SpanDetailTable"], {
+    http: props.http,
+    hiddenColumns: ['serviceName'],
+    DSL: DSL,
+    openFlyout: spanId => setCurrentSpan(spanId),
+    setTotal: setTotal
+  }), [DSL, setCurrentSpan]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPage"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPageBody"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
     alignItems: "center",
     gutterSize: "s"
@@ -3454,6 +3554,22 @@ function ServiceView(props) {
     idSelected: serviceMapIdSelected,
     setIdSelected: setServiceMapIdSelected,
     currService: props.serviceName
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPanel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_4__["PanelTitle"], {
+    title: "Spans",
+    totalItems: total
+  }), spanFilters.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
+    size: "s"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+    gutterSize: "s",
+    wrap: true
+  }, renderFilters)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
+    margin: "m"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, spanDetailTable)), !!currentSpan && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_traces_span_detail_flyout__WEBPACK_IMPORTED_MODULE_6__["SpanDetailFlyout"], {
+    http: props.http,
+    spanId: currentSpan,
+    isFlyoutVisible: !!currentSpan,
+    closeFlyout: () => setCurrentSpan(''),
+    addSpanFilter: addSpanFilter
   }))));
 }
 
@@ -3624,9 +3740,11 @@ function ServicesTable(props) {
     sortable: true,
     render: item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
       href: `#/services/${encodeURIComponent(item)}`
+    }, item.length < 24 ? item : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      title: item
     }, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.truncate(item, {
       length: 24
-    }))
+    })))
   }, {
     field: 'average_latency',
     name: 'Average latency (ms)',
@@ -3717,6 +3835,92 @@ function ServicesTable(props) {
   }) : props.indicesExist ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["NoMatchMessage"], {
     size: "xl"
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["MissingConfigurationMessage"], null)));
+}
+
+/***/ }),
+
+/***/ "./public/components/traces/flyout_list_item.tsx":
+/*!*******************************************************!*\
+  !*** ./public/components/traces/flyout_list_item.tsx ***!
+  \*******************************************************/
+/*! exports provided: FlyoutListItem */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FlyoutListItem", function() { return FlyoutListItem; });
+/* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @elastic/eui */ "@elastic/eui");
+/* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/*
+ *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License").
+ *   You may not use this file except in compliance with the License.
+ *   A copy of the License is located at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   or in the "license" file accompanying this file. This file is distributed
+ *   on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ *   express or implied. See the License for the specific language governing
+ *   permissions and limitations under the License.
+ */
+
+
+function FlyoutListItem(props) {
+  const [hover, setHover] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false);
+  const descriptionComponent = props.description !== '-' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+    gutterSize: "none"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    size: "s",
+    style: {
+      wordBreak: 'break-all',
+      wordWrap: 'break-word',
+      whiteSpace: 'pre-line'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("b", null, props.description))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+    grow: false
+  }, hover && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiToolTip"], {
+    position: "top",
+    content: "Filter spans on this value"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiButtonIcon"], {
+    "aria-label": "span-flyout-filter-icon",
+    iconType: "filter",
+    onClick: props.addSpanFilter,
+    style: {
+      margin: -5
+    }
+  })))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+    size: "s",
+    style: {
+      wordBreak: 'break-all',
+      wordWrap: 'break-word',
+      whiteSpace: 'pre-line'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("b", null, props.description));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    onMouseOver: () => setHover(true),
+    onMouseLeave: () => setHover(false)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiDescriptionList"], {
+    listItems: [{
+      title: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+        size: "s",
+        color: "subdued",
+        style: {
+          wordBreak: 'break-all',
+          wordWrap: 'break-word'
+        }
+      }, props.title),
+      description: descriptionComponent
+    }],
+    type: "column",
+    align: "center",
+    compressed: true
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
+    size: "s"
+  }));
 }
 
 /***/ }),
@@ -3855,22 +4059,28 @@ function ServiceBreakdownPanel(props) {
 
 /***/ }),
 
-/***/ "./public/components/traces/span_detail_panel.tsx":
-/*!********************************************************!*\
-  !*** ./public/components/traces/span_detail_panel.tsx ***!
-  \********************************************************/
-/*! exports provided: SpanDetailPanel */
+/***/ "./public/components/traces/span_detail_flyout.tsx":
+/*!*********************************************************!*\
+  !*** ./public/components/traces/span_detail_flyout.tsx ***!
+  \*********************************************************/
+/*! exports provided: SpanDetailFlyout */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpanDetailPanel", function() { return SpanDetailPanel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpanDetailFlyout", function() { return SpanDetailFlyout; });
 /* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @elastic/eui */ "@elastic/eui");
 /* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common */ "./public/components/common/index.ts");
-/* harmony import */ var _common_plots_plt__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common/plots/plt */ "./public/components/common/plots/plt.tsx");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "moment");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../common */ "./common/index.ts");
+/* harmony import */ var _requests_traces_request_handler__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../requests/traces_request_handler */ "./public/requests/traces_request_handler.ts");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common */ "./public/components/common/index.ts");
+/* harmony import */ var _flyout_list_item__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./flyout_list_item */ "./public/components/traces/flyout_list_item.tsx");
 /*
  *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -3889,7 +4099,254 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+function SpanDetailFlyout(props) {
+  const [span, setSpan] = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])({});
+  Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(() => {
+    Object(_requests_traces_request_handler__WEBPACK_IMPORTED_MODULE_5__["handleSpansFlyoutRequest"])(props.http, props.spanId, setSpan);
+  }, [props.spanId]);
+
+  const getListItem = (field, title, description) => {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_flyout_list_item__WEBPACK_IMPORTED_MODULE_7__["FlyoutListItem"], {
+      title: title,
+      description: description,
+      key: `list-item-${title}`,
+      addSpanFilter: () => props.addSpanFilter(field, span[field])
+    });
+  };
+
+  const isEmpty = value => {
+    return value == null || value.hasOwnProperty('length') && value.length === 0 || value.constructor === Object && Object.keys(value).length === 0;
+  };
+
+  const renderContent = () => {
+    if (!span || lodash__WEBPACK_IMPORTED_MODULE_1___default.a.isEmpty(span)) return '-';
+    const overviewList = [getListItem('spanId', 'Span ID', span.spanId ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+      gutterSize: "xs",
+      style: {
+        marginTop: -4,
+        marginBottom: -4
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+      grow: false
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiCopy"], {
+      textToCopy: span.spanId
+    }, copy => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiButtonIcon"], {
+      "aria-label": "copy-button",
+      onClick: copy,
+      iconType: "copyClipboard"
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, span.spanId)) : '-'), getListItem('parentSpanId', 'Parent span ID', span.parentSpanId ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+      gutterSize: "xs",
+      style: {
+        marginTop: -4,
+        marginBottom: -4
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+      grow: false
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiCopy"], {
+      textToCopy: span.parentSpanId
+    }, copy => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiButtonIcon"], {
+      "aria-label": "copy-button",
+      onClick: copy,
+      iconType: "copyClipboard"
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, span.parentSpanId)) : '-'), getListItem('serviceName', 'Service', span.serviceName || '-'), getListItem('name', 'Operation', span.name || '-'), getListItem('durationInNanos', 'Duration', `${lodash__WEBPACK_IMPORTED_MODULE_1___default.a.round(Object(_common__WEBPACK_IMPORTED_MODULE_6__["nanoToMilliSec"])(Math.max(0, span.durationInNanos)), 2)} ms`), getListItem('startTime', 'Start time', moment__WEBPACK_IMPORTED_MODULE_2___default()(span.startTime).format(_common__WEBPACK_IMPORTED_MODULE_4__["DATE_FORMAT"])), getListItem('endTime', 'End time', moment__WEBPACK_IMPORTED_MODULE_2___default()(span.endTime).format(_common__WEBPACK_IMPORTED_MODULE_4__["DATE_FORMAT"])), getListItem('status.code', 'Errors', span['status.code'] === 2 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      color: "danger",
+      size: "s",
+      style: {
+        fontWeight: 700
+      }
+    }, "Yes") : 'No')];
+    const ignoredKeys = new Set(['spanId', 'parentSpanId', 'serviceName', 'name', 'durationInNanos', 'startTime', 'endTime', 'status.code', 'events', 'traceId', 'traceGroup', 'traceGroupFields.endTime', 'traceGroupFields.statusCode', 'traceGroupFields.durationInNanos']);
+    const attributesList = Object.keys(span).filter(key => !ignoredKeys.has(key)).sort((keyA, keyB) => {
+      const isANull = isEmpty(span[keyA]);
+      const isBNull = isEmpty(span[keyB]);
+      if (isANull && isBNull || !isANull && !isBNull) return keyA < keyB ? -1 : 1;
+      if (isANull) return 1;
+      return -1;
+    }).map(key => {
+      if (isEmpty(span[key])) return getListItem(key, key, '-');
+      let value = span[key];
+      if (typeof value === 'object') value = JSON.stringify(value);
+      return getListItem(key, key, value);
+    });
+    const eventsComponent = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.isEmpty(span['events']) ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      size: "m"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("span", {
+      className: "panel-title"
+    }, "Event")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiCodeBlock"], {
+      language: "json",
+      paddingSize: "s",
+      isCopyable: true,
+      overflowHeight: 400
+    }, JSON.stringify(span['events'], null, 2)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
+      size: "xs"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
+      margin: "s"
+    }));
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      size: "m"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("span", {
+      className: "panel-title"
+    }, "Overview")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
+      size: "s"
+    }), overviewList, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
+      size: "xs"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
+      margin: "s"
+    }), eventsComponent, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      size: "m"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("span", {
+      className: "panel-title"
+    }, "Span attributes"), attributesList.length === 0 || attributesList.length ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("span", {
+      className: "panel-title-count"
+    }, ` (${attributesList.length})`) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
+      size: "s"
+    }), attributesList);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlyout"], {
+    onClose: props.closeFlyout,
+    size: "s"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlyoutHeader"], {
+    hasBorder: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiTitle"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("h2", null, "Span detail"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlyoutBody"], null, renderContent())));
+}
+
+/***/ }),
+
+/***/ "./public/components/traces/span_detail_panel.tsx":
+/*!********************************************************!*\
+  !*** ./public/components/traces/span_detail_panel.tsx ***!
+  \********************************************************/
+/*! exports provided: SpanDetailPanel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpanDetailPanel", function() { return SpanDetailPanel; });
+/* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @elastic/eui */ "@elastic/eui");
+/* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _requests_traces_request_handler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../requests/traces_request_handler */ "./public/requests/traces_request_handler.ts");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common */ "./public/components/common/index.ts");
+/* harmony import */ var _span_detail_flyout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./span_detail_flyout */ "./public/components/traces/span_detail_flyout.tsx");
+/* harmony import */ var _span_detail_table__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./span_detail_table */ "./public/components/traces/span_detail_table.tsx");
+/*
+ *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License").
+ *   You may not use this file except in compliance with the License.
+ *   A copy of the License is located at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   or in the "license" file accompanying this file. This file is distributed
+ *   on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ *   express or implied. See the License for the specific language governing
+ *   permissions and limitations under the License.
+ */
+
+
+
+
+
+
+
 function SpanDetailPanel(props) {
+  const [data, setData] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
+    gantt: [],
+    table: [],
+    ganttMaxX: 0
+  });
+  const storedFilters = sessionStorage.getItem('TraceAnalyticsSpanFilters');
+  const [spanFilters, setSpanFilters] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(storedFilters ? JSON.parse(storedFilters) : []);
+  const [DSL, setDSL] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({});
+
+  const setSpanFiltersWithStorage = newFilters => {
+    setSpanFilters(newFilters);
+    sessionStorage.setItem('TraceAnalyticsSpanFilters', JSON.stringify(newFilters));
+  };
+
+  const addSpanFilter = (field, value) => {
+    const newFilters = [...spanFilters];
+    const index = newFilters.findIndex(({
+      field: filterField
+    }) => field === filterField);
+
+    if (index === -1) {
+      newFilters.push({
+        field,
+        value
+      });
+    } else {
+      newFilters.splice(index, 1, {
+        field,
+        value
+      });
+    }
+
+    setSpanFiltersWithStorage(newFilters);
+  };
+
+  const removeSpanFilter = field => {
+    const newFilters = [...spanFilters];
+    const index = newFilters.findIndex(({
+      field: filterField
+    }) => field === filterField);
+
+    if (index !== -1) {
+      newFilters.splice(index, 1);
+      setSpanFiltersWithStorage(newFilters);
+    }
+  };
+
+  const spanFiltersToDSL = () => {
+    const DSL = {
+      query: {
+        bool: {
+          must: [{
+            term: {
+              traceId: props.traceId
+            }
+          }],
+          filter: [],
+          should: [],
+          must_not: []
+        }
+      }
+    };
+    spanFilters.map(({
+      field,
+      value
+    }) => {
+      if (value != null) {
+        DSL.query.bool.must.push({
+          term: {
+            [field]: value
+          }
+        });
+      }
+    });
+    return DSL;
+  };
+
+  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(() => {
+    refresh();
+  }, [props.colorMap, spanFilters]);
+
+  const refresh = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.debounce(() => {
+    if (lodash__WEBPACK_IMPORTED_MODULE_1___default.a.isEmpty(props.colorMap)) return;
+    const DSL = spanFiltersToDSL();
+    setDSL(DSL);
+    Object(_requests_traces_request_handler__WEBPACK_IMPORTED_MODULE_3__["handleSpansGanttRequest"])(props.traceId, props.http, setData, props.colorMap, DSL);
+  }, 150);
+
   const getSpanDetailLayout = (plotTraces, maxX) => {
     // get unique labels from traces
     const yLabels = plotTraces.map(d => d.y[0]).filter((label, i, self) => self.indexOf(label) === i); // remove uuid when displaying y-ticks
@@ -3919,20 +4376,267 @@ function SpanDetailPanel(props) {
     };
   };
 
-  const layout = Object(react__WEBPACK_IMPORTED_MODULE_1__["useMemo"])(() => getSpanDetailLayout(props.data.gantt, props.data.ganttMaxX), [props.data.gantt, props.data.ganttMaxX]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPanel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_2__["PanelTitle"], {
-    title: "Span detail"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
+  const layout = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => getSpanDetailLayout(data.gantt, data.ganttMaxX), [data.gantt, data.ganttMaxX]);
+  const [currentSpan, setCurrentSpan] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])('');
+
+  const onClick = event => {
+    if (!(event !== null && event !== void 0 && event.points)) return;
+    const point = event.points[0];
+    setCurrentSpan(point.data.spanId);
+  };
+
+  const renderFilters = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => {
+    return spanFilters.map(({
+      field,
+      value
+    }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+      grow: false,
+      key: `span-filter-badge-${field}`
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiBadge"], {
+      iconType: "cross",
+      iconSide: "right",
+      iconOnClick: () => removeSpanFilter(field),
+      iconOnClickAriaLabel: "remove current filter"
+    }, `${field}: ${value}`)));
+  }, [spanFilters]);
+
+  const onHover = () => {
+    var _document$getElements;
+
+    const dragLayer = (_document$getElements = document.getElementsByClassName('nsewdrag')) === null || _document$getElements === void 0 ? void 0 : _document$getElements[0];
+    dragLayer.style.cursor = 'pointer';
+  };
+
+  const onUnhover = pr => {
+    var _document$getElements2;
+
+    const dragLayer = (_document$getElements2 = document.getElementsByClassName('nsewdrag')) === null || _document$getElements2 === void 0 ? void 0 : _document$getElements2[0];
+    dragLayer.style.cursor = '';
+  };
+
+  const toggleOptions = [{
+    id: 'timeline',
+    label: 'Timeline'
+  }, {
+    id: 'span_list',
+    label: 'Span list'
+  }];
+  const [toggleIdSelected, setToggleIdSelected] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(toggleOptions[0].id);
+  const spanDetailTable = Object(react__WEBPACK_IMPORTED_MODULE_2__["useMemo"])(() => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_span_detail_table__WEBPACK_IMPORTED_MODULE_6__["SpanDetailTable"], {
+    http: props.http,
+    hiddenColumns: ['traceId', 'traceGroup'],
+    DSL: DSL,
+    openFlyout: spanId => setCurrentSpan(spanId)
+  }), [DSL, setCurrentSpan]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPanel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_4__["PanelTitle"], {
+    title: "Spans",
+    totalItems: data.gantt.length / 2
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+    grow: false
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiButtonGroup"], {
+    legend: "Select view of spans",
+    options: toggleOptions,
+    idSelected: toggleIdSelected,
+    onChange: id => setToggleIdSelected(id)
+  }))), spanFilters.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], {
+    size: "s"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], {
+    gutterSize: "s",
+    wrap: true
+  }, renderFilters)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
     margin: "m"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     style: {
       overflowY: 'auto',
       maxHeight: 500
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_plots_plt__WEBPACK_IMPORTED_MODULE_3__["Plt"], {
-    data: props.data.gantt,
-    layout: layout
-  }))));
+  }, toggleIdSelected === 'timeline' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_4__["Plt"], {
+    data: data.gantt,
+    layout: layout,
+    onClickHandler: onClick,
+    onHoverHandler: onHover,
+    onUnhoverHandler: onUnhover
+  }) : spanDetailTable)), !!currentSpan && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_span_detail_flyout__WEBPACK_IMPORTED_MODULE_5__["SpanDetailFlyout"], {
+    http: props.http,
+    spanId: currentSpan,
+    isFlyoutVisible: !!currentSpan,
+    closeFlyout: () => setCurrentSpan(''),
+    addSpanFilter: addSpanFilter
+  }));
+}
+
+/***/ }),
+
+/***/ "./public/components/traces/span_detail_table.tsx":
+/*!********************************************************!*\
+  !*** ./public/components/traces/span_detail_table.tsx ***!
+  \********************************************************/
+/*! exports provided: SpanDetailTable */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpanDetailTable", function() { return SpanDetailTable; });
+/* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @elastic/eui */ "@elastic/eui");
+/* harmony import */ var _elastic_eui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "moment");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../common */ "./common/index.ts");
+/* harmony import */ var _requests_traces_request_handler__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../requests/traces_request_handler */ "./public/requests/traces_request_handler.ts");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common */ "./public/components/common/index.ts");
+/*
+ *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License").
+ *   You may not use this file except in compliance with the License.
+ *   A copy of the License is located at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   or in the "license" file accompanying this file. This file is distributed
+ *   on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ *   express or implied. See the License for the specific language governing
+ *   permissions and limitations under the License.
+ */
+
+
+
+
+
+
+
+function SpanDetailTable(props) {
+  const [tableParams, setTableParams] = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])({
+    size: 10,
+    page: 0,
+    sortingColumns: []
+  });
+  const [items, setItems] = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])([]);
+  const [total, setTotal] = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(0);
+  Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(() => {
+    const spanSearchParams = {
+      from: tableParams.page * tableParams.size,
+      size: tableParams.size,
+      sortingColumns: tableParams.sortingColumns.map(({
+        id,
+        direction
+      }) => ({
+        [id]: direction
+      }))
+    };
+    Object(_requests_traces_request_handler__WEBPACK_IMPORTED_MODULE_5__["handleSpansRequest"])(props.http, setItems, setTotal, spanSearchParams, props.DSL);
+  }, [tableParams, props.DSL]);
+  Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(() => {
+    if (props.setTotal) props.setTotal(total);
+  }, [total]);
+  const columns = [{
+    id: 'spanId',
+    display: 'Span ID'
+  }, {
+    id: 'parentSpanId',
+    display: 'Parent span ID'
+  }, {
+    id: 'traceId',
+    display: 'Trace ID'
+  }, {
+    id: 'traceGroup',
+    display: 'Trace group'
+  }, {
+    id: 'serviceName',
+    display: 'Service'
+  }, {
+    id: 'name',
+    display: 'Operation'
+  }, {
+    id: 'durationInNanos',
+    display: 'Duration'
+  }, {
+    id: 'startTime',
+    display: 'Start time'
+  }, {
+    id: 'endTime',
+    display: 'End time'
+  }, {
+    id: 'status.code',
+    display: 'Errors'
+  }];
+  const [visibleColumns, setVisibleColumns] = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(() => columns.filter(({
+    id
+  }) => props.hiddenColumns.findIndex(column => column === id) === -1).map(({
+    id
+  }) => id));
+  const renderCellValue = Object(react__WEBPACK_IMPORTED_MODULE_3__["useMemo"])(() => {
+    return ({
+      rowIndex,
+      columnId
+    }) => {
+      let adjustedRowIndex = rowIndex - tableParams.page * tableParams.size;
+      if (!items.hasOwnProperty(adjustedRowIndex)) return '-';
+      const value = items[adjustedRowIndex][columnId];
+      if (value == null || value === '') return '-';
+
+      switch (columnId) {
+        case 'spanId':
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
+            onClick: () => props.openFlyout(value)
+          }, value);
+
+        case 'durationInNanos':
+          return `${lodash__WEBPACK_IMPORTED_MODULE_1___default.a.round(Object(_common__WEBPACK_IMPORTED_MODULE_6__["nanoToMilliSec"])(Math.max(0, value)), 2)} ms`;
+
+        case 'startTime':
+        case 'endTime':
+          return moment__WEBPACK_IMPORTED_MODULE_2___default()(value).format(_common__WEBPACK_IMPORTED_MODULE_4__["DATE_FORMAT"]);
+
+        case 'status.code':
+          return value === 2 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+            color: "danger",
+            size: "s"
+          }, "Yes") : 'No';
+
+        default:
+          return value;
+      }
+    };
+  }, [items, tableParams.page, tableParams.size]);
+  const onSort = Object(react__WEBPACK_IMPORTED_MODULE_3__["useCallback"])(sortingColumns => {
+    setTableParams({ ...tableParams,
+      sortingColumns
+    });
+  }, [setTableParams]);
+  const onChangeItemsPerPage = Object(react__WEBPACK_IMPORTED_MODULE_3__["useCallback"])(size => setTableParams({ ...tableParams,
+    size
+  }), [tableParams, setTableParams]);
+  const onChangePage = Object(react__WEBPACK_IMPORTED_MODULE_3__["useCallback"])(page => setTableParams({ ...tableParams,
+    page
+  }), [tableParams, setTableParams]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiDataGrid"], {
+    "aria-labelledby": "span-detail-data-grid",
+    columns: columns,
+    columnVisibility: {
+      visibleColumns,
+      setVisibleColumns
+    },
+    rowCount: total,
+    renderCellValue: renderCellValue,
+    sorting: {
+      columns: tableParams.sortingColumns,
+      onSort
+    },
+    pagination: {
+      pageIndex: tableParams.page,
+      pageSize: tableParams.size,
+      pageSizeOptions: [10, 50, 100],
+      onChangeItemsPerPage: onChangeItemsPerPage,
+      onChangePage: onChangePage
+    }
+  }), total === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_6__["NoMatchMessage"], {
+    size: "xl"
+  }));
 }
 
 /***/ }),
@@ -4043,17 +4747,19 @@ function TraceView(props) {
     }, "Errors"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
       size: "s",
       className: "overview-content"
-    }, fields.error_count))))));
+    }, fields.error_count == null ? '-' : fields.error_count > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      color: "danger",
+      size: "s",
+      style: {
+        fontWeight: 430
+      }
+    }, "Yes") : 'No'))))));
   };
 
   const [fields, setFields] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({});
   const [serviceBreakdownData, setServiceBreakdownData] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]);
-  const [spanDetailData, setSpanDetailData] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
-    gantt: [],
-    table: [],
-    ganttMaxX: 0
-  });
   const [payloadData, setPayloadData] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])('');
+  const [colorMap, setColorMap] = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({});
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
     props.setBreadcrumbs([{
       text: 'Trace Analytics',
@@ -4068,9 +4774,9 @@ function TraceView(props) {
     refresh();
   }, []);
 
-  const refresh = () => {
+  const refresh = async () => {
     Object(_requests_traces_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleTraceViewRequest"])(props.traceId, props.http, fields, setFields);
-    Object(_requests_traces_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleTracesChartsRequest"])(props.traceId, props.http, serviceBreakdownData, setServiceBreakdownData, spanDetailData, setSpanDetailData);
+    Object(_requests_traces_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleServicesPieChartRequest"])(props.traceId, props.http, setServiceBreakdownData, setColorMap);
     Object(_requests_traces_request_handler__WEBPACK_IMPORTED_MODULE_2__["handlePayloadRequest"])(props.traceId, props.http, payloadData, setPayloadData);
   };
 
@@ -4086,7 +4792,9 @@ function TraceView(props) {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
     grow: 7
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_span_detail_panel__WEBPACK_IMPORTED_MODULE_5__["SpanDetailPanel"], {
-    data: spanDetailData
+    traceId: props.traceId,
+    http: props.http,
+    colorMap: colorMap
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiSpacer"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiPanel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common__WEBPACK_IMPORTED_MODULE_3__["PanelTitle"], {
     title: "Payload"
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiHorizontalRule"], {
@@ -4259,9 +4967,11 @@ function TracesTable(props) {
       grow: 10
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiLink"], {
       href: `#/traces/${encodeURIComponent(item)}`
+    }, item.length < 24 ? item : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      title: item
     }, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.truncate(item, {
       length: 24
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
+    })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiFlexItem"], {
       grow: false
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiCopy"], {
       textToCopy: item
@@ -4280,9 +4990,11 @@ function TracesTable(props) {
     truncateText: true,
     render: item => item ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
       size: "s"
+    }, item.length < 36 ? item : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      title: item
     }, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.truncate(item, {
-      length: 24
-    })) : '-'
+      length: 36
+    }))) : '-'
   }, {
     field: 'latency',
     name: 'Latency (ms)',
@@ -4302,7 +5014,10 @@ function TracesTable(props) {
     name: 'Errors',
     align: 'right',
     sortable: true,
-    render: item => item === 0 || item ? item : '-'
+    render: item => item == null ? '-' : item > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_elastic_eui__WEBPACK_IMPORTED_MODULE_0__["EuiText"], {
+      color: "danger",
+      size: "s"
+    }, "Yes") : 'No'
   }, {
     field: 'last_updated',
     name: 'Last updated',
@@ -4426,7 +5141,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const handleDashboardRequest = async (http, DSL, timeFilterDSL, items, setItems, setPercentileMap) => {
+const handleDashboardRequest = async (http, DSL, timeFilterDSL, latencyTrendDSL, items, setItems, setPercentileMap) => {
   // latency_variance should only be affected by timefilter
   const latencyVariances = await Object(_request_handler__WEBPACK_IMPORTED_MODULE_5__["handleDslRequest"])(http, timeFilterDSL, Object(_queries_dashboard_queries__WEBPACK_IMPORTED_MODULE_4__["getDashboardTraceGroupPercentiles"])()).then(response => {
     const map = {};
@@ -4436,8 +5151,9 @@ const handleDashboardRequest = async (http, DSL, timeFilterDSL, items, setItems,
     return map;
   }).catch(error => console.error(error));
   if (setPercentileMap) setPercentileMap(latencyVariances);
-  Object(_request_handler__WEBPACK_IMPORTED_MODULE_5__["handleDslRequest"])(http, DSL, Object(_queries_dashboard_queries__WEBPACK_IMPORTED_MODULE_4__["getDashboardQuery"])()).then(response => {
-    return Promise.all(response.aggregations.trace_group_name.buckets.map(bucket => {
+  const latencyTrends = await Object(_request_handler__WEBPACK_IMPORTED_MODULE_5__["handleDslRequest"])(http, latencyTrendDSL, Object(_queries_dashboard_queries__WEBPACK_IMPORTED_MODULE_4__["getLatencyTrendQuery"])()).then(response => {
+    const map = {};
+    response.aggregations.trace_group_name.buckets.map(bucket => {
       var _values$x;
 
       const latencyTrend = bucket.group_by_hour.buckets.slice(-24).filter(bucket => {
@@ -4482,13 +5198,22 @@ const handleDashboardRequest = async (http, DSL, timeFilterDSL, items, setItems,
           }]
         }
       } : {};
+      map[bucket.key] = latencyTrendData;
+    });
+    return map;
+  }).catch(error => console.error(error));
+  Object(_request_handler__WEBPACK_IMPORTED_MODULE_5__["handleDslRequest"])(http, DSL, Object(_queries_dashboard_queries__WEBPACK_IMPORTED_MODULE_4__["getDashboardQuery"])()).then(response => {
+    return Promise.all(response.aggregations.trace_group_name.buckets.map(bucket => {
+      var _bucket$average_laten4;
+
+      const latencyTrend = (latencyTrends === null || latencyTrends === void 0 ? void 0 : latencyTrends[bucket.key]) || {};
       return {
         dashboard_trace_group_name: bucket.key,
-        dashboard_average_latency: bucket.average_latency.value,
+        dashboard_average_latency: (_bucket$average_laten4 = bucket.average_latency) === null || _bucket$average_laten4 === void 0 ? void 0 : _bucket$average_laten4.value,
         dashboard_traces: bucket.trace_count.value,
         dashboard_latency_variance: latencyVariances[bucket.key],
         dashboard_error_rate: bucket.error_rate.value,
-        ...latencyTrendData
+        ...latencyTrend
       };
     }));
   }).then(newItems => {
@@ -4552,12 +5277,13 @@ const handleDashboardErrorRatePltRequest = (http, DSL, fixedInterval, items, set
 /*!******************************************************!*\
   !*** ./public/requests/queries/dashboard_queries.ts ***!
   \******************************************************/
-/*! exports provided: getDashboardQuery, getDashboardTraceGroupPercentiles, getErrorRatePltQuery, getDashboardThroughputPltQuery */
+/*! exports provided: getDashboardQuery, getLatencyTrendQuery, getDashboardTraceGroupPercentiles, getErrorRatePltQuery, getDashboardThroughputPltQuery */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDashboardQuery", function() { return getDashboardQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLatencyTrendQuery", function() { return getLatencyTrendQuery; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDashboardTraceGroupPercentiles", function() { return getDashboardTraceGroupPercentiles; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getErrorRatePltQuery", function() { return getErrorRatePltQuery; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDashboardThroughputPltQuery", function() { return getDashboardThroughputPltQuery; });
@@ -4593,82 +5319,42 @@ const getDashboardQuery = () => {
           size: 10000
         },
         aggs: {
-          group_by_hour: {
-            date_histogram: {
-              field: 'endTime',
-              calendar_interval: 'hour'
-            },
-            aggs: {
-              traces: {
-                terms: {
-                  field: 'traceId',
-                  order: {
-                    last_updated: 'desc'
-                  },
-                  size: 10000
-                },
-                aggs: {
-                  duration: {
-                    max: {
-                      field: 'traceGroupFields.durationInNanos'
-                    }
-                  },
-                  last_updated: {
-                    max: {
-                      field: 'traceGroupFields.endTime'
+          average_latency: {
+            scripted_metric: {
+              init_script: 'state.traceIdToLatencyMap = [:];',
+              map_script: `
+                if (doc.containsKey('traceGroupFields.durationInNanos') && !doc['traceGroupFields.durationInNanos'].empty) {
+                  def traceId = doc['traceId'].value;
+                  if (!state.traceIdToLatencyMap.containsKey(traceId)) {
+                    state.traceIdToLatencyMap[traceId] = doc['traceGroupFields.durationInNanos'].value;
+                  }
+                }
+              `,
+              combine_script: 'return state.traceIdToLatencyMap',
+              reduce_script: `
+                def seenTraceIdsMap = [:];
+                def totalLatency = 0.0;
+                def traceCount = 0.0;
+
+                for (s in states) {
+                  if (s == null) {
+                    continue;
+                  }
+
+                  for (entry in s.entrySet()) {
+                    def traceId = entry.getKey();
+                    def traceLatency = entry.getValue();
+                    if (!seenTraceIdsMap.containsKey(traceId)) {
+                      seenTraceIdsMap[traceId] = true;
+                      totalLatency += traceLatency;
+                      traceCount++;
                     }
                   }
                 }
-              },
-              average_latency_nanos: {
-                avg_bucket: {
-                  buckets_path: 'traces>duration'
-                }
-              },
-              average_latency: {
-                bucket_script: {
-                  buckets_path: {
-                    count: '_count',
-                    latency: 'average_latency_nanos.value'
-                  },
-                  script: 'Math.round(params.latency / 10000) / 100.0'
-                }
-              }
-            }
-          },
-          traces: {
-            terms: {
-              field: 'traceId',
-              order: {
-                last_updated: 'desc'
-              },
-              size: 10000
-            },
-            aggs: {
-              duration: {
-                max: {
-                  field: 'traceGroupFields.durationInNanos'
-                }
-              },
-              last_updated: {
-                max: {
-                  field: 'traceGroupFields.endTime'
-                }
-              }
-            }
-          },
-          average_latency_nanos: {
-            avg_bucket: {
-              buckets_path: 'traces>duration'
-            }
-          },
-          average_latency: {
-            bucket_script: {
-              buckets_path: {
-                count: '_count',
-                latency: 'average_latency_nanos.value'
-              },
-              script: 'Math.round(params.latency / 10000) / 100.0'
+
+                def average_latency_nanos = totalLatency / traceCount;
+                return Math.round(average_latency_nanos / 10000) / 100.0;
+              `
             }
           },
           trace_count: {
@@ -4697,6 +5383,76 @@ const getDashboardQuery = () => {
                 errors: 'error_count>trace_count.value'
               },
               script: 'params.errors / params.total * 100'
+            }
+          }
+        }
+      }
+    }
+  };
+  return query;
+};
+const getLatencyTrendQuery = () => {
+  const query = {
+    size: 0,
+    query: {
+      bool: {
+        must: [],
+        filter: [],
+        should: [],
+        must_not: []
+      }
+    },
+    aggs: {
+      trace_group_name: {
+        terms: {
+          field: 'traceGroup',
+          size: 10000
+        },
+        aggs: {
+          group_by_hour: {
+            date_histogram: {
+              field: 'endTime',
+              calendar_interval: 'hour'
+            },
+            aggs: {
+              average_latency: {
+                scripted_metric: {
+                  init_script: 'state.traceIdToLatencyMap = [:];',
+                  map_script: `
+                    if (doc.containsKey('traceGroupFields.durationInNanos') && !doc['traceGroupFields.durationInNanos'].empty) {
+                      def traceId = doc['traceId'].value;
+                      if (!state.traceIdToLatencyMap.containsKey(traceId)) {
+                        state.traceIdToLatencyMap[traceId] = doc['traceGroupFields.durationInNanos'].value;
+                      }
+                    }
+                  `,
+                  combine_script: 'return state.traceIdToLatencyMap',
+                  reduce_script: `
+                    def seenTraceIdsMap = [:];
+                    def totalLatency = 0.0;
+                    def traceCount = 0.0;
+
+                    for (s in states) {
+                      if (s == null) {
+                        continue;
+                      }
+
+                      for (entry in s.entrySet()) {
+                        def traceId = entry.getKey();
+                        def traceLatency = entry.getValue();
+                        if (!seenTraceIdsMap.containsKey(traceId)) {
+                          seenTraceIdsMap[traceId] = true;
+                          totalLatency += traceLatency;
+                          traceCount++;
+                        }
+                      }
+                    }
+
+                    def average_latency_nanos = totalLatency / traceCount;
+                    return Math.round(average_latency_nanos / 10000) / 100.0;
+                  `
+                }
+              }
             }
           }
         }
@@ -5143,7 +5899,7 @@ const getServiceMetricsQuery = (DSL, serviceNames, map) => {
 /*!***************************************************!*\
   !*** ./public/requests/queries/traces_queries.ts ***!
   \***************************************************/
-/*! exports provided: getTraceGroupPercentilesQuery, getTracesQuery, getServiceBreakdownQuery, getSpanDetailQuery, getPayloadQuery, getValidTraceIdsQuery */
+/*! exports provided: getTraceGroupPercentilesQuery, getTracesQuery, getServiceBreakdownQuery, getSpanDetailQuery, getPayloadQuery, getSpanFlyoutQuery, getSpansQuery, getValidTraceIdsQuery */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5153,6 +5909,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getServiceBreakdownQuery", function() { return getServiceBreakdownQuery; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSpanDetailQuery", function() { return getSpanDetailQuery; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPayloadQuery", function() { return getPayloadQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSpanFlyoutQuery", function() { return getSpanFlyoutQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSpansQuery", function() { return getSpansQuery; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getValidTraceIdsQuery", function() { return getValidTraceIdsQuery; });
 /* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../common */ "./common/index.ts");
 /*
@@ -5369,6 +6127,39 @@ const getPayloadQuery = (traceId, size = 1000) => {
     }
   };
 };
+const getSpanFlyoutQuery = (spanId, size = 1000) => {
+  return {
+    size,
+    query: {
+      bool: {
+        must: [{
+          term: {
+            spanId
+          }
+        }],
+        filter: [],
+        should: [],
+        must_not: []
+      }
+    }
+  };
+};
+const getSpansQuery = spanSearchParams => {
+  const query = {
+    size: spanSearchParams.size,
+    from: spanSearchParams.from,
+    query: {
+      bool: {
+        must: [],
+        filter: [],
+        should: [],
+        must_not: []
+      }
+    },
+    sort: spanSearchParams.sortingColumns
+  };
+  return query;
+};
 const getValidTraceIdsQuery = DSL => {
   var _DSL$custom, _DSL$custom2, _DSL$custom3, _DSL$custom3$percenti, _DSL$custom4;
 
@@ -5567,16 +6358,17 @@ const handleServiceMapRequest = async (http, DSL, items, setItems, currService) 
   });
 
   if (currService) {
-    const traces = await Object(_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleDslRequest"])(http, DSL, Object(_queries_services_queries__WEBPACK_IMPORTED_MODULE_1__["getRelatedServicesQuery"])(currService)).then(response => response.aggregations.traces.buckets.filter(bucket => bucket.service.doc_count > 0)).catch(error => console.error(error));
-    const maxNumServices = Object.keys(map).length;
-    const relatedServices = new Set();
+    await Object(_request_handler__WEBPACK_IMPORTED_MODULE_2__["handleDslRequest"])(http, DSL, Object(_queries_services_queries__WEBPACK_IMPORTED_MODULE_1__["getRelatedServicesQuery"])(currService)).then(response => response.aggregations.traces.buckets.filter(bucket => bucket.service.doc_count > 0)).then(traces => {
+      const maxNumServices = Object.keys(map).length;
+      const relatedServices = new Set();
 
-    for (let i = 0; i < traces.length; i++) {
-      traces[i].all_services.buckets.map(bucket => relatedServices.add(bucket.key));
-      if (relatedServices.size === maxNumServices) break;
-    }
+      for (let i = 0; i < traces.length; i++) {
+        traces[i].all_services.buckets.map(bucket => relatedServices.add(bucket.key));
+        if (relatedServices.size === maxNumServices) break;
+      }
 
-    map[currService].relatedServices = [...relatedServices];
+      map[currService].relatedServices = [...relatedServices];
+    }).catch(error => console.error(error));
   }
 
   if (setItems) setItems(map);
@@ -5608,7 +6400,7 @@ const handleServiceViewRequest = (serviceName, http, DSL, fields, setFields) => 
 /*!***************************************************!*\
   !*** ./public/requests/traces_request_handler.ts ***!
   \***************************************************/
-/*! exports provided: handleValidTraceIds, handleTracesRequest, handleTraceViewRequest, handleTracesChartsRequest, handlePayloadRequest */
+/*! exports provided: handleValidTraceIds, handleTracesRequest, handleTraceViewRequest, handleServicesPieChartRequest, handleSpansGanttRequest, handleSpansFlyoutRequest, handlePayloadRequest, handleSpansRequest */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5616,8 +6408,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleValidTraceIds", function() { return handleValidTraceIds; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleTracesRequest", function() { return handleTracesRequest; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleTraceViewRequest", function() { return handleTraceViewRequest; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleTracesChartsRequest", function() { return handleTracesChartsRequest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleServicesPieChartRequest", function() { return handleServicesPieChartRequest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleSpansGanttRequest", function() { return handleSpansGanttRequest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleSpansFlyoutRequest", function() { return handleSpansFlyoutRequest; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handlePayloadRequest", function() { return handlePayloadRequest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleSpansRequest", function() { return handleSpansRequest; });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "moment");
@@ -5684,7 +6479,7 @@ const handleTracesRequest = async (http, DSL, timeFilterDSL, items, setItems, so
         trace_group: (_bucket$trace_group$b = bucket.trace_group.buckets[0]) === null || _bucket$trace_group$b === void 0 ? void 0 : _bucket$trace_group$b.key,
         latency: bucket.latency.value,
         last_updated: moment__WEBPACK_IMPORTED_MODULE_1___default()(bucket.last_updated.value).format(_common__WEBPACK_IMPORTED_MODULE_3__["DATE_FORMAT"]),
-        error_count: bucket.error_count.doc_count > 0 ? 'Yes' : 'No',
+        error_count: bucket.error_count.doc_count,
         percentile_in_trace_group: binarySearch(percentileRanges[(_bucket$trace_group$b2 = bucket.trace_group.buckets[0]) === null || _bucket$trace_group$b2 === void 0 ? void 0 : _bucket$trace_group$b2.key], bucket.latency.value),
         actions: '#'
       };
@@ -5706,18 +6501,19 @@ const handleTraceViewRequest = (traceId, http, fields, setFields) => {
       latency: bucket.latency.value,
       latency_vs_benchmark: 'N/A',
       percentile_in_trace_group: 'N/A',
-      error_count: bucket.error_count.doc_count > 0 ? 'Yes' : 'No',
+      error_count: bucket.error_count.doc_count,
       errors_vs_benchmark: 'N/A'
     };
   }).then(newFields => {
     setFields(newFields);
   }).catch(error => console.error(error));
-};
-const handleTracesChartsRequest = async (traceId, http, serviceBreakdownData, setServiceBreakdownData, spanDetailData, setSpanDetailData) => {
+}; // setColorMap sets serviceName to color mappings
+
+const handleServicesPieChartRequest = async (traceId, http, setServiceBreakdownData, setColorMap) => {
   const colors = ['#7492e7', '#c33d69', '#2ea597', '#8456ce', '#e07941', '#3759ce', '#ce567c', '#9469d6', '#4066df', '#da7596', '#a783e1', '#5978e3'];
   const colorMap = {};
   let index = 0;
-  Promise.all([Object(_request_handler__WEBPACK_IMPORTED_MODULE_6__["handleDslRequest"])(http, null, Object(_queries_traces_queries__WEBPACK_IMPORTED_MODULE_5__["getServiceBreakdownQuery"])(traceId)).then(response => Promise.all(response.aggregations.service_type.buckets.map(bucket => {
+  await Object(_request_handler__WEBPACK_IMPORTED_MODULE_6__["handleDslRequest"])(http, null, Object(_queries_traces_queries__WEBPACK_IMPORTED_MODULE_5__["getServiceBreakdownQuery"])(traceId)).then(response => Promise.all(response.aggregations.service_type.buckets.map(bucket => {
     colorMap[bucket.key] = colors[index++ % colors.length];
     return {
       name: bucket.key,
@@ -5740,7 +6536,18 @@ const handleTracesChartsRequest = async (traceId, http, serviceBreakdownData, se
     }];
   }).then(newItems => {
     setServiceBreakdownData(newItems);
-  }).catch(error => console.error(error)), Object(_request_handler__WEBPACK_IMPORTED_MODULE_6__["handleDslRequest"])(http, null, Object(_queries_traces_queries__WEBPACK_IMPORTED_MODULE_5__["getSpanDetailQuery"])(traceId))]).then(response => hitsToSpanDetailData(response[1].hits.hits, colorMap)).then(newItems => setSpanDetailData(newItems)).catch(error => console.error(error));
+    setColorMap(colorMap);
+  }).catch(error => console.error(error));
+};
+const handleSpansGanttRequest = (traceId, http, setSpanDetailData, colorMap, spanFiltersDSL) => {
+  Object(_request_handler__WEBPACK_IMPORTED_MODULE_6__["handleDslRequest"])(http, spanFiltersDSL, Object(_queries_traces_queries__WEBPACK_IMPORTED_MODULE_5__["getSpanDetailQuery"])(traceId)).then(response => hitsToSpanDetailData(response.hits.hits, colorMap)).then(newItems => setSpanDetailData(newItems)).catch(error => console.error(error));
+};
+const handleSpansFlyoutRequest = (http, spanId, setItems) => {
+  Object(_request_handler__WEBPACK_IMPORTED_MODULE_6__["handleDslRequest"])(http, null, Object(_queries_traces_queries__WEBPACK_IMPORTED_MODULE_5__["getSpanFlyoutQuery"])(spanId)).then(response => {
+    var _response$hits$hits, _response$hits$hits$;
+
+    setItems(response === null || response === void 0 ? void 0 : (_response$hits$hits = response.hits.hits) === null || _response$hits$hits === void 0 ? void 0 : (_response$hits$hits$ = _response$hits$hits[0]) === null || _response$hits$hits$ === void 0 ? void 0 : _response$hits$hits$._source);
+  }).catch(error => console.error(error));
 };
 
 const hitsToSpanDetailData = async (hits, colorMap) => {
@@ -5761,7 +6568,7 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
 
     const name = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(hit, '_source.name');
 
-    const error = hit._source['status.code'] ? 'Error' : '';
+    const error = hit._source['status.code'] === 2 ? ' \u26a0 Error' : '';
     const uniqueLabel = `${serviceName} <br>${name} ` + Object(uuid__WEBPACK_IMPORTED_MODULE_2__["v1"])();
     maxEndTime = Math.max(maxEndTime, startTime + duration);
     data.table.push({
@@ -5783,7 +6590,8 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
       type: 'bar',
       orientation: 'h',
       hoverinfo: 'none',
-      showlegend: false
+      showlegend: false,
+      spanId: hit._source.spanId
     }, {
       x: [duration],
       y: [uniqueLabel],
@@ -5798,7 +6606,8 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
       width: 0.4,
       type: 'bar',
       orientation: 'h',
-      hovertemplate: '%{x}<extra></extra>'
+      hovertemplate: '%{x}<extra></extra>',
+      spanId: hit._source.spanId
     });
   });
   data.ganttMaxX = maxEndTime;
@@ -5807,6 +6616,14 @@ const hitsToSpanDetailData = async (hits, colorMap) => {
 
 const handlePayloadRequest = (traceId, http, payloadData, setPayloadData) => {
   Object(_request_handler__WEBPACK_IMPORTED_MODULE_6__["handleDslRequest"])(http, null, Object(_queries_traces_queries__WEBPACK_IMPORTED_MODULE_5__["getPayloadQuery"])(traceId)).then(response => setPayloadData(JSON.stringify(response.hits.hits, null, 2))).catch(error => console.error(error));
+};
+const handleSpansRequest = (http, setItems, setTotal, spanSearchParams, DSL) => {
+  Object(_request_handler__WEBPACK_IMPORTED_MODULE_6__["handleDslRequest"])(http, DSL, Object(_queries_traces_queries__WEBPACK_IMPORTED_MODULE_5__["getSpansQuery"])(spanSearchParams)).then(response => {
+    var _response$hits$total;
+
+    setItems(response.hits.hits.map(hit => hit._source));
+    setTotal(((_response$hits$total = response.hits.total) === null || _response$hits$total === void 0 ? void 0 : _response$hits$total.value) || 0);
+  }).catch(error => console.error(error));
 };
 
 /***/ }),

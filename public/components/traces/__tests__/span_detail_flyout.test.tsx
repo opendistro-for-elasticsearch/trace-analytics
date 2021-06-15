@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import { waitFor } from '@testing-library/react';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
@@ -42,9 +41,7 @@ describe('<SpanDetailFlyout /> spec', () => {
       />
     );
     utils.update();
-    await waitFor(() => {
-      expect(utils).toMatchSnapshot();
-    });
+    expect(utils).toMatchSnapshot();
   });
 
   it('renders the component with data', async () => {
